@@ -11,12 +11,8 @@ Directory Structure
     ├── classes                 # Java packages
     │   └── com                 # Package Domain
     │       └── itserviceportal # Package name
-    │           ├── command     # Service layer/ Behavior logic
-    │           ├── controller  # Servlets for navigation
-    │           ├── dao         # Data Access objects to connect to database
-    │           ├── filter      # Security layer
-    │           ├── listener    # Session tracking
-    │           └── model       # Data objects (Beans)
+    │           ├── controller  # Servlets for navigation, Filters for authorisation, Listeners for session tracking
+    │           └── model       # Data objects (Beans) and Data Access objects
     ├── lib                     # Jar Libraries
     └── view                    # Files for presentation
         ├── css                 # CSS Files
