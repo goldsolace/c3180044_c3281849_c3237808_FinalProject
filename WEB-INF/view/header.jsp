@@ -15,5 +15,6 @@
 	<div class="jumbotron page-title">
 		<h1>IT Services Portal</h1>
 	</div>
+	<c:import url="/WEB-INF/view/nav.jsp"/>
 	<div class="container">
-	<c:import url="/WEB-INF/view/jsp/nav.jsp"/>
+	

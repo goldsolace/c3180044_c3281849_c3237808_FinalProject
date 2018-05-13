@@ -12,8 +12,10 @@
 	</session-config>
 	
 	<welcome-file-list>
-		<!-- <welcome-file>/WEB-INF/view/jsp/index.jsp</welcome-file> -->
-		<welcome-file>/WEB-INF/view/jsp/user/userPortal.jsp</welcome-file>
+		<!-- <welcome-file>/WEB-INF/view/index.jsp</welcome-file> -->
+		<!-- <welcome-file>/WEB-INF/view/user/portal.jsp</welcome-file> -->
+		<!-- <welcome-file>/WEB-INF/view/staff/portal.jsp</welcome-file> -->
+		<welcome-file>/WEB-INF/view/user/ticket.jsp</welcome-file>
 	</welcome-file-list>
 	
 <!-- 	<listener>
@@ -38,16 +40,20 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping> -->
 	
-<!--	<error-page>
+	<error-page>
 		<exception-type>java.lang.Exception</exception-type>
-		<location>/WEB-INF/errorException.jsp</location>
+		<location>/WEB-INF/view/errorException.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>403</error-code>
+		<location>/WEB-INF/view/error404.jsp</location>
 	</error-page>
 	<error-page>
 		<error-code>404</error-code>
-		<location>/WEB-INF/error404.jsp</location>
+		<location>/WEB-INF/view/error404.jsp</location>
 	</error-page>
 	<error-page>
 		<error-code>500</error-code>
-		<location>/WEB-INF/error500.jsp</location>
-	</error-page>-->
+		<location>/WEB-INF/view/error500.jsp</location>
+	</error-page>
 </web-app>

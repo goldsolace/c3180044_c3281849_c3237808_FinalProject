@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Context>
+	<Resource
+		name="SENG2050_2018"
+		auth="Container"
+		type="javax.sql.DataSource"
+		maxActive="100"
+		maxIdle="30"
+		maxWait="10000"
+		username="c1234567"
+		password="301299"
+		driverClassName="com.mysql.jdbc.Driver"
+		url="jdbc:mysql://127.0.0.1:30001/c1234567_db"/>
+</Context>
