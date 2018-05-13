@@ -4,39 +4,41 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
   http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
+  
+	<display-name>IT Services Portal</display-name>
+	
     <session-config>
 		<session-timeout>30</session-timeout>
 	</session-config>
 	
 	<welcome-file-list>
-		<welcome-file>/WEB-INF/view/index.jsp</welcome-file>
+		<!-- <welcome-file>/WEB-INF/view/jsp/index.jsp</welcome-file> -->
+		<welcome-file>/WEB-INF/view/jsp/user/userPortal.jsp</welcome-file>
 	</welcome-file-list>
 	
-	<listener>
+<!-- 	<listener>
 		<listener-class>dealornodeal.StartUp</listener-class>
-	</listener>
-	<listener>
-		<listener-class>dealornodeal.AutoSave</listener-class>
-	</listener>
+	</listener> -->
 	
-	<servlet>
+<!--	<servlet>
 		<servlet-name>GameServlet</servlet-name>
 		<servlet-class>dealornodeal.GameServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>GameServlet</servlet-name>
 		<url-pattern>/DealOrNoDeal</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>OfferServlet</servlet-name>
-		<servlet-class>dealornodeal.OfferServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>OfferServlet</servlet-name>
-		<url-pattern>/Offer</url-pattern>
-	</servlet-mapping>
+	</servlet-mapping> -->
 	
-	<error-page>
+<!--	<filter>
+		<filter-name>Authentication</filter-name>
+        <filter-class>itserviceportal.controller.Authentication</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>Authentication</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping> -->
+	
+<!--	<error-page>
 		<exception-type>java.lang.Exception</exception-type>
 		<location>/WEB-INF/errorException.jsp</location>
 	</error-page>
@@ -47,5 +49,5 @@
 	<error-page>
 		<error-code>500</error-code>
 		<location>/WEB-INF/error500.jsp</location>
-	</error-page>
+	</error-page>-->
 </web-app>

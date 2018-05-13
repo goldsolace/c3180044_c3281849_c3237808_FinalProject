@@ -1,15 +1,16 @@
-<%@ page contentType="text/html" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<title>Title</title>
-		<link rel="stylesheet" type="text/css" href="css/style.css" />
-		<script src="js/validation.js"></script>
-	</head>
-	<body>
-		<jsp:include page="header.jsp" />
-		<jsp:include page="footer.jsp" />
-	</body>
-</html>
+<c:import url="/WEB-INF/view/jsp/header.jsp"/>
+
+<div class="form-container">
+	<form class="form-signin" method="POST" action="/userportal">
+		<label for="inputEmail" class="sr-only">Email address</label>
+		<input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+		<label for="inputPassword" class="sr-only">Password</label>
+		<input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+		<button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
+	</form>
+</div>
+
+<c:import url="/WEB-INF/view/jsp/footer.jsp"/>
