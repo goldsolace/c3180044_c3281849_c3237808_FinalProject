@@ -1,25 +1,38 @@
 package itserviceportal.controller;
 
+import itserviceportal.model.*;
+
+import java.util.*;
+import java.io.IOException;
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.net.URL;
-import java.util.Set;
+
+/**
+ * The Authentication class is a web filter that manages user permissions.
+ * 
+ * @author Brice Purton
+ * @studentID 3180044
+ * @lastModified: 25-04-2018
+ */
 
 public class Authentication implements Filter {
 	private Map<String,String> permissions = new HashMap<String,String>();
+	// Constants
 	public final static String ALL = "ALL";
 	public final static String USER = "USER";
 	public final static String USERX = "USER_EXCLUSIVE";
 	public final static String STAFF = "STAFF";
 	public final static String NONE = "NO_ACCESS";
 
-	public String security(String command){
-		return grant.getOrDefault(command,ALL);
-	}
-
+	/**
+	 * This method initialises the filter specifying user page access
+	 * by adding them to the permissions map.
+	 *
+	 * @param filterConfig
+	 * @throws ServletException
+	 */ 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
 		permissions.put("/",ALL);
@@ -37,9 +50,16 @@ public class Authentication implements Filter {
 		permissions.put("header.jsp",NONE);
 	}
 
+	/**
+	 * This method authenticates the user and 
+	 *
+	 * @param request a http servlet request 
+	 * @param response a http servlet response
+	 * @throws ServletException
+	 * @throws IOException
+	 */ 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		SecurityConfiguration securityConfiguration = SecurityConfiguration.getInstance();
 
 		HttpServletRequest httpServletRequest = ((HttpServletRequest) request);
 		HttpServletResponse httpServletResponse = ((HttpServletResponse)response);
@@ -51,7 +71,7 @@ public class Authentication implements Filter {
 		}
 		String page = uri.substring(uri.lastIndexOf("/")+1);
 
-		String permission = grant.getOrDefault(page, ALL);
+		String permission = permissions.getOrDefault(page, ALL);
 
 		switch (permission) {
 			case ALL:
@@ -86,21 +106,34 @@ public class Authentication implements Filter {
 					return;
 				}
 			default:
+				httpServletResponse.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 				chain.doFilter(request, response);
 				return;
 		}
-		httpServletResponse.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 	}
 
 	@Override
 	public void destroy() {
 	}
 
+	/**
+	 * Check if a user is logged in
+	 *
+	 * @param session a http session object
+	 * @return boolean true if user logged in
+	 */ 
 	public boolean isUserLoggedIn(HttpSession session) {
 		return session.getAttribute("user") != null;
 	}
-	public boolean isAdminLoggedIn(HttpSession session) {
-		User user = (User) session.getAttribute("user");
+
+	/**
+	 * Check if a staff user is logged in
+	 *
+	 * @param session a http session object
+	 * @return boolean true ifstaff logged in
+	 */ 
+	public boolean isStaffLoggedIn(HttpSession session) {
+		UserBean user = (UserBean) session.getAttribute("user");
 		return user != null && user.getRole() == Role.STAFF;
 	}
 }
