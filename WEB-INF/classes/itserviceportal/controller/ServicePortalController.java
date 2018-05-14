@@ -22,12 +22,12 @@ public class ServicePortalController extends HttpServlet{
             //If the logged in user is a USER, display the userPortal
             if(user.getRole() == Role.USER)
             {
-				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/view/jsp/user/userPortal.jsp");
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/view/user/portal.jsp");
 				dispatcher.forward(request, response);
             }
             else
             {
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/view/jsp/staff/staffPortal.jsp");
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/view/staff/portal.jsp");
 				dispatcher.forward(request, response);
             }
 

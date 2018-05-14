@@ -26,7 +26,7 @@ public class LoginController extends HttpServlet{
 		else
 		{
 			RequestDispatcher requestDispatcher; 
-			requestDispatcher = request.getRequestDispatcher("/WEB-INF/view/jsp/index.jsp");
+			requestDispatcher = request.getRequestDispatcher("/WEB-INF/view/index.jsp");
 			requestDispatcher.forward(request, response);
 		}	
 	}
@@ -49,7 +49,7 @@ public class LoginController extends HttpServlet{
 			if(user == null)
 			{
 				request.setAttribute("LoginError", "Sorry, that username and password combination does not exist. Please try again.");
-				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/view/jsp/index.jsp");
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/view/index.jsp");
 				dispatcher.forward(request, response);
 			}
 			//Otherwise, the user successfully logged in
@@ -66,7 +66,7 @@ public class LoginController extends HttpServlet{
 		catch (SQLException e)
 		{
 			request.setAttribute("LoginError", "Sorry, Something went wrong while trying to log you in. Please try again.");
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/view/jsp/index.jsp");
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/view/index.jsp");
 			dispatcher.forward(request, response);
 		} 
 	}

@@ -5,7 +5,7 @@
 
 <div class="navbar navbar-expand-lg navbar-light" role="navigation">
 	<div class="container">
-		<span class="navbar-brand"><strong>Brice Purton</strong></span>
+		<span class="navbar-brand"><strong><c:out value="${sessionScope.User.firstName} ${sessionScope.User.lastName}"/></strong></span>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -26,7 +26,7 @@
 				</li>
 				
 				<li class="nav-item">
-					<a class="nav-link" href="#">Log Out</a>
+					<a class="nav-link" href="./Logout">Log Out</a>
 				</li>
 			</ul>
 		</div>
