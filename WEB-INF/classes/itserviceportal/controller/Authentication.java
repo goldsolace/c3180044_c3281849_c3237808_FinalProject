@@ -35,7 +35,7 @@ public class Authentication implements Filter {
 	 */ 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-		/*permissions.put("/",ALL);
+		permissions.put("/",ALL);
 		permissions.put("Login",ALL);
 		permissions.put("login.jsp",ALL);
 
@@ -55,7 +55,7 @@ public class Authentication implements Filter {
 		permissions.put("header.jsp",NONE);
 		permissions.put("403.jsp",ALL);
 		permissions.put("404.jsp",ALL);
-		permissions.put("500.jsp",ALL);*/
+		permissions.put("500.jsp",ALL);
 	}
 
 	/**
@@ -72,15 +72,10 @@ public class Authentication implements Filter {
 		HttpServletRequest httpServletRequest = ((HttpServletRequest) request);
 		HttpServletResponse httpServletResponse = ((HttpServletResponse)response);
 		HttpSession session = httpServletRequest.getSession();
+		RequestDispatcher requestDispatcher; 
 
 		String uri = httpServletRequest.getRequestURI();
-		if(uri.endsWith(".css")){
-			chain.doFilter(request,response);
-			return;
-		}
-		System.out.println(uri);
-		chain.doFilter(request,response);
-		return;/*
+
 		if(uri.endsWith("/")) {
 			uri = uri.substring(0, uri.length()-1);
 		}
@@ -88,23 +83,21 @@ public class Authentication implements Filter {
 
 		String permission = permissions.getOrDefault(page, ALL);
 
-		System.out.println(page+" "+permission);
-
 		switch (permission) {
 			case ALL:
 				chain.doFilter(request, response);
-				System.out.println("Let through");
 				return;
 			case NONE:
-				chain.doFilter(request,response);
-				httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
+				requestDispatcher = request.getRequestDispatcher(Paths.INDEX.url());
+				requestDispatcher.forward(request, response);
 				return;
 			case USER:
 				if (isUserLoggedIn(session)) {
 					chain.doFilter(request, response);
 					return;
 				} else {
-					httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
+					requestDispatcher = request.getRequestDispatcher(Paths.INDEX.url());
+					requestDispatcher.forward(request, response);
 					return;
 				}
 			case USERX:
@@ -112,7 +105,8 @@ public class Authentication implements Filter {
 					chain.doFilter(request, response);
 					return;
 				} else {
-					httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
+					requestDispatcher = request.getRequestDispatcher(Paths.INDEX.url());
+					requestDispatcher.forward(request, response);
 					return;
 				}
 			case STAFF:
@@ -120,13 +114,14 @@ public class Authentication implements Filter {
 					chain.doFilter(request, response);
 					return;
 				} else {
-					httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
+					requestDispatcher = request.getRequestDispatcher(Paths.INDEX.url());
+					requestDispatcher.forward(request, response);
 					return;
 				}
 			default:
 				chain.doFilter(request, response);
 				return;
-		}*/
+		}
 	}
 
 	@Override

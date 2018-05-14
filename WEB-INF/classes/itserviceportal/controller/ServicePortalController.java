@@ -17,8 +17,8 @@ public class ServicePortalController extends HttpServlet{
 		UserBean user = (UserBean)session.getAttribute("User");
 		
 		//If the user is not null then the user has already logged in, direct to the service portal
-		if(user != null)
-		{
+		//if(user != null)
+		//{
             //If the logged in user is a USER, display the userPortal
             if(user.getRole() == Role.USER)
             {
@@ -31,13 +31,13 @@ public class ServicePortalController extends HttpServlet{
 				dispatcher.forward(request, response);
             }
 
-		}
+		//}
 
 		//The user is not logged in so display the login page
-		else
-		{
-			response.sendRedirect(Paths.INDEX.url());
-		}	
+		//else
+		//{
+			//response.sendRedirect(Paths.INDEX.url());
+		//}	
 	}
 
 
