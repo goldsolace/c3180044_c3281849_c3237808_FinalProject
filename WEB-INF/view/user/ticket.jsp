@@ -2,11 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:import url="/WEB-INF/view/header.jsp"/>
 
-<%--<div class="row">
-	<h1 class="text-center portal-heading"><strong>Ticket ID: 1</strong></h1>
-	<h2 class="text-center portal-heading"><strong>Can't connect to WiFi</strong></h2>
-	<h3 class="text-center portal-heading"><strong>Category: Network</strong></h3>
-</div>--%>
+<c:import url="/WEB-INF/view/messages.jsp"/>
 
 <ul class="list-group my-2">
 	<li class="list-group-item">

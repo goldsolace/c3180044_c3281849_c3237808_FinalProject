@@ -15,6 +15,9 @@
 			<div class="navbar-collapse collapse justify-content-end">
 				<ul class="navbar-nav">
 					<li class="nav-item">
+						<a class="nav-link" href="ServicePortal"><strong>Portal</strong></a>
+					</li>
+					<li class="nav-item">
 						<a class="nav-link" href="KnowledgeBase"><strong>Knowledge Base</strong></a>
 					</li>
 					<li class="nav-item">
@@ -26,7 +29,6 @@
 							<a class="nav-link" href="Report"><strong>Report Issue</strong></a>
 						</li>
 					</c:if>
-					
 					<li class="nav-item">
 						<a class="nav-link" href="Logout">Log Out</a>
 					</li>

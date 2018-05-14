@@ -6,6 +6,8 @@
 	<h1 class="text-center"><strong>User Portal</strong></h1>
 </div>
 
+<c:import url="/WEB-INF/view/messages.jsp"/>
+
 <div class="row">
 	<div class="col-md-4">
 		<div class="card-deck mb-3 text-center">
@@ -26,7 +28,7 @@
 					<h4 class="my-0 font-weight-normal">Support Tickets</h4>
 				</div>
 				<div class="card-body">
-					<a type="Tickets" class="btn btn-lg btn-block btn-success">View your support tickets</a>
+					<a href="Tickets" class="btn btn-lg btn-block btn-success">View your support tickets</a>
 				</div>
 			</div>
 		</div>
