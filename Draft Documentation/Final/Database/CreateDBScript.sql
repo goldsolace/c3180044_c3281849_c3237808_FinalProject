@@ -73,6 +73,13 @@ CREATE TABLE tbl_IssueDetails (
 );
 
 
+--Creating Database View For Support Tickets
+CREATE VIEW vw_SupportTickets AS
+SELECT st.*, cat.Name
+FROM tbl_SupportTicket st 
+INNER JOIN tbl_Category cat ON (st.CategoryID = cat.CategoryID);
+
+
 --END: CREATE DATABASE TABLES
 ----------------------------------------------------------------
 ----------------------------------------------------------------
