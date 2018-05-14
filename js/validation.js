@@ -116,6 +116,18 @@ window.onload = function () {
 			errors[i].style.display = 'inline';
 		}
 	}
+
+	var state =  document.getElementById('state');
+	var stateSelect =  document.getElementById('stateSelect');
+	if (state != null) {
+		SetState(state, stateSelect);
+		stateSelect.addEventListener('change', function(e) {
+			SetState(state, stateSelect);
+		});
+	}
+	
+
+
 }
 
 /*
@@ -138,4 +150,29 @@ function handleSubmit() {
 	}
 	// True to submit form or False to preventing submission of form
 	return isValid;
+}
+
+function SetState(state, stateSelect) {
+	RemoveStateClass(state);
+	switch (stateSelect.value) {
+		case "1":
+			state.classList.add('bg-danger');
+			break;
+		case "2":
+			state.classList.add('bg-progress');
+			break;
+		case "3":
+			state.classList.add('bg-primary');
+			break;
+		case "4":
+			state.classList.add('bg-success');
+			break;
+	}
+}
+
+function RemoveStateClass(state) {
+	state.classList.remove('bg-danger');
+	state.classList.remove('bg-progress');
+	state.classList.remove('bg-primary');
+	state.classList.remove('bg-success');
 }

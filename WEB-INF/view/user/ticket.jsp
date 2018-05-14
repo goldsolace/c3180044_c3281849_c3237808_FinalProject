@@ -9,25 +9,25 @@
 </div>--%>
 
 <ul class="list-group my-2">
-	<li class="list-group-item list-group-item-action flex-column align-items-start">
+	<li class="list-group-item">
 		<div class="d-flex w-100 justify-content-between">
 			<h5 class="mb-1">Ticket <strong>1</strong></h5>
-			<p>Category: <strong>Account</strong></p>
+			<p><span class="mx-1 fas fa-tag"></span><strong>Account</strong></p>
 		</div>
 		<h3 class="mb-1">How do I change my University Password</h3>
 		<div class="d-flex justify-content-between">
-			<p class="mr-2"><small>Reported by</small> Brice Purton <small>on</small> 5:13pm 13/05/2018</p>
-			<p class="mr-2"><small>Resolved on</small> 11:48am 14/05/2018</p>
+			<p class="mr-2"><span class="mx-1 fas fa-user-edit"></span>Brice Purton<span class="mx-1 fas fa-calendar-times"></span>5:13pm 13/05/2018</p>
+			<p class="mr-2"><span class="mx-1 fas fa-calendar-check"></span>11:48am 14/05/2018</p>
 		</div>
 	</li>
 	<li class="list-group-item">
-		<div class="input-group mb-3">
+		<div class="input-group mb-3 ">
 			<div class="input-group-prepend">
-				<label class="input-group-text" for="inputGroupSelect01">State</label>
+				<label id="state" class="input-group-text bg-danger text-light" for="stateSelect">State</label>
 			</div>
-			<select class="custom-select" id="inputGroupSelect01">
+			<select class="custom-select " id="stateSelect">
 				<option value="1" selected>New</option>
-				<option value="2">In Prodgess</option>
+				<option value="2">In Progess</option>
 				<option value="3">Completed</option>
 				<option value="4">Resolved</option>
 			</select>
