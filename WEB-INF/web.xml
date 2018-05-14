@@ -12,10 +12,10 @@
 	</session-config>
 	
 	<welcome-file-list>
-		<!-- <welcome-file>/WEB-INF/view/index.jsp</welcome-file> -->
+		<welcome-file>/WEB-INF/view/index.jsp</welcome-file>
 		<!-- <welcome-file>/WEB-INF/view/user/portal.jsp</welcome-file> -->
 		<!-- <welcome-file>/WEB-INF/view/staff/portal.jsp</welcome-file> -->
-		<welcome-file>/WEB-INF/view/user/ticket.jsp</welcome-file>
+		<!-- <welcome-file>/WEB-INF/view/user/ticket.jsp</welcome-file> -->
 	</welcome-file-list>
 	
 <!-- 	<listener>
