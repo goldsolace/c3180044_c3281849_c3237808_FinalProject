@@ -7,30 +7,29 @@ import javax.sql.*;
 import java.sql.*;
 import javax.naming.InitialContext;
 
-public class UserDataAccess {
+public class UserDataAccess extends DataAccessLayer{
 
-    public UserDataAccess() {}
+    public UserDataAccess() {
+        super();
+    }
 
-    public UserBean loginUser(String username, String password) throws SQLException {
-        Connection dbConnection = null;
-        PreparedStatement selectUser = null;
-        ResultSet results = null;
+    public User loginUser(String username, String password) throws SQLException {
+
         String query = "SELECT * FROM tbl_User WHERE Email = ? AND Password = ?";
-        UserBean user = null;
+        User user = null;
         try 
         {
             //Getting the DB connection, performing the query and getting the results
-            dbConnection = getConnectToDB();
-            selectUser = dbConnection.prepareStatement(query);
-            selectUser.setString(1, username);
-            selectUser.setString(2, password);
-            results = selectUser.executeQuery();
+            statement = dbConnection.prepareStatement(query);
+            statement.setString(1, username);
+            statement.setString(2, password);
+            results = statement.executeQuery();
 
             //Loop through the result set
             while (results.next())
             {
                 //Create a user from the results
-                user = new UserBean();
+                user = new User();
                 int id = results.getInt("UserID");
                 String email = results.getString("Email");
                 String firstName = results.getString("FirstName");
@@ -55,27 +54,14 @@ public class UserDataAccess {
             {
                 dbConnection.close();
             }
-            if(selectUser != null)
+            if(statement != null)
             {
-                selectUser.close();
+                statement.close();
             }
             if(results != null)
             {
                 results.close();
             }
-            return null;
-        }
-    }
-
-    private Connection getConnectToDB() {
-        try
-        {
-            InitialContext context = new InitialContext();
-            DataSource ds = (DataSource)context.lookup("java:/comp/env/ServicePortalDB");
-            return ds.getConnection();
-        }
-        catch (Exception e)
-        {
             return null;
         }
     }
