@@ -15,20 +15,20 @@
 			<div class="navbar-collapse collapse justify-content-end">
 				<ul class="navbar-nav">
 					<li class="nav-item">
-						<a class="nav-link" href="#"><strong>Knowledge Base</strong></a>
+						<a class="nav-link" href="KnowledgeBase"><strong>Knowledge Base</strong></a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#"><strong>Support Tickets</strong></a>
+						<a class="nav-link" href="Tickets"><strong>Support Tickets</strong></a>
 					</li>
 
 					<c:if test="${User.role == Role.USER}">
 						<li class="nav-item">
-							<a class="nav-link" href="#"><strong>Report Issue</strong></a>
+							<a class="nav-link" href="Report"><strong>Report Issue</strong></a>
 						</li>
 					</c:if>
 					
 					<li class="nav-item">
-						<a class="nav-link" href="./Logout">Log Out</a>
+						<a class="nav-link" href="Logout">Log Out</a>
 					</li>
 				</ul>
 			</div>

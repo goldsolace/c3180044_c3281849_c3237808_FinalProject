@@ -14,7 +14,7 @@
 					<h4 class="my-0 font-weight-normal">Knowledge Base</h4>
 				</div>
 				<div class="card-body">
-					<button type="button" class="btn btn-lg btn-block btn-primary">Search our knowledge base<br/> and find answers</button>
+					<a href="KnowledgeBase" class="btn btn-lg btn-block btn-primary">Search our knowledge base<br/> and find answers</a>
 				</div>
 			</div>
 		</div>
@@ -26,7 +26,7 @@
 					<h4 class="my-0 font-weight-normal">Support Tickets</h4>
 				</div>
 				<div class="card-body">
-					<button type="button" class="btn btn-lg btn-block btn-success">View your support tickets</button>
+					<a type="Tickets" class="btn btn-lg btn-block btn-success">View your support tickets</a>
 				</div>
 			</div>
 		</div>
@@ -38,7 +38,7 @@
 					<h4 class="my-0 font-weight-normal">Report Issue</h4>
 				</div>
 				<div class="card-body">
-					<button type="button" class="btn btn-lg btn-block btn-danger">Experiencing a problem?<br/> Report it here</button>
+					<a href="Report" class="btn btn-lg btn-block btn-danger">Experiencing a problem?<br/> Report it here</a>
 				</div>
 			</div>
 		</div>
