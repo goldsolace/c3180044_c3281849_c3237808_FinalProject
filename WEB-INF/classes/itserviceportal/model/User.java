@@ -1,7 +1,7 @@
 package itserviceportal.model;
 import java.lang.*;
 
-public class UserBean {
+public class User {
     private int userID;
     private String email;
     private String firstName;
@@ -10,7 +10,7 @@ public class UserBean {
     private Role role;
 
 
-    public UserBean() {
+    public User() {
         userID = 0;
         email = "";
         firstName = "";
