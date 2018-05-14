@@ -35,19 +35,27 @@ public class Authentication implements Filter {
 	 */ 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-		permissions.put("/",ALL);
+		/*permissions.put("/",ALL);
+		permissions.put("Login",ALL);
 		permissions.put("login.jsp",ALL);
-		permissions.put("403.jsp",ALL);
-		permissions.put("404.jsp",ALL);
-		permissions.put("500.jsp",ALL);
+
+		permissions.put("ServicePortal",USER);
 		permissions.put("userPortal.jsp",USERX);
+		permissions.put("UserPortal",USERX);
+		permissions.put("staffPortal.jsp",STAFF);
+		permissions.put("StaffPortal",STAFF);
+
 		permissions.put("reportIssue.jsp",USERX);
 		permissions.put("viewTickets.jsp",USER);
 		permissions.put("supportTicket.jsp",USER);
 		permissions.put("knowledgebase.jsp",USER);
 		permissions.put("article.jsp",USER);
-		permissions.put("staffPortal.jsp",STAFF);
+		
+		permissions.put("Logout",USER);
 		permissions.put("header.jsp",NONE);
+		permissions.put("403.jsp",ALL);
+		permissions.put("404.jsp",ALL);
+		permissions.put("500.jsp",ALL);*/
 	}
 
 	/**
@@ -66,6 +74,13 @@ public class Authentication implements Filter {
 		HttpSession session = httpServletRequest.getSession();
 
 		String uri = httpServletRequest.getRequestURI();
+		if(uri.endsWith(".css")){
+			chain.doFilter(request,response);
+			return;
+		}
+		System.out.println(uri);
+		chain.doFilter(request,response);
+		return;/*
 		if(uri.endsWith("/")) {
 			uri = uri.substring(0, uri.length()-1);
 		}
@@ -73,9 +88,12 @@ public class Authentication implements Filter {
 
 		String permission = permissions.getOrDefault(page, ALL);
 
+		System.out.println(page+" "+permission);
+
 		switch (permission) {
 			case ALL:
 				chain.doFilter(request, response);
+				System.out.println("Let through");
 				return;
 			case NONE:
 				chain.doFilter(request,response);
@@ -106,10 +124,9 @@ public class Authentication implements Filter {
 					return;
 				}
 			default:
-				httpServletResponse.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 				chain.doFilter(request, response);
 				return;
-		}
+		}*/
 	}
 
 	@Override
@@ -123,7 +140,7 @@ public class Authentication implements Filter {
 	 * @return boolean true if user logged in
 	 */ 
 	public boolean isUserLoggedIn(HttpSession session) {
-		return session.getAttribute("user") != null;
+		return session.getAttribute("User") != null;
 	}
 
 	/**
@@ -133,7 +150,7 @@ public class Authentication implements Filter {
 	 * @return boolean true ifstaff logged in
 	 */ 
 	public boolean isStaffLoggedIn(HttpSession session) {
-		UserBean user = (UserBean) session.getAttribute("user");
+		UserBean user = (UserBean) session.getAttribute("User");
 		return user != null && user.getRole() == Role.STAFF;
 	}
 }
