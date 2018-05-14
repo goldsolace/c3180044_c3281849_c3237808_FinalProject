@@ -1,14 +1,28 @@
 <?xml version='1.0' encoding='utf-8'?>
 <Context>
-	<Resource
-		name="SENG2050_2018"
-		auth="Container"
-		type="javax.sql.DataSource"
-		maxActive="100"
-		maxIdle="30"
-		maxWait="10000"
-		username="c1234567"
-		password="301299"
-		driverClassName="com.mysql.jdbc.Driver"
-		url="jdbc:mysql://127.0.0.1:30001/c1234567_db"/>
+
+    <!--At Uni Resource -->
+    <Resource
+        name="ServicePortalDB"
+        auth="Container"
+        type="javax.sql.DataSource"
+        maxIdle="30"
+        maxWait="10000"
+        username="c3237808"
+        password="260696"
+        driverClassName="com.mysql.jdbc.Driver"
+        url="jdbc:mysql://teachdb.newcastle.edu.au/c3237808_db"/>
+
+        <!--At home resource
+        <Resource
+        name="ServicePortalDB"
+        auth="Container"
+        type="javax.sql.DataSource"
+        maxIdle="30"
+        maxWait="10000"
+        username="c3237808"
+        password="260696"
+        driverClassName="com.mysql.jdbc.Driver"
+        url="jdbc:mysql://127.0.0.1:30001/c3237808_db"/>
+        -->
 </Context>

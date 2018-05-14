@@ -83,18 +83,18 @@ CREATE TABLE tbl_IssueDetails (
 ----------------------------------------------------------------
 
 --Inserting Values Into the Users Table
-INSERT INTO tbl_User (Email, Password, FirstName, LastName, ContactNum) 
-VALUES ('c3237808@uon.edu,au', 'test', 'jono', 'williams', '0412345678', 'Staff');
-INSERT INTO tbl_User (Email, Password, FirstName, LastName, ContactNum) 
-VALUES ('c3180044@uon.edu,au', 'test', 'Brice', 'Purton', '0412345678', 'Staff');
-INSERT INTO tbl_User (Email, Password, FirstName, LastName, ContactNum) 
-VALUES ('c3281849@uon.edu,au', 'test', 'Wajdi', 'Younes', '0412345678', 'Staff');
-INSERT INTO tbl_User (Email, Password, FirstName, LastName, ContactNum) 
-VALUES ('c3237123@uon.edu,au', 'test', 'Billy', 'Jones', '0412345678', 'User');
-INSERT INTO tbl_User (Email, Password, FirstName, LastName, ContactNum) 
-VALUES ('c3180456@uon.edu,au', 'test', 'Tom', 'Scott', '0412345678', 'User');
-INSERT INTO tbl_User (Email, Password, FirstName, LastName, ContactNum) 
-VALUES ('c3281789@uon.edu,au', 'test', 'Joe', 'Blogs', '0478945612', 'User');
+INSERT INTO tbl_User (Email, Password, FirstName, LastName, ContactNum, Role) 
+VALUES ('c3237808@uon.edu.au', 'test', 'jono', 'williams', '0412345678', 'Staff');
+INSERT INTO tbl_User (Email, Password, FirstName, LastName, ContactNum, Role)
+VALUES ('c3180044@uon.edu.au', 'test', 'Brice', 'Purton', '0412345678', 'Staff');
+INSERT INTO tbl_User (Email, Password, FirstName, LastName, ContactNum, Role)
+VALUES ('c3281849@uon.edu.au', 'test', 'Wajdi', 'Younes', '0412345678', 'Staff');
+INSERT INTO tbl_User (Email, Password, FirstName, LastName, ContactNum, Role)
+VALUES ('c3237123@uon.edu.au', 'test', 'Billy', 'Jones', '0412345678', 'User');
+INSERT INTO tbl_User (Email, Password, FirstName, LastName, ContactNum, Role)
+VALUES ('c3180456@uon.edu.au', 'test', 'Tom', 'Scott', '0412345678', 'User');
+INSERT INTO tbl_User (Email, Password, FirstName, LastName, ContactNum, Role)
+VALUES ('c3281789@uon.edu.au', 'test', 'Joe', 'Blogs', '0478945612', 'User');
 
 --Inserting Values into the Category table
 INSERT INTO tbl_Category (Name) VALUES ('Network');
