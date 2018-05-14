@@ -11,13 +11,13 @@ import javax.servlet.http.*;
 import javax.servlet.*;
 
 /**
- * TicketsController
+ * KnowledgeBaseController
  *
  * @author Brice Purton, Jonothan Williams, Wajdi Yournes
  * @lastModified: 14-05-2018
  */
 
-public class TicketsController extends HttpServlet {
+public class KnowledgeBaseController extends HttpServlet {
 
 	/**
 	 * Redirects get request to doPost method
@@ -36,21 +36,21 @@ public class TicketsController extends HttpServlet {
 
 		//UserDataAccess userDAL = new UserDataAccess();
 		//List<Tickets> tickets = userDAL.getTickets(user);
-		List<SupportTicket> knowledgeBase = null;
+		SupportTicket supportTicket = null;
 
-		if (knowledgeBase == null) {
-			request.setAttribute("errorMessage", "No tickets");
+		if (supportTicket == null) {
+			request.setAttribute("errorMessage", "Knowledge Base is empty");
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ServicePortal");
 			dispatcher.forward(request, response);
 			return;
 		}
-		request.setAttribute("knowledgeBase", knowledgeBase);
+		request.setAttribute("supportTicket", supportTicket);
 
 		if(user.getRole() == Role.USER) {
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Paths.USERTICKETLIST.url());
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Paths.USERKNOWLEDGEBASE.url());
 			dispatcher.forward(request, response);
 		} else {
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Paths.STAFFTICKETLIST.url());
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Paths.STAFFKNOWLEDGEBASE.url());
 			dispatcher.forward(request, response);
 		}
 	}
@@ -65,7 +65,7 @@ public class TicketsController extends HttpServlet {
 	 */ 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
-			// Probably sort
+			// Do stuff
 	}
 }
 

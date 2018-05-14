@@ -17,7 +17,7 @@ public class LoginController extends HttpServlet{
 		//If the user is not null then the user has already logged in, direct to the portal
 		if(user != null)
 		{
-			response.sendRedirect("./ServicePortal");
+			response.sendRedirect("ServicePortal");
 		}
 
 		//The user is not logged in so display the login page
@@ -56,7 +56,7 @@ public class LoginController extends HttpServlet{
 				//Set the user object into the session and redirect to the ServicePortal
 				HttpSession session = request.getSession();
 				session.setAttribute("User", user);
-				response.sendRedirect("./ServicePortal");
+				response.sendRedirect("ServicePortal");
 			}
 		}
 

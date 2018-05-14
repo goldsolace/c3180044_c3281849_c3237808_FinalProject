@@ -35,23 +35,29 @@ public class Authentication implements Filter {
 	 */ 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
+		// Servlets
 		permissions.put("/",ALL);
 		permissions.put("Login",ALL);
-		permissions.put("login.jsp",ALL);
-
+		permissions.put("Logout",USER);
 		permissions.put("ServicePortal",USER);
-		permissions.put("userPortal.jsp",USERX);
 		permissions.put("UserPortal",USERX);
-		permissions.put("staffPortal.jsp",STAFF);
 		permissions.put("StaffPortal",STAFF);
-
+		permissions.put("Report",USERX);
+		permissions.put("UserPortal",USERX);
+		permissions.put("Tickets",USER);
+		permissions.put("Ticket",USER);
+		permissions.put("KnowledgeBase",USER);
+		permissions.put("Article",USER);
+		// JSPs
+		permissions.put("login.jsp",ALL);
+		permissions.put("userPortal.jsp",USERX);
+		permissions.put("staffPortal.jsp",STAFF);
 		permissions.put("reportIssue.jsp",USERX);
-		permissions.put("viewTickets.jsp",USER);
-		permissions.put("supportTicket.jsp",USER);
+		permissions.put("ticketList.jsp",USER);
+		permissions.put("ticket.jsp",USER);
 		permissions.put("knowledgebase.jsp",USER);
 		permissions.put("article.jsp",USER);
-		
-		permissions.put("Logout",USER);
+		permissions.put("comment.jsp",USER);
 		permissions.put("header.jsp",NONE);
 		permissions.put("403.jsp",ALL);
 		permissions.put("404.jsp",ALL);

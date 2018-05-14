@@ -11,13 +11,13 @@ import javax.servlet.http.*;
 import javax.servlet.*;
 
 /**
- * TicketsController
+ * ArticleController
  *
  * @author Brice Purton, Jonothan Williams, Wajdi Yournes
  * @lastModified: 14-05-2018
  */
 
-public class TicketsController extends HttpServlet {
+public class ArticleController extends HttpServlet {
 
 	/**
 	 * Redirects get request to doPost method
@@ -36,21 +36,20 @@ public class TicketsController extends HttpServlet {
 
 		//UserDataAccess userDAL = new UserDataAccess();
 		//List<Tickets> tickets = userDAL.getTickets(user);
-		List<SupportTicket> knowledgeBase = null;
+		SupportTicket article = null;
 
-		if (knowledgeBase == null) {
-			request.setAttribute("errorMessage", "No tickets");
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ServicePortal");
-			dispatcher.forward(request, response);
+		if (article == null) {
+			request.setAttribute("errorMessage", "No article to view");
+			response.sendRedirect("ServicePortal");
 			return;
 		}
-		request.setAttribute("knowledgeBase", knowledgeBase);
+		request.setAttribute("article", article);
 
 		if(user.getRole() == Role.USER) {
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Paths.USERTICKETLIST.url());
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Paths.USERARTICLE.url());
 			dispatcher.forward(request, response);
 		} else {
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Paths.STAFFTICKETLIST.url());
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Paths.STAFFARTICLE.url());
 			dispatcher.forward(request, response);
 		}
 	}
@@ -65,7 +64,7 @@ public class TicketsController extends HttpServlet {
 	 */ 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
-			// Probably sort
+			// Do stuff
 	}
 }
 
