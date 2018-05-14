@@ -14,7 +14,7 @@ public class ServicePortalController extends HttpServlet{
 
 		//Check to see if the user is currently already inside the session
 		HttpSession session = request.getSession();
-		UserBean user = (UserBean)session.getAttribute("User");
+		User user = (User)session.getAttribute("User");
 		
 		//If the user is not null then the user has already logged in, direct to the service portal
 		//if(user != null)

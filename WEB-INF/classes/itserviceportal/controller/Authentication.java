@@ -145,7 +145,7 @@ public class Authentication implements Filter {
 	 * @return boolean true ifstaff logged in
 	 */ 
 	public boolean isStaffLoggedIn(HttpSession session) {
-		UserBean user = (UserBean) session.getAttribute("User");
+		User user = (User) session.getAttribute("User");
 		return user != null && user.getRole() == Role.STAFF;
 	}
 }

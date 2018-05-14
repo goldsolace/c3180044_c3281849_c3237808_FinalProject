@@ -12,7 +12,7 @@ public class LogoutController extends HttpServlet{
 
 		//Check to see if the user is currently already inside the session
 		HttpSession session = request.getSession();
-		UserBean user = (UserBean)session.getAttribute("User");
+		User user = (User)session.getAttribute("User");
 		
 		//If the user is not null then perform the logout
 		if(user != null)

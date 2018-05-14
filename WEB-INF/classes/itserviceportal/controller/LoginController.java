@@ -12,7 +12,7 @@ public class LoginController extends HttpServlet{
 
 		//Check to see if the user is currently already inside the session
 		HttpSession session = request.getSession();
-		UserBean user = (UserBean)session.getAttribute("User");
+		User user = (User)session.getAttribute("User");
 		
 		//If the user is not null then the user has already logged in, direct to the portal
 		if(user != null)
@@ -41,7 +41,7 @@ public class LoginController extends HttpServlet{
 		try
 		{
 			UserDataAccess userDAL = new UserDataAccess();
-			UserBean user = userDAL.loginUser(username, password);
+			User user = userDAL.loginUser(username, password);
 		
 			//If the user is null then the user did not login correctly with a valid account
 			if(user == null)
