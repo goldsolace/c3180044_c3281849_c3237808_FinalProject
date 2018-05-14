@@ -3,10 +3,8 @@ import java.io.*;
 import java.sql.SQLException;
 import javax.servlet.*;
 import javax.servlet.http.*;
-import javax.servlet.annotation.WebServlet;
 import itserviceportal.model.*;
 
-@WebServlet(urlPatterns = {"/Logout"})
 public class LogoutController extends HttpServlet{
 
 	//Log the user out and display the login page

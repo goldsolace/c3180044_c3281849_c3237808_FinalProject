@@ -12,7 +12,7 @@
 	</session-config>
 	
 	<welcome-file-list>
-		<welcome-file>/WEB-INF/view/index.jsp</welcome-file>
+		<!-- <welcome-file>/WEB-INF/view/index.jsp</welcome-file> -->
 		<!-- <welcome-file>/WEB-INF/view/user/portal.jsp</welcome-file> -->
 		<!-- <welcome-file>/WEB-INF/view/staff/portal.jsp</welcome-file> -->
 		<!-- <welcome-file>/WEB-INF/view/user/ticket.jsp</welcome-file> -->
@@ -22,18 +22,28 @@
 		<listener-class>dealornodeal.StartUp</listener-class>
 	</listener> -->
 	
-<!--	<servlet>
-		<servlet-name>GameServlet</servlet-name>
-		<servlet-class>dealornodeal.GameServlet</servlet-class>
+	<servlet>
+		<servlet-name>LoginController</servlet-name>
+		<servlet-class>itserviceportal.controller.LoginController</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>GameServlet</servlet-name>
-		<url-pattern>/DealOrNoDeal</url-pattern>
-	</servlet-mapping> -->
+		<servlet-name>LoginController</servlet-name>
+		<url-pattern>/</url-pattern>
+		<url-pattern>/Login</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>LogoutController</servlet-name>
+		<servlet-class>itserviceportal.controller.LogoutController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LogoutController</servlet-name>
+		<url-pattern>/Logout</url-pattern>
+	</servlet-mapping> 
 	
-<!--	<filter>
+<!-- 	<filter>
 		<filter-name>Authentication</filter-name>
-        <filter-class>itserviceportal.controller.Authentication</filter-class>
+		<filter-class>itserviceportal.controller.Authentication</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>Authentication</filter-name>

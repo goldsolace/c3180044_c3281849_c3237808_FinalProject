@@ -3,10 +3,8 @@ import java.io.*;
 import java.sql.SQLException;
 import javax.servlet.*;
 import javax.servlet.http.*;
-import javax.servlet.annotation.WebServlet;
 import itserviceportal.model.*;
 
-@WebServlet(urlPatterns = {"/Login"})
 public class LoginController extends HttpServlet{
 
 	//Display the Login Page

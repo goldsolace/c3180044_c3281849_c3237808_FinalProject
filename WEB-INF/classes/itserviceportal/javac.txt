@@ -1,1 +1,13 @@
 javac controller/*.java model/*.java
+
+STAFF
+
+c3237808@uon.edu.au
+c3180044@uon.edu.au
+c3281849@uon.edu.au
+
+USER
+
+c3237123@uon.edu.au
+c3180456@uon.edu.au
+c3281789@uon.edu.au
