@@ -18,6 +18,8 @@ public enum Paths {
 	KNOWLEDGEBASE(""),
 	ARTICLE(""),
 	STAFFPORTAL("/WEB-INF/view/staff/portal.jsp"),
+	STAFFTICKET("/WEB-INF/view/staff/portal.jsp"),
+	STAFFTICKETLIST("/WEB-INF/view/staff/portal.jsp"),
 	FORBIDDEN("/WEB-INF/view/error403.jsp"),
 	NOTFOUND("/WEB-INF/view/error404.jsp"),
 	SERVERERROR("/WEB-INF/view/error500.jsp"),
