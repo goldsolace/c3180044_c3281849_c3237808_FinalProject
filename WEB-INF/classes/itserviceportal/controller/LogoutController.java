@@ -19,14 +19,18 @@ public class LogoutController extends HttpServlet{
 		//If the user is not null then perform the logout
 		if(user != null)
 		{
-            session.invalidate();
-			response.sendRedirect("./Login");
+			session.invalidate();
+			request.setAttribute("successMessage", "You've been logged out!");
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Paths.INDEX.url());
+			dispatcher.forward(request, response);
 		}
 
 		//The user is not logged in so display the login page
 		else
 		{
-			response.sendRedirect("./Login");
+			request.setAttribute("errorMessage", "No user logged in!");
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Paths.INDEX.url());
+			dispatcher.forward(request, response);
 		}	
 	}
 

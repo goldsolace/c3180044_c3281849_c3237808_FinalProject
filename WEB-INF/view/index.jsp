@@ -3,11 +3,24 @@
 
 <c:import url="/WEB-INF/view/header.jsp"/>
 
-<c:if test="${!empty requestScope.LoginError}">
-	<div class="alert alert-danger text-center">
-		<c:out value="${requestScope.LoginError}" />
-	</div>
-</c:if>
+<c:choose>
+	<c:when test="${not empty successMessage}">
+		<div class="alert alert-success alert-dismissible fade show text-center" role="alert"> 
+			<c:out value="${successMessage}" />
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+	</c:when>
+	<c:when test="${not empty errorMessage}">
+		<div class="alert alert-danger alert-dismissible fade show text-center" role="alert"> 
+			<c:out value="${errorMessage}" />
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+	</c:when>
+</c:choose>
 
 <div class="form-container">
 	<form class="form-signin" method="POST" action="./Login">
