@@ -7,7 +7,7 @@
 
 	<c:import url="/WEB-INF/view/messages.jsp"/>
 
-	<form class="form-signin" method="POST" action="./Login">
+	<form class="form-signin" method="POST" action="Login">
 		<label for="inputEmail" class="sr-only">Email address</label>
 		<input type="email" id="inputEmail" name="inputEmail" class="form-control" placeholder="Email address" required autofocus>
 		<label for="inputPassword" class="sr-only">Password</label>

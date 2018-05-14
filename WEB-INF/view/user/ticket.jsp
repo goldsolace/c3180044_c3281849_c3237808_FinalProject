@@ -12,8 +12,8 @@
 		</div>
 		<h3 class="mb-1">How do I change my University Password</h3>
 		<div class="d-flex justify-content-between">
-			<p class="mr-2"><span class="mx-1 fas fa-user-edit"></span>Brice Purton<span class="mx-1 fas fa-calendar-times"></span>5:13pm 13/05/2018</p>
-			<p class="mr-2"><span class="mx-1 fas fa-calendar-check"></span>11:48am 14/05/2018</p>
+			<p class="mr-2">Reported <span class="mx-1 fas fa-user"></span>Billy Jones<span class="mx-1 fas fa-calendar-alt"></span>5:13pm 13/05/2018</p>
+			<p class="mr-2">Resolved <span class="mx-1 fas fa-user"></span>Brice Purton<span class="mx-1 fas fa-calendar-alt"></span>11:48am 14/05/2018</p>
 		</div>
 	</li>
 	<li class="list-group-item">

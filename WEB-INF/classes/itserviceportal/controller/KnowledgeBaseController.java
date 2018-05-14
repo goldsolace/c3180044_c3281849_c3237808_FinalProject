@@ -39,7 +39,10 @@ public class KnowledgeBaseController extends HttpServlet {
 		SupportTicket supportTicket = null;
 
 		if (supportTicket == null) {
-			request.setAttribute("errorMessage", "Knowledge Base is empty");
+			request.setAttribute("successMessage", "Issue has been reported.");
+			request.setAttribute("errorMessage", "Knowledge Base is empty!");
+			request.setAttribute("infoMessage", "Tickets automatically sent to staff.");
+			request.setAttribute("warningMessage", "NOTICE: System Maintenance at 12:00pm-3:00pm Friday 18/05/2018.");
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ServicePortal");
 			dispatcher.forward(request, response);
 			return;

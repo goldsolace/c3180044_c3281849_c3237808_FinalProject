@@ -39,11 +39,9 @@ public class TicketsController extends HttpServlet {
 		List<SupportTicket> knowledgeBase = null;
 
 		if (knowledgeBase == null) {
-			request.setAttribute("successMessage", "Issue has been reported");
-			request.setAttribute("errorMessage", "No tickets");
-			request.setAttribute("infoMessage", "Tickets automatically sent to staff");
-			request.setAttribute("warningMessage", "System Maintenance at 12:00pm-3:00pm Friday 18/05/2018");
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ServicePortal");
+			// request.setAttribute("errorMessage", "No tickets");
+			// RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ServicePortal");
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Paths.USERTICKETLIST.url());
 			dispatcher.forward(request, response);
 			return;
 		}

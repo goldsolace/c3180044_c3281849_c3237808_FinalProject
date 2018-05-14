@@ -14,7 +14,7 @@ public enum Paths {
 	LOGIN("/WEB-INF/view/index.jsp"),
 	USERPORTAL("/WEB-INF/view/user/portal.jsp"),
 	USERTICKET("/WEB-INF/view/user/portal.jsp"),
-	USERTICKETLIST("/WEB-INF/view/user/portal.jsp"),
+	USERTICKETLIST("/WEB-INF/view/user/ticketList.jsp"),
 	USERKNOWLEDGEBASE("/WEB-INF/view/user/portal.jsp"),
 	USERARTICLE("/WEB-INF/view/user/portal.jsp"),
 	STAFFPORTAL("/WEB-INF/view/staff/portal.jsp"),
