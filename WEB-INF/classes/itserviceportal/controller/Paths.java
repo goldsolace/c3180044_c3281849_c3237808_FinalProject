@@ -13,6 +13,7 @@ public enum Paths {
 	INDEX("/WEB-INF/view/index.jsp"),
 	LOGIN("/WEB-INF/view/index.jsp"),
 	USERPORTAL("/WEB-INF/view/user/userPortal.jsp"),
+	REPORT("/WEB-INF/view/user/reportIssue.jsp"),
 	USERTICKET("/WEB-INF/view/user/userPortal.jsp"),
 	USERTICKETLIST("/WEB-INF/view/user/userTicketList.jsp"),
 	USERKNOWLEDGEBASE("/WEB-INF/view/user/userPortal.jsp"),

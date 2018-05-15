@@ -100,10 +100,6 @@ public class TicketListController extends HttpServlet {
 		// Get List of Support Tickets the user is allowed to view matching criteria
 		List<SupportTicket> tickets = getTickets(user, categorySelect, stateSelect);
 
-		System.out.println(tickets);
-		System.out.println(tickets == null);
-		System.out.println(tickets.isEmpty());
-
 		// If tickets is null send back to portal with error message
 		if (tickets == null) {
 			request.setAttribute("errorMessage", "Invalid Request");

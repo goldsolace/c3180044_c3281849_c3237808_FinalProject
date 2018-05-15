@@ -16,7 +16,8 @@ public class ReportController extends HttpServlet{
 
 	//Display the Login Page
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.sendRedirect("ServicePortal");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Paths.REPORT.url());
+		dispatcher.forward(request, response);
 	}
 
 

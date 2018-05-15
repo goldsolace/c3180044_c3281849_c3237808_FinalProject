@@ -53,8 +53,10 @@ public class Authentication implements Filter {
 		permissions.put("userPortal.jsp",USERX);
 		permissions.put("staffPortal.jsp",STAFF);
 		permissions.put("reportIssue.jsp",USERX);
-		permissions.put("ticketList.jsp",USER);
-		permissions.put("ticket.jsp",USER);
+		permissions.put("userTicketList.jsp",USERX);
+		permissions.put("userticket.jsp",USERX);
+		permissions.put("staffTicketList.jsp",STAFF);
+		permissions.put("staffticket.jsp",STAFF);
 		permissions.put("knowledgebase.jsp",USER);
 		permissions.put("article.jsp",USER);
 		permissions.put("comment.jsp",USER);
@@ -94,7 +96,7 @@ public class Authentication implements Filter {
 				chain.doFilter(request, response);
 				return;
 			case NONE:
-				requestDispatcher = request.getRequestDispatcher(Paths.INDEX.url());
+				requestDispatcher = request.getRequestDispatcher("/");
 				requestDispatcher.forward(request, response);
 				return;
 			case USER:
@@ -102,7 +104,7 @@ public class Authentication implements Filter {
 					chain.doFilter(request, response);
 					return;
 				} else {
-					requestDispatcher = request.getRequestDispatcher(Paths.INDEX.url());
+					requestDispatcher = request.getRequestDispatcher("/");
 					requestDispatcher.forward(request, response);
 					return;
 				}
@@ -111,7 +113,7 @@ public class Authentication implements Filter {
 					chain.doFilter(request, response);
 					return;
 				} else {
-					requestDispatcher = request.getRequestDispatcher(Paths.INDEX.url());
+					requestDispatcher = request.getRequestDispatcher("/");
 					requestDispatcher.forward(request, response);
 					return;
 				}
@@ -120,7 +122,7 @@ public class Authentication implements Filter {
 					chain.doFilter(request, response);
 					return;
 				} else {
-					requestDispatcher = request.getRequestDispatcher(Paths.INDEX.url());
+					requestDispatcher = request.getRequestDispatcher("/");
 					requestDispatcher.forward(request, response);
 					return;
 				}
