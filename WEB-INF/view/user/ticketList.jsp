@@ -4,22 +4,29 @@
 
 <c:import url="/WEB-INF/view/messages.jsp"/>
 
-<form class="form-signin" method="POST" action="Tickets">
+<form class="form-sort" method="POST" action="Tickets">
 	<div class="input-group">
-		<select class="custom-select" id="categorySelect">
-			<option selected value="1">All</option>
-			<option value="2">Software</option>
-			<option value="3">Hardware</option>
-			<option value="4">Network</option>
-			<option value="5">Account</option>
-			<option value="6">Email</option>
+		<select name="categorySelect" class="custom-select">
+			<option selected value="all">All Categories</option>
+			<option value="software">Software</option>
+			<option value="hardware">Hardware</option>
+			<option value="network">Network</option>
+			<option value="account">Account</option>
+			<option value="email">Email</option>
 		</select>
-		<select class="custom-select" id="orderSelect">
-			<option selected value="1">Newest</option>
-			<option value="2">Oldest</option>
+		<select name="stateSelect" class="custom-select">
+			<option selected value="all">All States</option>
+			<option value="new">New</option>
+			<option value="inProgress">In Progress</option>
+			<option value="completed">Completed</option>
+			<option value="resolved">Resolved</option>
+		</select>
+		<select name="orderSelect" class="custom-select">
+			<option selected value="newest">Newest Reported</option>
+			<option value="oldest">Oldest Reported</option>
 		</select>
 		<div class="input-group-append">
-			<button class="btn btn-outline-info" type="submit" >Search</button>
+			<button class="btn btn-outline-info" type="submit" >Sort</button>
 		</div>
 	</div>
 </form>
@@ -112,6 +119,5 @@
 	</a>
 
 </ul>
-
 
 <c:import url="/WEB-INF/view/footer.jsp"/>
