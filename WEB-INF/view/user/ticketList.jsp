@@ -4,10 +4,10 @@
 
 <c:import url="/WEB-INF/view/messages.jsp"/>
 
-<form class="form-sort" method="POST" action="Tickets">
+<form class="form-sort" method="POST" action="TicketList">
 	<div class="input-group">
 		<select name="categorySelect" class="custom-select">
-			<option selected value="all">All Categories</option>
+			<option value="all">All Categories</option>
 			<option value="software">Software</option>
 			<option value="hardware">Hardware</option>
 			<option value="network">Network</option>
@@ -15,14 +15,14 @@
 			<option value="email">Email</option>
 		</select>
 		<select name="stateSelect" class="custom-select">
-			<option selected value="all">All States</option>
+			<option value="all">All States</option>
 			<option value="new">New</option>
 			<option value="inProgress">In Progress</option>
 			<option value="completed">Completed</option>
 			<option value="resolved">Resolved</option>
 		</select>
 		<select name="orderSelect" class="custom-select">
-			<option selected value="newest">Newest Reported</option>
+			<option value="newest">Newest Reported</option>
 			<option value="oldest">Oldest Reported</option>
 		</select>
 		<div class="input-group-append">
@@ -34,7 +34,7 @@
 
 <ul class="list-group my-2">
 
-	<a class="nounderline" href="ticket?=1">
+	<a class="nounderline" href="Ticket?ticket=1">
 		<li class="list-group-item list-group-item-action list-group-item-light text-dark">
 			<div class="d-flex justify-content-between">
 				<h5>Ticket 1</h5>
@@ -55,7 +55,7 @@
 		</li>
 	</a>
 
-	<a class="nounderline" href="ticket?=2">
+	<a class="nounderline" href="Ticket?ticket=2">
 		<li class="list-group-item list-group-item-action list-group-item-light text-dark">
 			<div class="d-flex justify-content-between">
 				<h5>Ticket 2</h5>
@@ -76,7 +76,7 @@
 		</li>
 	</a>
 
-	<a class="nounderline" href="ticket?=3">
+	<a class="nounderline" href="Ticket?ticket=3">
 		<li class="list-group-item list-group-item-action list-group-item-light text-dark">
 			<div class="d-flex justify-content-between">
 				<h5>Ticket 3</h5>
@@ -97,7 +97,7 @@
 		</li>
 	</a>
 
-	<a class="nounderline" href="ticket?=4">
+	<a class="nounderline" href="Ticket?ticket=4">
 		<li class="list-group-item list-group-item-action list-group-item-light text-dark">
 			<div class="d-flex justify-content-between">
 				<h5>Ticket 4</h5>

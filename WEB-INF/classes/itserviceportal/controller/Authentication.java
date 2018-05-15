@@ -44,7 +44,7 @@ public class Authentication implements Filter {
 		permissions.put("StaffPortal",STAFF);
 		permissions.put("Report",USERX);
 		permissions.put("UserPortal",USERX);
-		permissions.put("Tickets",USER);
+		permissions.put("TicketList",USER);
 		permissions.put("Ticket",USER);
 		permissions.put("KnowledgeBase",USER);
 		permissions.put("Article",USER);

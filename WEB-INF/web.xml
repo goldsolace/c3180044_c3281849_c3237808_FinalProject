@@ -55,17 +55,17 @@
 	</servlet-mapping>
 
 	<servlet>
-		<servlet-name>TicketsController</servlet-name>
-		<servlet-class>itserviceportal.controller.TicketsController</servlet-class>
+		<servlet-name>TicketListController</servlet-name>
+		<servlet-class>itserviceportal.controller.TicketListController</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>TicketsController</servlet-name>
-		<url-pattern>/Tickets</url-pattern>
-	</servlet-mapping> 
+		<servlet-name>TicketListController</servlet-name>
+		<url-pattern>/TicketList</url-pattern>
+	</servlet-mapping>
 
 	<servlet>
 		<servlet-name>TicketController</servlet-name>
-		<servlet-class>itserviceportal.controller.TicketsController</servlet-class>
+		<servlet-class>itserviceportal.controller.TicketController</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>TicketController</servlet-name>

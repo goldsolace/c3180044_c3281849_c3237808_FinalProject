@@ -30,28 +30,17 @@ public class TicketController extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 
-		// Get user
-		HttpSession session = request.getSession();
-		User user = (User)session.getAttribute("User");
-
 		//UserDataAccess userDAL = new UserDataAccess();
 		//List<Tickets> tickets = userDAL.getTickets(user);
-		SupportTicket supportTicket = null;
+		SupportTicket supportTicket = new SupportTicket();
 
-		if (supportTicket == null) {
+		if (true) {
 			request.setAttribute("errorMessage", "No ticket to view");
-			response.sendRedirect("ServicePortal");
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ServicePortal");
+			dispatcher.forward(request, response);
 			return;
 		}
 		request.setAttribute("supportTicket", supportTicket);
-
-		if(user.getRole() == Role.USER) {
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Paths.USERTICKET.url());
-			dispatcher.forward(request, response);
-		} else {
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Paths.STAFFTICKET.url());
-			dispatcher.forward(request, response);
-		}
 	}
 
 	/**
@@ -64,7 +53,7 @@ public class TicketController extends HttpServlet {
 	 */ 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
-			// Probably sort
+			doGet(request, response);
 	}
 }
 

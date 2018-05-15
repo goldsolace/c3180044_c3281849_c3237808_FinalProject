@@ -28,7 +28,7 @@
 					<h4 class="my-0 font-weight-normal">Support Tickets</h4>
 				</div>
 				<div class="card-body">
-					<a href="Tickets" class="btn btn-lg btn-block btn-success">View your support tickets</a>
+					<a href="TicketList" class="btn btn-lg btn-block btn-success">View your support tickets</a>
 				</div>
 			</div>
 		</div>

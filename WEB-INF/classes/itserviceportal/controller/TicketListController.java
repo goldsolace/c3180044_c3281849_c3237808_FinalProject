@@ -11,13 +11,13 @@ import javax.servlet.http.*;
 import javax.servlet.*;
 
 /**
- * TicketsController
+ * TicketListController
  *
  * @author Brice Purton, Jonothan Williams, Wajdi Yournes
  * @lastModified: 14-05-2018
  */
 
-public class TicketsController extends HttpServlet {
+public class TicketListController extends HttpServlet {
 
 	/**
 	 * Redirects get request to doPost method
@@ -34,9 +34,10 @@ public class TicketsController extends HttpServlet {
 		HttpSession session = request.getSession();
 		User user = (User)session.getAttribute("User");
 
+		// Get Support Tickets
 		//UserDataAccess userDAL = new UserDataAccess();
 		//List<Tickets> tickets = userDAL.getTickets(user);
-		List<SupportTicket> knowledgeBase = new ArrayList<SupportTicket>();
+		List<SupportTicket> tickets = new ArrayList<SupportTicket>();
 
 		if (true) {
 			// request.setAttribute("errorMessage", "No tickets");
@@ -45,8 +46,9 @@ public class TicketsController extends HttpServlet {
 			dispatcher.forward(request, response);
 			return;
 		}
-		request.setAttribute("knowledgeBase", knowledgeBase);
+		request.setAttribute("tickets", tickets);
 
+		
 		if(user.getRole() == Role.USER) {
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Paths.USERTICKETLIST.url());
 			dispatcher.forward(request, response);
@@ -66,19 +68,20 @@ public class TicketsController extends HttpServlet {
 	 */ 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
-		// Map params = request.getParameterMap();
-		// Iterator i = params.keySet().iterator();
-		// while ( i.hasNext() ) {
-		// 	String key = (String) i.next();
-		// 	String value = ((String[]) params.get( key ))[ 0 ];
-		// 	System.out.println(key+" "+value);
-		// }
+		// Print params
+		Map params = request.getParameterMap();
+		Iterator i = params.keySet().iterator();
+		while ( i.hasNext() ) {
+			String key = (String) i.next();
+			String value = ((String[]) params.get( key ))[ 0 ];
+			System.out.println(key+" "+value);
+		}
 		
 		// Get user
 		HttpSession session = request.getSession();
 		User user = (User)session.getAttribute("User");
 
-		
+		// Get 
 		String categorySelect = request.getParameter("categorySelect");
 		String stateSelect = request.getParameter("stateSelect");
 		String orderSelect = request.getParameter("orderSelect");
