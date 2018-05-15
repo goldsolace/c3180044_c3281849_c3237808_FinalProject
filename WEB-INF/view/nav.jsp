@@ -21,7 +21,7 @@
 						<a class="nav-link" href="KnowledgeBase"><strong>Knowledge Base</strong></a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="Tickets"><strong>Support Tickets</strong></a>
+						<a class="nav-link" href="TicketList"><strong>Support Tickets</strong></a>
 					</li>
 
 					<c:if test="${User.role == Role.USER}">

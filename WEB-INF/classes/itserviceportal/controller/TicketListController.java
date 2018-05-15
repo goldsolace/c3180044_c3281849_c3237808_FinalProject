@@ -20,7 +20,7 @@ import javax.servlet.*;
 public class TicketListController extends HttpServlet {
 
 	/**
-	 * Redirects get request to doPost method
+	 * Display all tickets the user has access to.
 	 *
 	 * @param request a http servlet request 
 	 * @param response a http servlet response
@@ -34,22 +34,25 @@ public class TicketListController extends HttpServlet {
 		HttpSession session = request.getSession();
 		User user = (User)session.getAttribute("User");
 
-		// Get Support Tickets
-		//UserDataAccess userDAL = new UserDataAccess();
-		//List<Tickets> tickets = userDAL.getTickets(user);
-		List<SupportTicket> tickets = new ArrayList<SupportTicket>();
+		// Get List of all Support Tickets the user is allowed to view
+		List<SupportTicket> tickets = getTickets(user, "all", "all");
 
-		if (true) {
-			// request.setAttribute("errorMessage", "No tickets");
-			// RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ServicePortal");
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Paths.USERTICKETLIST.url());
+		// If tickets is null send back to portal with error message
+		if (tickets == null) {
+			request.setAttribute("errorMessage", "Invalid Request");
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ServicePortal");
 			dispatcher.forward(request, response);
-			return;
+		
+		// If no tickets display error message
+		} else if (tickets.isEmpty()) {
+			request.setAttribute("errorMessage", "No tickets");
 		}
+
+		// Attach tickets to the request to be forwarded to the jsp
 		request.setAttribute("tickets", tickets);
 
-		
-		if(user.getRole() == Role.USER) {
+		// Send user to the correct jsp based on role
+		if (user.getRole() == Role.USER) {
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Paths.USERTICKETLIST.url());
 			dispatcher.forward(request, response);
 		} else {
@@ -59,7 +62,7 @@ public class TicketListController extends HttpServlet {
 	}
 
 	/**
-	 * This method controls the main flow of the game by deciding what to do based on input of the user.
+	 * Display all tickets the user has access to with sort criteria.
 	 *
 	 * @param request a http servlet request 
 	 * @param response a http servlet response
@@ -81,11 +84,12 @@ public class TicketListController extends HttpServlet {
 		HttpSession session = request.getSession();
 		User user = (User)session.getAttribute("User");
 
-		// Get 
+		// Get sort criteria
 		String categorySelect = request.getParameter("categorySelect");
 		String stateSelect = request.getParameter("stateSelect");
 		String orderSelect = request.getParameter("orderSelect");
 
+		// If no sort criteria send to portal with error
 		if (categorySelect == null || stateSelect == null || orderSelect == null) {
 			request.setAttribute("errorMessage", "Could not sort tickets");
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ServicePortal");
@@ -93,30 +97,60 @@ public class TicketListController extends HttpServlet {
 			return;
 		}
 
+		// Get List of Support Tickets the user is allowed to view matching criteria
+		List<SupportTicket> tickets = getTickets(user, categorySelect, stateSelect);
 
-		//UserDataAccess userDAL = new UserDataAccess();
-		//List<Tickets> tickets = userDAL.getTickets(user);
-		List<SupportTicket> knowledgeBase = new ArrayList<SupportTicket>();
+		System.out.println(tickets);
+		System.out.println(tickets == null);
+		System.out.println(tickets.isEmpty());
 
-		SupportTicketComparator.SortOrder order = orderSelect == "oldest" ? SupportTicketComparator.SortOrder.DESCENDING : SupportTicketComparator.SortOrder.ASCENDING;
-		Collections.sort(knowledgeBase, new SupportTicketComparator(order));
-
-		if (true) {
-			// request.setAttribute("errorMessage", "No tickets");
-			// RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ServicePortal");
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Paths.USERTICKETLIST.url());
+		// If tickets is null send back to portal with error message
+		if (tickets == null) {
+			request.setAttribute("errorMessage", "Invalid Request");
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ServicePortal");
 			dispatcher.forward(request, response);
-			return;
+		
+		// If no tickets display error message
+		} else if (tickets.isEmpty()) {
+			request.setAttribute("errorMessage", "No tickets");
 		}
-		request.setAttribute("knowledgeBase", knowledgeBase);
 
-		if(user.getRole() == Role.USER) {
+		// Sort tickets (default newest to oldest)
+		SupportTicketComparator.SortOrder order = orderSelect == "oldest" ? SupportTicketComparator.SortOrder.DESCENDING : SupportTicketComparator.SortOrder.ASCENDING;
+		Collections.sort(tickets, new SupportTicketComparator(order));
+
+		// Attach tickets to the request to be forwarded to the jsp
+		request.setAttribute("tickets", tickets);
+
+		// Send user to the correct jsp based on role
+		if (user.getRole() == Role.USER) {
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Paths.USERTICKETLIST.url());
 			dispatcher.forward(request, response);
 		} else {
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Paths.STAFFTICKETLIST.url());
 			dispatcher.forward(request, response);
 		}
+	}
+
+
+	/**
+	 * Get List of all Support Tickets the user is allowed to view
+	 */
+	public List<SupportTicket> getTickets(User user, String categorySelect, String stateSelect) {
+		// Something like this
+		// categorySelect = "all", "new", "inProgress", "completed", "resolved"
+		// stateSelect = "all", "software", "hardware", "network", "account", "email"
+		// Returns an arraylist of SupportTickets
+		// Can return null for invalid or empty list if no tickets the user can view
+
+		// UserDataAccess userDAL = new UserDataAccess();
+		// if (user.getRole() == Role.STAFF) {
+		// 	return userDAL.getAllSupportTickets(user, categorySelect, stateSelect);
+		// } else {
+		// 	return userDAL.getSupportTickets(user, categorySelect, stateSelect);
+		// }
+		
+		return new ArrayList<SupportTicket>();
 	}
 }
 
