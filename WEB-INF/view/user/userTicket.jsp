@@ -3,7 +3,7 @@
 <c:import url="/WEB-INF/view/header.jsp"/>
 
 <ul class="list-group my-2">
-	<li class="list-group-item">
+	<li class="list-group-item text-dark py-3">
 		<div class="d-flex justify-content-between">
 			<h5>Ticket 1</h5>
 			<h5 class="d-flex justify-content-between">
@@ -21,7 +21,7 @@
 			<p class="mr-2">Resolved: <span class="mx-1 fas fa-user"></span>Brice Purton<span class="mx-1 fas fa-calendar-alt"></span>11:48am 14/05/2018</p>
 		</div>
 	</li>
-	<li class="list-group-item">
+	<li class="list-group-item text-dark py-3">
 		<div class="input-group mb-3 ">
 			<div class="input-group-prepend">
 				<label id="state" class="input-group-text bg-danger text-light" for="stateSelect">State</label>
