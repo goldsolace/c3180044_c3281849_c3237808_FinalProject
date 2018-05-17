@@ -39,13 +39,13 @@ public class TicketListController extends HttpServlet {
 
 		// If tickets is null send back to portal with error message
 		if (tickets == null) {
-			request.setAttribute("errorMessage", "Invalid Request");
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ServicePortal");
-			dispatcher.forward(request, response);
+			session.setAttribute("errorMessage", "Invalid Request");
+			response.sendRedirect("ServicePortal");
+			return;
 		
 		// If no tickets display error message
 		} else if (tickets.isEmpty()) {
-			request.setAttribute("errorMessage", "No tickets");
+			session.setAttribute("errorMessage", "No tickets");
 		}
 
 		// Attach tickets to the request to be forwarded to the jsp
@@ -91,9 +91,8 @@ public class TicketListController extends HttpServlet {
 
 		// If no sort criteria send to portal with error
 		if (categorySelect == null || stateSelect == null || orderSelect == null) {
-			request.setAttribute("errorMessage", "Could not sort tickets");
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ServicePortal");
-			dispatcher.forward(request, response);
+			session.setAttribute("errorMessage", "Could not sort tickets");
+			response.sendRedirect("ServicePortal");
 			return;
 		}
 
@@ -102,13 +101,13 @@ public class TicketListController extends HttpServlet {
 
 		// If tickets is null send back to portal with error message
 		if (tickets == null) {
-			request.setAttribute("errorMessage", "Invalid Request");
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/ServicePortal");
-			dispatcher.forward(request, response);
+			session.setAttribute("errorMessage", "Invalid Request");
+			response.sendRedirect("ServicePortal");
+			return;
 		
 		// If no tickets display error message
 		} else if (tickets.isEmpty()) {
-			request.setAttribute("errorMessage", "No tickets");
+			session.setAttribute("errorMessage", "No tickets");
 		}
 
 		// Sort tickets (default newest to oldest)

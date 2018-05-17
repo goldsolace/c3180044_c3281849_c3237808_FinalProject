@@ -96,16 +96,14 @@ public class Authentication implements Filter {
 				chain.doFilter(request, response);
 				return;
 			case NONE:
-				requestDispatcher = request.getRequestDispatcher("/");
-				requestDispatcher.forward(request, response);
+				httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/");
 				return;
 			case USER:
 				if (isUserLoggedIn(session)) {
 					chain.doFilter(request, response);
 					return;
 				} else {
-					requestDispatcher = request.getRequestDispatcher("/");
-					requestDispatcher.forward(request, response);
+					httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/");
 					return;
 				}
 			case USERX:
@@ -113,8 +111,7 @@ public class Authentication implements Filter {
 					chain.doFilter(request, response);
 					return;
 				} else {
-					requestDispatcher = request.getRequestDispatcher("/");
-					requestDispatcher.forward(request, response);
+					httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/");
 					return;
 				}
 			case STAFF:
@@ -122,8 +119,7 @@ public class Authentication implements Filter {
 					chain.doFilter(request, response);
 					return;
 				} else {
-					requestDispatcher = request.getRequestDispatcher("/");
-					requestDispatcher.forward(request, response);
+					httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/");
 					return;
 				}
 			default:

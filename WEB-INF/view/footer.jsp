@@ -9,3 +9,6 @@
 		<script src="js/validation.js"></script>
 	</body>
 </html>
+
+<%-- Add removeMessages to the end of each page to make messages non persistent once displayed --%>
+<c:import url="/WEB-INF/view/removeMessages.jsp"/>

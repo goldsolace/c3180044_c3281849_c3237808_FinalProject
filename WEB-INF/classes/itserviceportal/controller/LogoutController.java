@@ -1,4 +1,5 @@
 package itserviceportal.controller;
+
 import java.io.*;
 import java.sql.SQLException;
 import javax.servlet.*;
@@ -18,17 +19,15 @@ public class LogoutController extends HttpServlet{
 		if(user != null)
 		{
 			session.invalidate();
-			request.setAttribute("successMessage", "You've been logged out!");
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Paths.INDEX.url());
-			dispatcher.forward(request, response);
+			request.getSession().setAttribute("successMessage", "You've been logged out!");
+			response.sendRedirect(request.getContextPath() + "/");
 		}
 
 		//The user is not logged in so display the login page
 		else
 		{
-			request.setAttribute("errorMessage", "No user logged in!");
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Paths.INDEX.url());
-			dispatcher.forward(request, response);
+			session.setAttribute("errorMessage", "No user logged in!");
+			response.sendRedirect(request.getContextPath() + "/");
 		}	
 	}
 
