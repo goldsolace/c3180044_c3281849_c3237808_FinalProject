@@ -34,7 +34,7 @@
 </form>
 
 
-<ul class="list-group my-2">
+<ul class="list-group my-2 mb-5">
 
 	<a class="nounderline" href="Ticket?ticket=1">
 		<li class="list-group-item list-group-item-action list-group-item-light text-dark">
@@ -51,8 +51,8 @@
 			</div>
 			<h3 class="mb-1 text-left">How do I change my University Password</h3>
 			<div class="d-flex justify-content-between">
-				<p class="mr-2"><span class="mx-1 fas fa-user"></span>Billy Jones<span class="mx-1 fas fa-calendar-alt"></span>5:13pm 13/05/2018</p>
-				<p class="mr-2"><span class="mx-1 fas fa-user"></span>Brice Purton<span class="mx-1 fas fa-calendar-alt"></span>11:48am 14/05/2018</p>
+				<p class="mr-2">Reported: <span class="mx-1 fas fa-user"></span>Billy Jones<span class="mx-1 fas fa-calendar-alt"></span>5:13pm 13/05/2018</p>
+				<p class="mr-2">Resolved: <span class="mx-1 fas fa-user"></span>Brice Purton<span class="mx-1 fas fa-calendar-alt"></span>11:48am 14/05/2018</p>
 			</div>
 		</li>
 	</a>

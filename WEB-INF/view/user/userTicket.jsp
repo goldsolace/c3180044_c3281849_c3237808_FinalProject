@@ -4,14 +4,21 @@
 
 <ul class="list-group my-2">
 	<li class="list-group-item">
-		<div class="d-flex w-100 justify-content-between">
-			<h5 class="mb-1">Ticket <strong>1</strong></h5>
-			<p><span class="mx-1 fas fa-tag"></span><strong>Account</strong></p>
-		</div>
-		<h3 class="mb-1">How do I change my University Password</h3>
 		<div class="d-flex justify-content-between">
-			<p class="mr-2">Reported <span class="mx-1 fas fa-user"></span>Billy Jones<span class="mx-1 fas fa-calendar-alt"></span>5:13pm 13/05/2018</p>
-			<p class="mr-2">Resolved <span class="mx-1 fas fa-user"></span>Brice Purton<span class="mx-1 fas fa-calendar-alt"></span>11:48am 14/05/2018</p>
+			<h5>Ticket 1</h5>
+			<h5 class="d-flex justify-content-between">
+				<span id="stateBadge" class="mx-1 badge bg-danger text-light" >
+					<span class="mx-1 fas fa-tasks"></span>New
+				</span>
+				<span id="stateBadge" class="mx-1 badge badge-secondary" >
+					<span class="mx-1 fas fa-tag"></span>Software
+				</span>
+			</h5>
+		</div>
+		<h3 class="mb-1 text-left">How do I change my University Password</h3>
+		<div class="d-flex justify-content-between">
+			<p class="mr-2">Reported: <span class="mx-1 fas fa-user"></span>Billy Jones<span class="mx-1 fas fa-calendar-alt"></span>5:13pm 13/05/2018</p>
+			<p class="mr-2">Resolved: <span class="mx-1 fas fa-user"></span>Brice Purton<span class="mx-1 fas fa-calendar-alt"></span>11:48am 14/05/2018</p>
 		</div>
 	</li>
 	<li class="list-group-item">

@@ -21,7 +21,7 @@ public class ReportController extends HttpServlet{
 	}
 
 
-    //No POST, perform GET if POST OCCURS
+    //
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		// Get user
