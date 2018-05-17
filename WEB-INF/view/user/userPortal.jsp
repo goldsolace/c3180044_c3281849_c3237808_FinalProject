@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:import url="/WEB-INF/view/header.jsp"/>
 
-<div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+<div class="my-2">
 	<h1 class="text-center"><strong>User Portal</strong></h1>
 </div>
 

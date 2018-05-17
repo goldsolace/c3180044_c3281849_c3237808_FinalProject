@@ -29,23 +29,27 @@ public class ArticleController extends HttpServlet {
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
-
 		// Get user
 		HttpSession session = request.getSession();
 		User user = (User)session.getAttribute("User");
 
 		//UserDataAccess userDAL = new UserDataAccess();
-		//List<Tickets> tickets = userDAL.getTickets(user);
-		SupportTicket article = null;
+		//List<Tickets> tickets = userDAL.getTicket(ticketId);
+		SupportTicket article = new SupportTicket();
 
 		if (article == null) {
-			request.setAttribute("errorMessage", "No article to view");
+			session.setAttribute("errorMessage", "Invalid Request");
 			response.sendRedirect("ServicePortal");
 			return;
+		// If no ticket display error message
+		} else if (article.getTitle() == null) {
+			session.setAttribute("errorMessage", "No ticket to view");
 		}
+
 		request.setAttribute("article", article);
 
-		if(user.getRole() == Role.USER) {
+		// Send user to the correct jsp based on role
+		if (user.getRole() == Role.USER) {
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Jsp.USERARTICLE.url());
 			dispatcher.forward(request, response);
 		} else {

@@ -34,21 +34,28 @@ public class KnowledgeBaseController extends HttpServlet {
 		HttpSession session = request.getSession();
 		User user = (User)session.getAttribute("User");
 
-		//UserDataAccess userDAL = new UserDataAccess();
-		//List<Tickets> tickets = userDAL.getTickets(user);
-		SupportTicket supportTicket = null;
+		// Get List of Knowledge Base articles
+		List<SupportTicket> knowledgeBase = getKnowledgeBase(user, "all", "all");
 
-		if (supportTicket == null) {
+		// If knowledgeBase is null send back to portal with error message
+		if (knowledgeBase == null) {
+			session.setAttribute("errorMessage", "Invalid Request");
+			response.sendRedirect("ServicePortal");
+			return;
+		
+		// If knowledgeBase empty display error message
+		} else if (knowledgeBase.isEmpty()) {
 			session.setAttribute("successMessage", "Issue has been reported.");
 			session.setAttribute("errorMessage", "Knowledge Base is empty!");
 			session.setAttribute("infoMessage", "Tickets automatically sent to staff.");
 			session.setAttribute("warningMessage", "NOTICE: System Maintenance at 12:00pm-3:00pm Friday 18/05/2018.");
-			response.sendRedirect(request.getContextPath() + "/");
-			return;
 		}
-		request.setAttribute("supportTicket", supportTicket);
 
-		if(user.getRole() == Role.USER) {
+		// Attach knowledgeBase to the request to be forwarded to the jsp
+		request.setAttribute("knowledgeBase", knowledgeBase);
+
+		// Send user to the correct jsp based on role
+		if (user.getRole() == Role.USER) {
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Jsp.USERKNOWLEDGEBASE.url());
 			dispatcher.forward(request, response);
 		} else {
@@ -68,6 +75,26 @@ public class KnowledgeBaseController extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 			// Do stuff
+	}
+
+	/**
+	 * Get List of all Support Tickets the user is allowed to view
+	 */
+	public List<SupportTicket> getKnowledgeBase(User user, String categorySelect, String stateSelect) {
+		// Something like this
+		// categorySelect = "all", "new", "inProgress", "completed", "resolved"
+		// stateSelect = "all", "software", "hardware", "network", "account", "email"
+		// Returns an arraylist of SupportTickets
+		// Can return null for invalid or empty list if no tickets the user can view
+
+		// UserDataAccess userDAL = new UserDataAccess();
+		// if (user.getRole() == Role.STAFF) {
+		// 	return userDAL.getAllSupportTickets(user, categorySelect, stateSelect);
+		// } else {
+		// 	return userDAL.getSupportTickets(user, categorySelect, stateSelect);
+		// }
+		
+		return new ArrayList<SupportTicket>();
 	}
 }
 

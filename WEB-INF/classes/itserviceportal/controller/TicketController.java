@@ -35,15 +35,28 @@ public class TicketController extends HttpServlet {
 		User user = (User)session.getAttribute("User");
 
 		//UserDataAccess userDAL = new UserDataAccess();
-		//List<Tickets> tickets = userDAL.getTickets(user);
+		//List<Tickets> tickets = userDAL.getTicket(ticketId);
 		SupportTicket supportTicket = new SupportTicket();
 
-		if (true) {
-			session.setAttribute("errorMessage", "No ticket to view");
+		if (supportTicket == null) {
+			session.setAttribute("errorMessage", "Invalid Request");
 			response.sendRedirect("ServicePortal");
 			return;
+		// If no ticket display error message
+		} else if (supportTicket.getTitle() == null) {
+			session.setAttribute("errorMessage", "No ticket to view");
 		}
+
 		request.setAttribute("supportTicket", supportTicket);
+
+		// Send user to the correct jsp based on role
+		if (user.getRole() == Role.USER) {
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Jsp.USERTICKET.url());
+			dispatcher.forward(request, response);
+		} else {
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Jsp.STAFFTICKET.url());
+			dispatcher.forward(request, response);
+		}
 	}
 
 	/**

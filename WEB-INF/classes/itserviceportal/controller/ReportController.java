@@ -23,6 +23,12 @@ public class ReportController extends HttpServlet{
 
     //No POST, perform GET if POST OCCURS
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+
+		// Get user
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute("User");
+
+		session.setAttribute("successMessage", "Your issue has been reported!");
+		response.sendRedirect("ServicePortal");
 	}
 }

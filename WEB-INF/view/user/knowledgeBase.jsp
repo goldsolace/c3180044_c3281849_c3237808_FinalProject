@@ -3,7 +3,7 @@
 <c:import url="/WEB-INF/view/header.jsp"/>
 
 <div class="my-2">
-	<h1 class="text-center"><strong>Support Tickets</strong></h1>
+	<h1 class="text-center"><strong>Knowledge Base</strong></h1>
 </div>
 
 <form class="form-sort" method="POST" action="TicketList">
