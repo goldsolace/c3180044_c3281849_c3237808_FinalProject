@@ -5,7 +5,7 @@
 
 <div class="form-container">
 
-	<c:import url="/WEB-INF/view/messages.jsp"/>
+	
 
 	<form class="form-signin" method="POST" action="Login">
 		<label for="inputEmail" class="sr-only">Email address</label>

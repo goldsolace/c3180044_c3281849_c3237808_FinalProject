@@ -6,8 +6,6 @@
 	<h1 class="text-center"><strong>Staff Portal</strong></h1>
 </div>
 
-<c:import url="/WEB-INF/view/messages.jsp"/>
-
 <div class="row">
 	<div class="col-md-4 offset-md-2">
 		<div class="card-deck mb-3 text-center">
@@ -36,3 +34,16 @@
 </div>
 
 <c:import url="/WEB-INF/view/footer.jsp"/>
+
+<%
+HttpServletResponse httpResponse = (HttpServletResponse)response;
+
+httpResponse.setHeader("Cache-Control","no-cache, no-store, must-revalidate"); 
+response.addHeader("Cache-Control", "post-check=0, pre-check=0");
+httpResponse.setHeader("Pragma","no-cache"); 
+httpResponse.setDateHeader ("Expires", 0); 
+// if (session.getAttribute("User") == null ) {
+// 	response.sendRedirect("/");
+// 	return;
+// }
+%>

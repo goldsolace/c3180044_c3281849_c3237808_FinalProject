@@ -2,8 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:import url="/WEB-INF/view/header.jsp"/>
 
-<c:import url="/WEB-INF/view/messages.jsp"/>
-
 <div class="text-center">
 	<h1 class="text-center"><strong>Report Issue</strong></h1>
 </div>
@@ -34,3 +32,12 @@
 </form>
 
 <c:import url="/WEB-INF/view/footer.jsp"/>
+
+<%
+HttpServletResponse httpResponse = (HttpServletResponse)response;
+
+httpResponse.setHeader("Cache-Control","no-cache, no-store, must-revalidate"); 
+response.addHeader("Cache-Control", "post-check=0, pre-check=0");
+httpResponse.setHeader("Pragma","no-cache"); 
+httpResponse.setDateHeader ("Expires", 0); 
+%>
