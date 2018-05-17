@@ -24,12 +24,12 @@ public class ServicePortalController extends HttpServlet{
 		
 		if(user.getRole() == Role.USER)
 		{
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Paths.USERPORTAL.url());
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Jsp.USERPORTAL.url());
 			dispatcher.forward(request, response);
 		}
 		else
 		{
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Paths.STAFFPORTAL.url());
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Jsp.STAFFPORTAL.url());
 			dispatcher.forward(request, response);
 		}
 	}

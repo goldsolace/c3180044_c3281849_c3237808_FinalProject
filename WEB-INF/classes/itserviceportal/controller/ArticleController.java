@@ -46,10 +46,10 @@ public class ArticleController extends HttpServlet {
 		request.setAttribute("article", article);
 
 		if(user.getRole() == Role.USER) {
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Paths.USERARTICLE.url());
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Jsp.USERARTICLE.url());
 			dispatcher.forward(request, response);
 		} else {
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Paths.STAFFARTICLE.url());
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Jsp.STAFFARTICLE.url());
 			dispatcher.forward(request, response);
 		}
 	}

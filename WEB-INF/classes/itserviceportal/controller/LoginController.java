@@ -25,7 +25,7 @@ public class LoginController extends HttpServlet{
 		else
 		{
 			RequestDispatcher requestDispatcher; 
-			requestDispatcher = request.getRequestDispatcher(Paths.INDEX.url());
+			requestDispatcher = request.getRequestDispatcher(Jsp.INDEX.url());
 			requestDispatcher.forward(request, response);
 		}	
 	}

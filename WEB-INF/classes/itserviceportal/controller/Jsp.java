@@ -1,15 +1,14 @@
 package itserviceportal.controller;
 
 /**
- * Enumeration of Paths to store url constants for easy maintainability
+ * Enumeration of JSP pages to store url constants for easy maintainability
  * 
  * @author Brice Purton
  * @studentID 3180044
  * @lastModified: 14-05-2018
  */
 
-public enum Paths {
-	// ENUMS
+public enum Jsp {
 	INDEX("/WEB-INF/view/index.jsp"),
 	LOGIN("/WEB-INF/view/index.jsp"),
 	USERPORTAL("/WEB-INF/view/user/userPortal.jsp"),
@@ -34,14 +33,14 @@ public enum Paths {
 	/**
 	 * Private constructor to prevent further instances.
 	 * 
-	 * @param url path to be set
+	 * @param url
 	 */
-	private Paths(String url) {
+	private Jsp(String url) {
 		this.url = url;
 	}
 
 	/**
-	 * Returns the uri path.
+	 * Returns the url path.
 	 *
 	 * @return url
 	 */

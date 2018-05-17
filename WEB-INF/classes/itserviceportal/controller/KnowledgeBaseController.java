@@ -49,10 +49,10 @@ public class KnowledgeBaseController extends HttpServlet {
 		request.setAttribute("supportTicket", supportTicket);
 
 		if(user.getRole() == Role.USER) {
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Paths.USERKNOWLEDGEBASE.url());
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Jsp.USERKNOWLEDGEBASE.url());
 			dispatcher.forward(request, response);
 		} else {
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Paths.STAFFKNOWLEDGEBASE.url());
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Jsp.STAFFKNOWLEDGEBASE.url());
 			dispatcher.forward(request, response);
 		}
 	}
