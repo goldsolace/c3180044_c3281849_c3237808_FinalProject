@@ -10,7 +10,12 @@
 		<div class="container">
 
 			<%-- Display user's name --%>
-			<span class="navbar-brand"><strong><c:out value="${fn:escapeXml(sessionScope.User.firstName)} ${fn:escapeXml(sessionScope.User.lastName)}"/></strong></span>
+			<span class="navbar-brand"><strong>
+				<a class="nounderline text-dark" href="ServicePortal">
+					<c:out value="${fn:escapeXml(sessionScope.User.firstName)} ${fn:escapeXml(sessionScope.User.lastName)}"/></strong>
+				</a>
+			</span>
+
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse">
 				<span class="navbar-toggler-icon"></span>
 			</button>

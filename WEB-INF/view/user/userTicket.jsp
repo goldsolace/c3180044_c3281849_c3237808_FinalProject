@@ -56,7 +56,6 @@
 				<button class="btn btn-lg btn-danger m-1" type="submit">Reject Solution</button>
 				<button class="btn btn-lg btn-success m-1" type="submit">Add Knowledge</button>
 				<button class="btn btn-lg btn-danger m-1" type="submit">Remove Knowledge</button>
-				
 			</div>
 		</li>
 	</form>

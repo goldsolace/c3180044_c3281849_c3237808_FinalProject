@@ -13,9 +13,11 @@
 	<link href="css/style.css" rel="stylesheet" />
 </head>
 <body>
-	<div class="jumbotron page-title">
-		<h1>IT Services Portal</h1>
-	</div>
+	<a class="nounderline" href="ServicePortal">
+		<div class="jumbotron page-title">
+			<h1>IT Services Portal</h1>
+		</div>
+	</a>
 	<%-- Include nav bar on every page --%>
 	<c:import url="/WEB-INF/view/nav.jsp"/>
 	<div class="container">

@@ -73,6 +73,14 @@ a.bg-progress:focus, a.bg-progress:hover, button.bg-progress:focus, button.bg-pr
   text-decoration: none !important;
 }
 
+.word-wrap { 
+  white-space: normal !important;
+}
+
+.set-width {
+  min-width: 220px;
+}
+
 .card-deck .card {
   min-width: 220px;
 }

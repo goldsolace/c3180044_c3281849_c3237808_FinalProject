@@ -7,8 +7,8 @@
 // Time it takes for a session to become invalid
 const sessionMaxTime = 15 * 60 * 1000;
 
-const indexPage = "http://localhost:8080/c3180044_c3281849_c3237808_FinalProject/";
-const loginPage = "http://localhost:8080/c3180044_c3281849_c3237808_FinalProject/Login";
+const indexPage = "/";
+const loginPage = "/Login";
 
 window.onload = function () {
 	var state =  document.getElementById('state');
@@ -27,11 +27,13 @@ window.onload = function () {
 		} 
 	}
 	
-	if (window.location.href != indexPage && window.location.href != loginPage) {
+	var urlStr = window.location.href;
+	var urlPattern = urlStr.substring(urlStr.lastIndexOf("/"));
+	if (urlPattern != indexPage && urlPattern != loginPage) {
 		// Display session timeout warning message 1 minute from timeout
 		window.setTimeout(AlertSessionTimeout, sessionMaxTime - 60 * 1000);
-		// Auto redirect user 1 second after timeout
-		window.setTimeout(SessionTimeout, sessionMaxTime+1000);
+		// Auto redirect user 5 seconds after timeout
+		window.setTimeout(SessionTimeout, sessionMaxTime+5000);
 	}
 }
 
@@ -77,7 +79,7 @@ function SessionTimeout() {
 	// Form used to redirect user and display error message
 	var errorForm = document.createElement("form");
 	errorForm.setAttribute('method',"post");
-	errorForm.setAttribute('action',"http://localhost:8080/c3180044_c3281849_c3237808_FinalProject/Timeout");
+	errorForm.setAttribute('action',"Timeout");
 	document.body.appendChild(errorForm);
 
 	var errorInput = document.createElement("input");
