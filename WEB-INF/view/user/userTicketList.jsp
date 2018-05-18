@@ -41,31 +41,31 @@
 			<div class="d-flex justify-content-between">
 				<h5>Ticket 1</h5>
 				<h5 class="d-flex justify-content-between">
-					<span id="stateBadge" class="mx-1 badge bg-danger text-light" >
+					<span class="state mx-1 badge">
 						<span class="mx-1 fas fa-tasks"></span>New
 					</span>
-					<span id="stateBadge" class="mx-1 badge badge-secondary" >
+					<span class="mx-1 badge badge-secondary">
 						<span class="mx-1 fas fa-tag"></span>Software
 					</span>
 				</h5>
 			</div>
 			<h3 class="mb-1 text-left">How do I change my University Password</h3>
 			<div class="d-flex justify-content-between">
-				<p class="mr-2 mb-0">Reported: <span class="mx-1 fas fa-user"></span>Billy Jones<span class="mx-1 fas fa-calendar-alt"></span>5:13pm 13/05/2018</p>
-				<p class="mr-2 mb-0">Resolved: <span class="mx-1 fas fa-user"></span>Brice Purton<span class="mx-1 fas fa-calendar-alt"></span>11:48am 14/05/2018</p>
+				<p class="mr-2 mb-0">Reported: <span class="mx-1 fas fa-user"></span>Billy Jones<span class="mx-1 fas fa-calendar-alt hidden-sm"></span>5:13pm 13/05/2018</p>
+				<p class="mr-2 mb-0">Resolved: <span class="mx-1 fas fa-user"></span>Brice Purton<span class="mx-1 fas fa-calendar-alt hidden-sm"></span>11:48am 14/05/2018</p>
 			</div>
 		</li>
 	</a>
 
-	<a class="nounderline" href="Ticket?ticket=1">
+	<a class="nounderline" href="Ticket?ticket=2">
 		<li class="list-group-item list-group-item-action text-dark py-3">
 			<div class="d-flex justify-content-between">
 				<h5>Ticket 1</h5>
 				<h5 class="d-flex justify-content-between">
-					<span id="stateBadge" class="mx-1 badge bg-progress text-light" >
+					<span class="state mx-1 badge" >
 						<span class="mx-1 fas fa-tasks"></span>In Progress
 					</span>
-					<span id="stateBadge" class="mx-1 badge badge-secondary" >
+					<span class="mx-1 badge badge-secondary">
 						<span class="mx-1 fas fa-tag"></span>Software
 					</span>
 				</h5>
@@ -78,15 +78,15 @@
 		</li>
 	</a>
 
-	<a class="nounderline" href="Ticket?ticket=1">
+	<a class="nounderline" href="Ticket?ticket=3">
 		<li class="list-group-item list-group-item-action text-dark py-3">
 			<div class="d-flex justify-content-between">
 				<h5>Ticket 1</h5>
 				<h5 class="d-flex justify-content-between">
-					<span id="stateBadge" class="mx-1 badge bg-primary text-light" >
-						<span class="mx-1 fas fa-tasks"></span>Complete
+					<span class="state mx-1 badge">
+						<span class="mx-1 fas fa-tasks"></span>Completed
 					</span>
-					<span id="stateBadge" class="mx-1 badge badge-secondary" >
+					<span class="mx-1 badge badge-secondary">
 						<span class="mx-1 fas fa-tag"></span>Software
 					</span>
 				</h5>
@@ -99,78 +99,15 @@
 		</li>
 	</a>
 
-	<a class="nounderline" href="Ticket?ticket=1">
+	<a class="nounderline" href="Ticket?ticket=4">
 		<li class="list-group-item list-group-item-action text-dark py-3">
 			<div class="d-flex justify-content-between">
 				<h5>Ticket 1</h5>
 				<h5 class="d-flex justify-content-between">
-					<span id="stateBadge" class="mx-1 badge bg-success text-light" >
+					<span class="state mx-1 badge" >
 						<span class="mx-1 fas fa-tasks"></span>Resolved
 					</span>
-					<span id="stateBadge" class="mx-1 badge badge-secondary" >
-						<span class="mx-1 fas fa-tag"></span>Software
-					</span>
-				</h5>
-			</div>
-			<h3 class="mb-1 text-left">How do I change my University Password</h3>
-			<div class="d-flex justify-content-between">
-				<p class="mr-2 mb-0">Reported: <span class="mx-1 fas fa-user"></span>Billy Jones<span class="mx-1 fas fa-calendar-alt"></span>5:13pm 13/05/2018</p>
-				<p class="mr-2 mb-0">Resolved: <span class="mx-1 fas fa-user"></span>Brice Purton<span class="mx-1 fas fa-calendar-alt"></span>11:48am 14/05/2018</p>
-			</div>
-		</li>
-	</a>
-
-	<a class="nounderline" href="Ticket?ticket=1">
-		<li class="list-group-item list-group-item-action text-dark py-3">
-			<div class="d-flex justify-content-between">
-				<h5>Ticket 1</h5>
-				<h5 class="d-flex justify-content-between">
-					<span id="stateBadge" class="mx-1 badge bg-danger text-light" >
-						<span class="mx-1 fas fa-tasks"></span>New
-					</span>
-					<span id="stateBadge" class="mx-1 badge badge-secondary" >
-						<span class="mx-1 fas fa-tag"></span>Software
-					</span>
-				</h5>
-			</div>
-			<h3 class="mb-1 text-left">How do I change my University Password</h3>
-			<div class="d-flex justify-content-between">
-				<p class="mr-2 mb-0">Reported: <span class="mx-1 fas fa-user"></span>Billy Jones<span class="mx-1 fas fa-calendar-alt"></span>5:13pm 13/05/2018</p>
-				<p class="mr-2 mb-0">Resolved: <span class="mx-1 fas fa-user"></span>Brice Purton<span class="mx-1 fas fa-calendar-alt"></span>11:48am 14/05/2018</p>
-			</div>
-		</li>
-	</a>
-
-	<a class="nounderline" href="Ticket?ticket=1">
-		<li class="list-group-item list-group-item-action text-dark py-3">
-			<div class="d-flex justify-content-between">
-				<h5>Ticket 1</h5>
-				<h5 class="d-flex justify-content-between">
-					<span id="stateBadge" class="mx-1 badge bg-danger text-light" >
-						<span class="mx-1 fas fa-tasks"></span>New
-					</span>
-					<span id="stateBadge" class="mx-1 badge badge-secondary" >
-						<span class="mx-1 fas fa-tag"></span>Software
-					</span>
-				</h5>
-			</div>
-			<h3 class="mb-1 text-left">How do I change my University Password</h3>
-			<div class="d-flex justify-content-between">
-				<p class="mr-2 mb-0">Reported: <span class="mx-1 fas fa-user"></span>Billy Jones<span class="mx-1 fas fa-calendar-alt"></span>5:13pm 13/05/2018</p>
-				<p class="mr-2 mb-0">Resolved: <span class="mx-1 fas fa-user"></span>Brice Purton<span class="mx-1 fas fa-calendar-alt"></span>11:48am 14/05/2018</p>
-			</div>
-		</li>
-	</a>
-
-	<a class="nounderline" href="Ticket?ticket=1">
-		<li class="list-group-item list-group-item-action text-dark py-3">
-			<div class="d-flex justify-content-between">
-				<h5>Ticket 1</h5>
-				<h5 class="d-flex justify-content-between">
-					<span id="stateBadge" class="mx-1 badge bg-danger text-light" >
-						<span class="mx-1 fas fa-tasks"></span>New
-					</span>
-					<span id="stateBadge" class="mx-1 badge badge-secondary" >
+					<span class="mx-1 badge badge-secondary" >
 						<span class="mx-1 fas fa-tag"></span>Software
 					</span>
 				</h5>

@@ -20,34 +20,44 @@ window.onload = function () {
 		});
 	}
 
-	// Display session timeout warning message 1 minute from timeout
-	window.setTimeout(AlertSessionTimeout, sessionMaxTime - 60 * 1000);
-	// Auto redirect user 1 second after timeout
-	window.setTimeout(SessionTimeout, sessionMaxTime+1000);
+	var states =  document.getElementsByClassName('state');
+	if (states != null) {
+		for (var i = 0; i < states.length; i++) {
+			SetState(states[i]);
+		} 
+	}
+	
+	if (window.location.href != indexPage && window.location.href != loginPage) {
+		// Display session timeout warning message 1 minute from timeout
+		window.setTimeout(AlertSessionTimeout, sessionMaxTime - 60 * 1000);
+		// Auto redirect user 1 second after timeout
+		window.setTimeout(SessionTimeout, sessionMaxTime+1000);
+	}
 }
 
 // Method to change color appearence of state element
-function SetState(state, stateSelect) {
-	RemoveStateClass(state);
-	switch (stateSelect.value) {
-		case "1":
+function SetState(state) {
+	switch (state.innerText) {
+		case "New":
 			// New = red
-			state.classList.add('bg-danger');
+			state.classList.add('badge-danger');
 			break;
-		case "2":
+		case "In Progress":
 			// In Progress = orange
-			state.classList.add('bg-progress');
+			state.classList.add('badge-progress');
 			break;
-		case "3":
-			// Complete = blue
-			state.classList.add('bg-primary');
+		case "Completed":
+			// Completed = blue
+			state.classList.add('badge-primary');
 			break;
-		case "4":
+		case "Resolved":
 			// Resolved = green
-			state.classList.add('bg-success');
+			state.classList.add('badge-success');
 			break;
 	}
 }
+
+
 
 // Method to remove color appearence of state element
 function RemoveStateClass(state) {
@@ -59,20 +69,12 @@ function RemoveStateClass(state) {
 
 // Method to warn user of session timeout
 function AlertSessionTimeout() {
-	if (window.location.href != indexPage && window.location.href != loginPage) {
-		CreateMessage("info", "Your session will expire in 1 minute.");
-	}
+	CreateMessage("info", "Your session will expire in 1 minute.");
 }
 
 // Method to redirect user if session has timed out
 function SessionTimeout() {
-	if (window.location.href != indexPage && window.location.href != loginPage) {
-		CreateTimeoutForm();
-	}
-}
-
-// Form used to redirect user and display error message
-function CreateTimeoutForm() {
+	// Form used to redirect user and display error message
 	var errorForm = document.createElement("form");
 	errorForm.setAttribute('method',"post");
 	errorForm.setAttribute('action',"http://localhost:8080/c3180044_c3281849_c3237808_FinalProject/Timeout");

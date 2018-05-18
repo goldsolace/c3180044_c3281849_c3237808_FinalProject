@@ -16,7 +16,7 @@
 			</button>
 
 			<div class="navbar-collapse collapse justify-content-end">
-				<ul class="navbar-nav">
+				<ul class="navbar-nav float-right text-right">
 					<li class="nav-item">
 						<a class="nav-link" href="ServicePortal"><strong>Portal</strong></a>
 					</li>

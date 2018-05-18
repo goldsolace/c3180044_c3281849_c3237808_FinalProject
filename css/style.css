@@ -24,6 +24,51 @@ a.bg-progress:focus, a.bg-progress:hover, button.bg-progress:focus, button.bg-pr
   color: #683a14;
 }
 
+.badge-progress {
+  color: #fff;
+  background-color: #fd7e14;
+}
+
+.badge-progress[href]:hover, .badge-progress[href]:focus {
+  color: #fff;
+  text-decoration: none;
+  background-color: #fd7e14;
+}
+
+.btn-progress {
+  color: #fff;
+  background-color: #fd7e14;
+  border-color: #fd7e14;
+}
+
+.btn-progress:hover {
+  color: #fff;
+  background-color: #fd6b11;
+  border-color: #fd6510;
+}
+
+.btn-progress:focus, .btn-progress.focus {
+  box-shadow: 0 0 0 0.2rem rgba(255, 149, 0, 0.5);
+}
+
+.btn-progress.disabled, .btn-progress:disabled {
+  color: #fff;
+  background-color: #fd7e14;
+  border-color: #fd7e14;
+}
+
+.btn-progress:not(:disabled):not(.disabled):active, .btn-progress:not(:disabled):not(.disabled).active,
+.show > .btn-progress.dropdown-toggle {
+  color: #fff;
+  background-color: #fd6510;
+  border-color: #fc5e0f;
+}
+
+.btn-progress:not(:disabled):not(.disabled):active:focus, .btn-progress:not(:disabled):not(.disabled).active:focus,
+.show > .btn-progress.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(255, 123, 0, 0.5);
+}
+
 .nounderline { 
   text-decoration: none !important;
 }
