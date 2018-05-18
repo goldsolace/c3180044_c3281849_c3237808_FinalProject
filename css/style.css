@@ -2,8 +2,30 @@ body {
   background-color: #eee;
 }
 
+.bg-progress{
+  background-color: #fd7e14 !important;
+}
+
+a.bg-progress:focus, a.bg-progress:hover, button.bg-progress:focus, button.bg-progress:hover {
+  background-color: #fd7e14 !important;
+}
+
+.alert-progress {
+  color: #8d470c;
+  background-color: #fbe1ca;
+  border-color: #fcd3b4;
+}
+
+.alert-progress hr {
+  border-top-color: #f9c497;
+}
+
+.alert-progress .alert-link {
+  color: #683a14;
+}
+
 .nounderline { 
-  text-decoration: none !important
+  text-decoration: none !important;
 }
 
 .card-deck .card {

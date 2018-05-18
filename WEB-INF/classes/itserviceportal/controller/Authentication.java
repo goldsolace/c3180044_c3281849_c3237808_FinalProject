@@ -80,7 +80,7 @@ public class Authentication implements Filter {
 		HttpServletRequest httpServletRequest = ((HttpServletRequest) request);
 		HttpServletResponse httpServletResponse = ((HttpServletResponse)response);
 		HttpSession session = httpServletRequest.getSession();
-		RequestDispatcher requestDispatcher; 
+		RequestDispatcher requestDispatcher;
 
 		String uri = httpServletRequest.getRequestURI();
 

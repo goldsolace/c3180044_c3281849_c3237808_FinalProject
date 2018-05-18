@@ -6,7 +6,7 @@
 <%-- Only display nav bar if a user logged in --%>
 <c:if test="${not empty User}">
 
-	<div class="navbar navbar-expand-lg navbar-light" role="navigation">
+	<div id="navBar" class="navbar navbar-expand-lg navbar-light" role="navigation">
 		<div class="container">
 
 			<%-- Display user's name --%>
