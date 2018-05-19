@@ -9,23 +9,23 @@
 <form class="form-report" method="POST" action="Report">
 	<div class="form-group">
 		<label for="title">Title</label>
-		<input name="title" type="test" class="form-control" id="title" placeholder="Title">
+		<input name="title" type="test" class="form-control" id="title" placeholder="Title" required>
 	</div>
 
 	<div class="form-group">
 		<label for="inputCategory">Category</label>
-		<select name="category" id="category" class="form-control">
+		<select name="category" id="category" class="form-control" required>
+			<option value="network">Network</option>
 			<option value="software">Software</option>
 			<option value="hardware">Hardware</option>
-			<option value="network">Network</option>
-			<option value="account">Account</option>
 			<option value="email">Email</option>
+			<option value="account">Account</option>
 		</select>
 	</div>
 
 	<div class="form-group">
 		<label for="details">Problem Details</label>
-		<textarea name="details" class="form-control" id="details" rows="3" placeholder="Details..."></textarea>
+		<textarea name="details" class="form-control" id="details" rows="3" placeholder="Details..." required></textarea>
 	</div>
 
 	<button class="btn btn-lg btn-danger btn-block" type="submit">Report</button>

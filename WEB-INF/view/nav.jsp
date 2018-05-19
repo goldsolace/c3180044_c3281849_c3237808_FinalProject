@@ -10,10 +10,12 @@
 		<div class="container">
 
 			<%-- Display user's name --%>
-			<span class="navbar-brand"><strong>
+			<span class="navbar-brand d-flex flex-row"><strong>
 				<a class="nounderline text-dark" href="ServicePortal">
 					<c:out value="${sessionScope.user.firstName} ${sessionScope.user.lastName}"/></strong>
 				</a>
+
+				<jsp:include page="/WEB-INF/view/notifications.jsp"/>
 			</span>
 
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse">
