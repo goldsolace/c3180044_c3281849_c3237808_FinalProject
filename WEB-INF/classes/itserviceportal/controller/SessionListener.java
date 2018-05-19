@@ -14,9 +14,10 @@ import javax.servlet.http.HttpSessionListener;
 
 /**
  * SessionListener
- * 
- * @author Brice Purton
- * @lastModified: 18-05-2018
+ *
+ * @author Brice Purton, Jonothan Williams, Wajdi Yournes
+ * @version 1.0
+ * @since 19-05-2018
  */
 
 public final class SessionListener implements HttpSessionListener, HttpSessionAttributeListener  {
@@ -24,7 +25,7 @@ public final class SessionListener implements HttpSessionListener, HttpSessionAt
 	// Map to store active sessions
 	private static HashMap<String, String> activeSessions = new HashMap<String, String>();
 
-	// Utility method to print out all activeSessions
+	// Utility method to print out all active sessions
 	private static void printActiveSessions() {
 		activeSessions.forEach((key,value) -> System.out.println(key+", "+value));
 	}
@@ -54,14 +55,14 @@ public final class SessionListener implements HttpSessionListener, HttpSessionAt
 	}
 
 	/**
-	 * Saves game when session is destroyed
+	 * Do stuff when session is destroyed
 	 * 
 	 * @param event The HttpSessionBindingEvent event
 	 */
 	@Override
 	public final void sessionDestroyed(HttpSessionEvent event) {
 		// Get game stored in session. Null if no game attribute
-		User user = (User) event.getSession().getAttribute("User");
+		User user = (User) event.getSession().getAttribute("user");
 		if (user != null) {
 			// Do stuff
 		}
@@ -70,13 +71,13 @@ public final class SessionListener implements HttpSessionListener, HttpSessionAt
 	}
 
 	/**
-	 * Add session Id and username if game attribute added to a session
+	 * Add session Id and userID if user attribute added to a session
 	 *
 	 * @param event The HttpSessionBindingEvent event
 	 */
 	@Override
 	public void attributeAdded(HttpSessionBindingEvent event) {
-		if (event.getName().equals("User")) {
+		if (event.getName().equals("user")) {
 			User user = (User) event.getValue();
 			activeSessions.put(event.getSession().getId(), String.valueOf(user.getUserID()));
 		}

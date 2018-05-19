@@ -14,13 +14,14 @@ import javax.servlet.*;
  * KnowledgeBaseController
  *
  * @author Brice Purton, Jonothan Williams, Wajdi Yournes
- * @lastModified: 14-05-2018
+ * @version 1.0
+ * @since 19-05-2018
  */
 
 public class KnowledgeBaseController extends HttpServlet {
 
 	/**
-	 * Redirects get request to doPost method
+	 * Display Knowledge Base
 	 *
 	 * @param request a http servlet request 
 	 * @param response a http servlet response
@@ -32,9 +33,9 @@ public class KnowledgeBaseController extends HttpServlet {
 
 		// Get user
 		HttpSession session = request.getSession();
-		User user = (User)session.getAttribute("User");
+		User user = (User) session.getAttribute("user");
 
-		// Get List of Knowledge Base articles
+		// Get List of all Knowledge Base articles
 		List<SupportTicket> knowledgeBase = getKnowledgeBase(user, "all", "all");
 
 		// If knowledgeBase is null send back to portal with error message
@@ -65,9 +66,9 @@ public class KnowledgeBaseController extends HttpServlet {
 	}
 
 	/**
-	 * This method controls the main flow of the game by deciding what to do based on input of the user.
+	 * Do Stuff
 	 *
-	 * @param request a http servlet request 
+	 * @param request a http servlet request
 	 * @param response a http servlet response
 	 * @throws ServletException
 	 * @throws IOException

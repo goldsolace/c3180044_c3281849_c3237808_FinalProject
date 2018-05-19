@@ -1,7 +1,6 @@
 package itserviceportal.controller;
 
 import itserviceportal.model.*;
-
 import java.util.*;
 import java.io.IOException;
 import javax.servlet.*;
@@ -11,15 +10,15 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * The Authentication class is a web filter that manages user permissions.
- * 
- * @author Brice Purton
- * @studentID 3180044
- * @lastModified: 25-04-2018
+ *
+ * @author Brice Purton, Jonothan Williams, Wajdi Yournes
+ * @version 1.0
+ * @since 19-05-2018
  */
 
 public class Authentication implements Filter {
+
 	private Map<String,String> permissions = new HashMap<String,String>();
-	// Constants
 	public final static String ALL = "ALL";
 	public final static String USER = "USER";
 	public final static String USERX = "USER_EXCLUSIVE";
@@ -67,7 +66,8 @@ public class Authentication implements Filter {
 	}
 
 	/**
-	 * This method authenticates the user and 
+	 * This method authenticates the user and redirects them according
+	 * to their access permission and request uri.
 	 *
 	 * @param request a http servlet request 
 	 * @param response a http servlet response
@@ -139,7 +139,7 @@ public class Authentication implements Filter {
 	 * @return boolean true if user logged in
 	 */ 
 	public boolean isUserLoggedIn(HttpSession session) {
-		return session.getAttribute("User") != null;
+		return session.getAttribute("user") != null;
 	}
 
 	/**
@@ -149,7 +149,7 @@ public class Authentication implements Filter {
 	 * @return boolean true ifstaff logged in
 	 */ 
 	public boolean isStaffLoggedIn(HttpSession session) {
-		User user = (User) session.getAttribute("User");
+		User user = (User) session.getAttribute("user");
 		return user != null && user.getRole() == Role.STAFF;
 	}
 }

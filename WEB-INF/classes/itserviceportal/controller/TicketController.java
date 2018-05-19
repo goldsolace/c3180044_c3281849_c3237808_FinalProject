@@ -1,12 +1,10 @@
 package itserviceportal.controller;
 
 import itserviceportal.model.*;
-
 import java.util.*;
 import java.io.*;
 import java.util.regex.Pattern;
 import java.lang.NumberFormatException;
-
 import javax.servlet.http.*;
 import javax.servlet.*;
 
@@ -14,7 +12,8 @@ import javax.servlet.*;
  * TicketController
  *
  * @author Brice Purton, Jonothan Williams, Wajdi Yournes
- * @lastModified: 14-05-2018
+ * @version 1.0
+ * @since 19-05-2018
  */
 
 public class TicketController extends HttpServlet {
@@ -32,7 +31,7 @@ public class TicketController extends HttpServlet {
 
 		// Get user
 		HttpSession session = request.getSession();
-		User user = (User)session.getAttribute("User");
+		User user = (User) session.getAttribute("user");
 
 		//UserDataAccess userDAL = new UserDataAccess();
 		//List<Tickets> tickets = userDAL.getTicket(ticketId);

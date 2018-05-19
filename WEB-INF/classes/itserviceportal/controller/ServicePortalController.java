@@ -9,9 +9,9 @@ import itserviceportal.model.*;
  * ServicePortalController
  *
  * @author Brice Purton, Jonothan Williams, Wajdi Yournes
- * @lastModified: 14-05-2018
+ * @version 1.0
+ * @since 19-05-2018
  */
-
 
 public class ServicePortalController extends HttpServlet{
 
@@ -20,7 +20,7 @@ public class ServicePortalController extends HttpServlet{
 
 		// Get user from session
 		HttpSession session = request.getSession();
-		User user = (User)session.getAttribute("User");
+		User user = (User) session.getAttribute("user");
 		
 		if(user.getRole() == Role.USER)
 		{
@@ -33,7 +33,6 @@ public class ServicePortalController extends HttpServlet{
 			dispatcher.forward(request, response);
 		}
 	}
-
 
     //No POST, perform GET if POST OCCURS
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

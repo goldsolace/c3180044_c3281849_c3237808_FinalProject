@@ -2,10 +2,10 @@ package itserviceportal.controller;
 
 /**
  * Enumeration of JSP pages to store url constants for easy maintainability
- * 
- * @author Brice Purton
- * @studentID 3180044
- * @lastModified: 14-05-2018
+ *
+ * @author Brice Purton, Jonothan Williams, Wajdi Yournes
+ * @version 1.0
+ * @since 19-05-2018
  */
 
 public enum Jsp {
@@ -27,24 +27,10 @@ public enum Jsp {
 	SERVERERROR("/WEB-INF/view/error500.jsp"),
 	EXCEPTION("/WEB-INF/view/errorException.jsp");
 
-	// Instance variables
 	private String url;
 
-	/**
-	 * Private constructor to prevent further instances.
-	 * 
-	 * @param url
-	 */
-	private Jsp(String url) {
-		this.url = url;
-	}
+	// Private constructor to prevent new instances.
+	private Jsp(String url) { this.url = url; }
 
-	/**
-	 * Returns the url path.
-	 *
-	 * @return url
-	 */
-	public String url() {
-		return url;
-	}
+	public String url() { return url; }
 }

@@ -19,19 +19,19 @@ public class TimeoutController extends HttpServlet{
 		doPost(request, response);
 	}
 
-
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		// Check to see if the user is currently already inside the session
 		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("User");
+		User user = (User) session.getAttribute("user");
 		
 		// If the user is not null then the user has already logged in, direct to the portal
-		if(user != null) {
+		if (user != null) {
 			response.sendRedirect("ServicePortal");
 		} else {
 			String errorMessage = request.getParameter("errorMessage");
 
+			// Direct user to login page with errorMessage
 			if(errorMessage != null) {
 				session.setAttribute("errorMessage", errorMessage);
 				

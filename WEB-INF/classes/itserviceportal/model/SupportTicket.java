@@ -4,11 +4,11 @@ import java.io.Serializable;
 import java.util.*;
 
 /**
- * Ticket Bean
- * 
- * @author Brice Purton
- * @studentID 3180044
- * @lastModified: 14-05-2018
+ * SupportTicket Bean
+ *
+ * @author Brice Purton, Jonothan Williams, Wajdi Yournes
+ * @version 1.0
+ * @since 19-05-2018
  */
 
 public class SupportTicket implements Serializable {

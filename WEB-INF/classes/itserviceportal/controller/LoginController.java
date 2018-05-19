@@ -6,6 +6,14 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import itserviceportal.model.*;
 
+/**
+ * LoginController
+ *
+ * @author Brice Purton, Jonothan Williams, Wajdi Yournes
+ * @version 1.0
+ * @since 19-05-2018
+ */
+
 public class LoginController extends HttpServlet{
 
 	// Display the Login Page
@@ -13,7 +21,7 @@ public class LoginController extends HttpServlet{
 
 		// Check to see if the user is currently already inside the session
 		HttpSession session = request.getSession();
-		User user = (User)session.getAttribute("User");
+		User user = (User) session.getAttribute("user");
 		
 		// If the user is not null then the user has already logged in, direct to the portal
 		if(user != null)
@@ -31,7 +39,7 @@ public class LoginController extends HttpServlet{
 	}
 
 
-    //Log the user into the IT Service Portal
+    // Log the user into the IT Service Portal
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		// Get session
@@ -57,12 +65,12 @@ public class LoginController extends HttpServlet{
 			else
 			{
 				// Set the user object into the session and redirect to the ServicePortal
-				session.setAttribute("User", user);
+				session.setAttribute("user", user);
 				response.sendRedirect("ServicePortal");
 			}
 		}
 
-		//If any error occured display an error message to the user
+		// If any error occured display an error message to the user
 		catch (SQLException e)
 		{
 			session.setAttribute("errorMessage", "Sorry, Something went wrong while trying to log you in. Please try again.");

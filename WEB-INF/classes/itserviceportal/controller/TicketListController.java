@@ -1,12 +1,10 @@
 package itserviceportal.controller;
 
 import itserviceportal.model.*;
-
 import java.util.*;
 import java.io.*;
 import java.util.regex.Pattern;
 import java.lang.NumberFormatException;
-
 import javax.servlet.http.*;
 import javax.servlet.*;
 
@@ -14,7 +12,8 @@ import javax.servlet.*;
  * TicketListController
  *
  * @author Brice Purton, Jonothan Williams, Wajdi Yournes
- * @lastModified: 14-05-2018
+ * @version 1.0
+ * @since 19-05-2018
  */
 
 public class TicketListController extends HttpServlet {
@@ -32,7 +31,7 @@ public class TicketListController extends HttpServlet {
 
 		// Get user
 		HttpSession session = request.getSession();
-		User user = (User)session.getAttribute("User");
+		User user = (User) session.getAttribute("user");
 
 		// Get List of all Support Tickets the user is allowed to view
 		List<SupportTicket> tickets = getTickets(user, "all", "all");
@@ -82,7 +81,7 @@ public class TicketListController extends HttpServlet {
 		
 		// Get user
 		HttpSession session = request.getSession();
-		User user = (User)session.getAttribute("User");
+		User user = (User) session.getAttribute("user");
 
 		// Get sort criteria
 		String categorySelect = request.getParameter("categorySelect");
@@ -112,7 +111,7 @@ public class TicketListController extends HttpServlet {
 
 		// Sort tickets (default newest to oldest)
 		SupportTicketComparator.SortOrder order = orderSelect == "oldest" ? SupportTicketComparator.SortOrder.DESCENDING : SupportTicketComparator.SortOrder.ASCENDING;
-		Collections.sort(tickets, new SupportTicketComparator(order));
+		Collections.sort(tickets, new SupportTicketComparator(order, SupportTicketComparator.SortDate.REPORTED));
 
 		// Attach tickets to the request to be forwarded to the jsp
 		request.setAttribute("tickets", tickets);

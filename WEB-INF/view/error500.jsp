@@ -19,9 +19,9 @@
 	<div class="container-fluid error-page-container">
 		<canvas id="particle_canvas"></canvas>
 		<div class="row error_page">
-			<div class="col-md-12 text-center">
-				<h1 class=".h1">500</h1>
-				<h2 class=".h4">SERVER ERROR</h2>
+			<div class="my-5 col-md-12 text-center">
+				<h1>500</h1>
+				<h2>SERVER ERROR</h2>
 				<a href="<c:url value='/' />" class="btn btn-info btn-lg">Take Me Home</a>
 			</div>
 		</div>

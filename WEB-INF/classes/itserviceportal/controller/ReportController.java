@@ -9,24 +9,24 @@ import itserviceportal.model.*;
  * ReportController
  *
  * @author Brice Purton, Jonothan Williams, Wajdi Yournes
- * @lastModified: 14-05-2018
+ * @version 1.0
+ * @since 19-05-2018
  */
 
 public class ReportController extends HttpServlet{
 
-	//Display the Login Page
+	// Display the Login Page
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Jsp.REPORT.url());
 		dispatcher.forward(request, response);
 	}
 
 
-    //
+    // 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		// Get user
 		HttpSession session = request.getSession();
-		User user = (User)session.getAttribute("User");
+		User user = (User) session.getAttribute("user");
 
 		session.setAttribute("successMessage", "Your issue has been reported!");
 		response.sendRedirect("ServicePortal");

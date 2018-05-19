@@ -1,12 +1,10 @@
 package itserviceportal.controller;
 
 import itserviceportal.model.*;
-
 import java.util.*;
 import java.io.*;
 import java.util.regex.Pattern;
 import java.lang.NumberFormatException;
-
 import javax.servlet.http.*;
 import javax.servlet.*;
 
@@ -14,13 +12,14 @@ import javax.servlet.*;
  * ArticleController
  *
  * @author Brice Purton, Jonothan Williams, Wajdi Yournes
- * @lastModified: 14-05-2018
+ * @version 1.0
+ * @since 19-05-2018
  */
 
 public class ArticleController extends HttpServlet {
 
 	/**
-	 * Redirects get request to doPost method
+	 * Do stuff
 	 *
 	 * @param request a http servlet request 
 	 * @param response a http servlet response
@@ -31,7 +30,7 @@ public class ArticleController extends HttpServlet {
 		throws ServletException, IOException {
 		// Get user
 		HttpSession session = request.getSession();
-		User user = (User)session.getAttribute("User");
+		User user = (User) session.getAttribute("user");
 
 		//UserDataAccess userDAL = new UserDataAccess();
 		//List<Tickets> tickets = userDAL.getTicket(ticketId);
@@ -59,7 +58,7 @@ public class ArticleController extends HttpServlet {
 	}
 
 	/**
-	 * This method controls the main flow of the game by deciding what to do based on input of the user.
+	 * Do stuff
 	 *
 	 * @param request a http servlet request 
 	 * @param response a http servlet response

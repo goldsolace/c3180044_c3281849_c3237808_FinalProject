@@ -4,11 +4,11 @@ import java.io.Serializable;
 import java.util.*;
 
 /**
- * Comment Bean
- * 
- * @author Brice Purton
- * @studentID 3180044
- * @lastModified: 14-05-2018
+ * Comment bean
+ *
+ * @author Brice Purton, Jonothan Williams, Wajdi Yournes
+ * @version 1.0
+ * @since 19-05-2018
  */
 
 public class Comment implements Serializable {

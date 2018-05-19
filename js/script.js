@@ -1,7 +1,9 @@
-/*
- * File Name: script.js
- * Author: Brice Purton
- * Last Modified: 18/05/2018
+/**
+ * Script.js
+ *
+ * @author Brice Purton, Jonothan Williams, Wajdi Yournes
+ * @version 1.0
+ * @since 19-05-2018
  */
 
 // Time it takes for a session to become invalid
@@ -11,15 +13,7 @@ const indexPage = "/";
 const loginPage = "/Login";
 
 window.onload = function () {
-	var state =  document.getElementById('state');
-	var stateSelect =  document.getElementById('stateSelect');
-	if (state != null) {
-		SetState(state, stateSelect);
-		stateSelect.addEventListener('change', function(e) {
-			SetState(state, stateSelect);
-		});
-	}
-
+	// Add color to supportTicket based on state
 	var states =  document.getElementsByClassName('state');
 	if (states != null) {
 		for (var i = 0; i < states.length; i++) {
@@ -29,6 +23,7 @@ window.onload = function () {
 	
 	var urlStr = window.location.href;
 	var urlPattern = urlStr.substring(urlStr.lastIndexOf("/"));
+	// Can only timeout if on a user restricted page
 	if (urlPattern != indexPage && urlPattern != loginPage) {
 		// Display session timeout warning message 1 minute from timeout
 		window.setTimeout(AlertSessionTimeout, sessionMaxTime - 60 * 1000);
@@ -98,12 +93,16 @@ function SessionTimeout() {
 
 // Form used to redirect user and display error message
 function CreateMessage(type, message) {
+	// Choose alert class color
 	switch (type) {
 		case "error":
 			type = "alert-error";
 			break;
 		case "warning":
 			type = "alert-warning";
+			break;
+		case "progress":
+			type = "alert-progress";
 			break;
 		case "info":
 			type = "alert-info";
@@ -115,6 +114,8 @@ function CreateMessage(type, message) {
 
 	var containerDiv = document.createElement("div");
 	containerDiv.setAttribute('class',"container pt-2");
+	
+	// Add message after navBar
 	var navBar = document.getElementById("navBar");
 	navBar.parentNode.insertBefore(containerDiv, navBar.nextSibling);
 
