@@ -4,7 +4,7 @@
 <%@ page import="itserviceportal.model.Role" %>
 
 <%-- Only display nav bar if a user logged in --%>
-<c:if test="${not empty User}">
+<c:if test="${not empty user}">
 
 	<div id="navBar" class="navbar navbar-expand-lg navbar-light" role="navigation">
 		<div class="container">
@@ -12,7 +12,7 @@
 			<%-- Display user's name --%>
 			<span class="navbar-brand"><strong>
 				<a class="nounderline text-dark" href="ServicePortal">
-					<c:out value="${fn:escapeXml(sessionScope.User.firstName)} ${fn:escapeXml(sessionScope.User.lastName)}"/></strong>
+					<c:out value="${sessionScope.user.firstName} ${sessionScope.user.lastName}"/></strong>
 				</a>
 			</span>
 
@@ -33,7 +33,7 @@
 					</li>
 
 					<%-- Only display non-staff user --%>
-					<c:if test="${User.role == Role.USER}">
+					<c:if test="${user.role == Role.USER}">
 						<li class="nav-item">
 							<a class="nav-link" href="Report"><strong>Report Issue</strong></a>
 						</li>

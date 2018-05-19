@@ -41,7 +41,7 @@
 			<div class="d-flex justify-content-between">
 				<h5>Ticket 1</h5>
 				<h5 class="d-flex justify-content-between">
-					<span class="state mx-1 badge">
+					<span class="state mx-1 badge badge-danger">
 						<span class="mx-1 fas fa-tasks"></span>New
 					</span>
 					<span class="mx-1 badge badge-secondary">

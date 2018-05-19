@@ -54,16 +54,6 @@ function SetState(state) {
 	}
 }
 
-
-
-// Method to remove color appearence of state element
-function RemoveStateClass(state) {
-	state.classList.remove('bg-danger');
-	state.classList.remove('bg-progress');
-	state.classList.remove('bg-primary');
-	state.classList.remove('bg-success');
-}
-
 // Method to warn user of session timeout
 function AlertSessionTimeout() {
 	CreateMessage("info", "Your session will expire in 1 minute.");
