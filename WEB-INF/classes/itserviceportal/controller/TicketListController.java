@@ -35,6 +35,32 @@ public class TicketListController extends HttpServlet {
 
 		// Get List of all Support Tickets the user is allowed to view
 		List<SupportTicket> tickets = getTickets(user, "all", "all");
+		SupportTicket ticket = new SupportTicket();
+		ticket.setTicketID(56);
+		User user2 = new User();
+		user2.setUserID(1);
+		user2.setFirstName("Joe");
+		user2.setLastName("West");
+		ticket.setReportedBy(user2);
+		user2 = new User();
+		user2.setUserID(3);
+		user2.setFirstName("John");
+		user2.setLastName("Smith");
+		ticket.setResolvedBy(user2);
+
+		GregorianCalendar gc = new GregorianCalendar();
+		gc.set(gc.YEAR, 2018);
+		gc.set(gc.DAY_OF_YEAR, 139);
+		gc.set(gc.HOUR_OF_DAY, 8);
+		gc.set(gc.MINUTE, 36);
+		Date d = gc.getTime();
+		ticket.setReportedOn(d);
+		ticket.setResolvedOn(d);
+		ticket.setTitle("Can't connect to uni wifi");
+		ticket.setState(State.INPROGRESS);
+		ticket.setCategory(Category.NETWORK);
+
+		tickets.add(ticket);
 
 		// If tickets is null send back to portal with error message
 		if (tickets == null) {

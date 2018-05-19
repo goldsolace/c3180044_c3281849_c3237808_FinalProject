@@ -69,7 +69,7 @@ public class SupportTicket implements Serializable {
 	public void setResolvedOn(Date resolvedOn) { this.resolvedOn = resolvedOn; }
 
 	public User getResolvedBy() { return resolvedBy; }
-	public void setResolvedBy(User reportedBy) { this.resolvedBy = resolvedBy; }
+	public void setResolvedBy(User resolvedBy) { this.resolvedBy = resolvedBy; }
 
 	public boolean isKnowledgeBase() { return knowledgeBase; }
 	public void setKnowledgeBase(boolean knowledgeBase) { this.knowledgeBase = knowledgeBase; }

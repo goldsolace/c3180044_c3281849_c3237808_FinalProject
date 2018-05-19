@@ -12,7 +12,6 @@
 		<welcome-file>Login</welcome-file>
 	</welcome-file-list>
 
-
 	<!-- Servlets -->
 	<servlet>
 		<servlet-name>LoginController</servlet-name>
@@ -131,4 +130,11 @@
 		<location>/WEB-INF/view/errorException.jsp</location>
 	</error-page>
 	-->
+
+	<jsp-config>
+		<taglib>
+			<taglib-uri>http://localhost:8080/c3180044_c3281849_c3237808_FinalProject/taglib/date</taglib-uri>
+			<taglib-location>/WEB-INF/dateformat.tld</taglib-location>
+		</taglib>
+	</jsp-config>
 </web-app>

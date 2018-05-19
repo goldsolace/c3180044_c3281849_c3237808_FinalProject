@@ -13,14 +13,6 @@ const indexPage = "/";
 const loginPage = "/Login";
 
 window.onload = function () {
-	// Add color to supportTicket based on state
-	var states =  document.getElementsByClassName('state');
-	if (states != null) {
-		for (var i = 0; i < states.length; i++) {
-			SetState(states[i]);
-		} 
-	}
-	
 	var urlStr = window.location.href;
 	var urlPattern = urlStr.substring(urlStr.lastIndexOf("/"));
 	// Can only timeout if on a user restricted page
@@ -29,28 +21,6 @@ window.onload = function () {
 		window.setTimeout(AlertSessionTimeout, sessionMaxTime - 60 * 1000);
 		// Auto redirect user 5 seconds after timeout
 		window.setTimeout(SessionTimeout, sessionMaxTime+5000);
-	}
-}
-
-// Method to change color appearence of state element
-function SetState(state) {
-	switch (state.innerText) {
-		case "New":
-			// New = red
-			state.classList.add('badge-danger');
-			break;
-		case "In Progress":
-			// In Progress = orange
-			state.classList.add('badge-progress');
-			break;
-		case "Completed":
-			// Completed = blue
-			state.classList.add('badge-primary');
-			break;
-		case "Resolved":
-			// Resolved = green
-			state.classList.add('badge-success');
-			break;
 	}
 }
 
