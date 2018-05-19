@@ -278,7 +278,10 @@ a.bg-progress:focus, a.bg-progress:hover, button.bg-progress:focus, button.bg-pr
 /* Error Page CSS */
 
 canvas {
+  top: 0;
+  left: 0;
   position: absolute;
+  z-index: -1;
 }
 
 .error-page-container {
