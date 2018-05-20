@@ -11,39 +11,42 @@
 	<h1 class="text-center"><strong>Support Tickets</strong></h1>
 </div>
 
-<form class="form-sort" method="POST" action="TicketList">
-	<div class="input-group">
-		<select name="categorySelect" class="custom-select">
-			<option value="all">All Categories</option>
-			<option value="software">Software</option>
-			<option value="hardware">Hardware</option>
-			<option value="network">Network</option>
-			<option value="account">Account</option>
-			<option value="email">Email</option>
-		</select>
-		<select name="stateSelect" class="custom-select">
-			<option value="all">All States</option>
-			<option value="new">New</option>
-			<option value="in progress">In Progress</option>
-			<option value="completed">Completed</option>
-			<option value="resolved">Resolved</option>
-		</select>
-		<select name="orderSelect" class="custom-select">
-			<option value="newest">Newest Reported</option>
-			<option value="oldest">Oldest Reported</option>
-		</select>
-		<div class="input-group-append">
-			<button class="btn btn-outline-info" type="submit" >Sort</button>
-		</div>
-	</div>
-</form>
-
 <%-- Only display if their are tickets --%>
 <c:if test="${not empty tickets}">
+
+	<form class="form-sort" method="POST" action="TicketList">
+		<div class="input-group">
+			<select name="categorySelect" class="custom-select">
+				<option value="all">All Categories</option>
+				<option value="network">Network</option>
+				<option value="software">Software</option>
+				<option value="hardware">Hardware</option>
+				<option value="account">Account</option>
+				<option value="email">Email</option>
+			</select>
+			<select name="stateSelect" class="custom-select">
+				<option value="all">All States</option>
+				<option value="new">New</option>
+				<option value="in progress">In Progress</option>
+				<option value="completed">Completed</option>
+				<option value="resolved">Resolved</option>
+			</select>
+			<select name="orderSelect" class="custom-select">
+				<option value="newest">Newest Reported</option>
+				<option value="oldest">Oldest Reported</option>
+			</select>
+			<div class="input-group-append">
+				<button class="btn btn-outline-info" type="submit" >Sort</button>
+			</div>
+		</div>
+	</form>
+
+
 	<ul class="list-group my-2 mb-5">
 
 		<%-- Iterate through tickets list --%>
 		<c:forEach var="ticket" items="${tickets}" varStatus="ticketIndex">
+		
 			<%-- Link to Ticket Controller passing ticketID as a parameter --%>
 			<a class="nounderline" href="Ticket?ticket=${ticket.ticketID}">
 				<li class="list-group-item list-group-item-action text-dark py-3">
