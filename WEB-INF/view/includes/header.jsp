@@ -21,6 +21,6 @@
 		</div>
 	</a>
 	<%-- Include nav bar on every page --%>
-	<c:import url="/WEB-INF/view/nav.jsp"/>
+	<c:import url="/WEB-INF/view/includes/nav.jsp"/>
 	<div class="container">
 	

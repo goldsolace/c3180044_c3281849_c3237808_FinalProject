@@ -42,7 +42,6 @@ public class Authentication implements Filter {
 		permissions.put("UserPortal",USERX);
 		permissions.put("StaffPortal",STAFF);
 		permissions.put("Report",USERX);
-		permissions.put("UserPortal",USERX);
 		permissions.put("TicketList",USER);
 		permissions.put("Ticket",USER);
 		permissions.put("KnowledgeBase",USER);
@@ -52,14 +51,11 @@ public class Authentication implements Filter {
 		permissions.put("userPortal.jsp",USERX);
 		permissions.put("staffPortal.jsp",STAFF);
 		permissions.put("reportIssue.jsp",USERX);
-		permissions.put("userTicketList.jsp",USERX);
-		permissions.put("userticket.jsp",USERX);
-		permissions.put("staffTicketList.jsp",STAFF);
-		permissions.put("staffticket.jsp",STAFF);
-		permissions.put("knowledgebase.jsp",USER);
+		permissions.put("ticketList.jsp",USER);
+		permissions.put("userTicket.jsp",USERX);
+		permissions.put("staffTicket.jsp",STAFF);
+		permissions.put("knowledgeBase.jsp",USER);
 		permissions.put("article.jsp",USER);
-		permissions.put("comment.jsp",USER);
-		permissions.put("header.jsp",NONE);
 		permissions.put("403.jsp",ALL);
 		permissions.put("404.jsp",ALL);
 		permissions.put("500.jsp",ALL);

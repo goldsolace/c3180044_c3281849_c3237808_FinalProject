@@ -15,7 +15,7 @@
 					<c:out value="${sessionScope.user.firstName} ${sessionScope.user.lastName}"/></strong>
 				</a>
 
-				<jsp:include page="/WEB-INF/view/notifications.jsp"/>
+				<jsp:include page="/WEB-INF/view/includes/notifications.jsp"/>
 			</span>
 
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse">
@@ -52,5 +52,5 @@
 </c:if>
 
 <div class="container pt-2">
-	<jsp:include page="/WEB-INF/view/messages.jsp"/>
+	<jsp:include page="/WEB-INF/view/includes/messages.jsp"/>
 </div>

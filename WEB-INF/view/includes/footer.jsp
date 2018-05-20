@@ -11,4 +11,4 @@
 </html>
 
 <%-- Add removeMessages to the end of each page to make messages non persistent once displayed --%>
-<c:import url="/WEB-INF/view/removeMessages.jsp"/>
+<c:import url="/WEB-INF/view/includes/removeMessages.jsp"/>

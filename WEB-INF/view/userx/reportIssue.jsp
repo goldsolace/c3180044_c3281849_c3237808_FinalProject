@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:import url="/WEB-INF/view/header.jsp"/>
+<c:import url="/WEB-INF/view/includes/header.jsp"/>
 
 <div class="text-center">
 	<h1 class="text-center"><strong>Report Issue</strong></h1>
@@ -31,7 +31,7 @@
 	<button class="btn btn-lg btn-danger btn-block" type="submit">Report</button>
 </form>
 
-<c:import url="/WEB-INF/view/footer.jsp"/>
+<c:import url="/WEB-INF/view/includes/footer.jsp"/>
 
 <%
 HttpServletResponse httpResponse = (HttpServletResponse)response;

@@ -1,7 +1,7 @@
 package itserviceportal.controller;
 
 /**
- * Enumeration of JSP pages to store url constants for easy maintainability
+ * Enumeration of visitable JSP pages to store url constants for easy maintainability
  *
  * @author Brice Purton, Jonothan Williams, Wajdi Yournes
  * @version 1.0
@@ -11,17 +11,14 @@ package itserviceportal.controller;
 public enum Jsp {
 	INDEX("/WEB-INF/view/index.jsp"),
 	LOGIN("/WEB-INF/view/index.jsp"),
-	USERPORTAL("/WEB-INF/view/user/userPortal.jsp"),
-	REPORT("/WEB-INF/view/user/reportIssue.jsp"),
-	USERTICKET("/WEB-INF/view/user/userTicket.jsp"),
-	USERTICKETLIST("/WEB-INF/view/user/userTicketList.jsp"),
-	USERKNOWLEDGEBASE("/WEB-INF/view/user/knowledgeBase.jsp"),
-	USERARTICLE("/WEB-INF/view/user/article.jsp"),
+	USERPORTAL("/WEB-INF/view/userx/userPortal.jsp"),
 	STAFFPORTAL("/WEB-INF/view/staff/staffPortal.jsp"),
-	STAFFTICKET("/WEB-INF/view/user/userTicket.jsp"),
-	STAFFTICKETLIST("/WEB-INF/view/user/userTicketList.jsp"),
-	STAFFKNOWLEDGEBASE("/WEB-INF/view/user/knowledgeBase.jsp"),
-	STAFFARTICLE("/WEB-INF/view/user/article.jsp"),
+	REPORT("/WEB-INF/view/userx/reportIssue.jsp"),
+	TICKETLIST("/WEB-INF/view/user/ticketList.jsp"),
+	USERTICKET("/WEB-INF/view/userx/userTicket.jsp"),
+	STAFFTICKET("/WEB-INF/view/staff/staffTicket.jsp"),
+	KNOWLEDGEBASE("/WEB-INF/view/user/knowledgeBase.jsp"),
+	ARTICLE("/WEB-INF/view/user/article.jsp"),
 	FORBIDDEN("/WEB-INF/view/error403.jsp"),
 	NOTFOUND("/WEB-INF/view/error404.jsp"),
 	SERVERERROR("/WEB-INF/view/error500.jsp"),

@@ -39,7 +39,7 @@ public class TicketController extends HttpServlet {
 		int ticketID = -1;
 		try
 		{
-			ticketID = Integer.parseInt(request.getParameter("ticket"));
+			ticketID = Integer.parseInt(request.getParameter("ticketID"));
 		}
 		//The URL did not contain a valid int value. Display error
 		catch (NumberFormatException e)

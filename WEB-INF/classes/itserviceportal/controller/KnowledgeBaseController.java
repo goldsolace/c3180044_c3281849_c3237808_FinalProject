@@ -55,14 +55,8 @@ public class KnowledgeBaseController extends HttpServlet {
 		// Attach knowledgeBase to the request to be forwarded to the jsp
 		request.setAttribute("knowledgeBase", knowledgeBase);
 
-		// Send user to the correct jsp based on role
-		if (user.getRole() == Role.USER) {
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Jsp.USERKNOWLEDGEBASE.url());
-			dispatcher.forward(request, response);
-		} else {
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Jsp.STAFFKNOWLEDGEBASE.url());
-			dispatcher.forward(request, response);
-		}
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Jsp.KNOWLEDGEBASE.url());
+		dispatcher.forward(request, response);
 	}
 
 	/**

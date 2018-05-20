@@ -50,14 +50,8 @@ public class TicketListController extends HttpServlet {
 		// Attach tickets to the request to be forwarded to the jsp
 		request.setAttribute("tickets", tickets);
 
-		// Send user to the correct jsp based on role
-		if (user.getRole() == Role.USER) {
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Jsp.USERTICKETLIST.url());
-			dispatcher.forward(request, response);
-		} else {
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Jsp.STAFFTICKETLIST.url());
-			dispatcher.forward(request, response);
-		}
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Jsp.TICKETLIST.url());
+		dispatcher.forward(request, response);
 	}
 
 	/**
@@ -113,14 +107,8 @@ public class TicketListController extends HttpServlet {
 		// Attach tickets to the request to be forwarded to the jsp
 		request.setAttribute("tickets", tickets);
 
-		// Send user to the correct jsp based on role
-		if (user.getRole() == Role.USER) {
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Jsp.USERTICKETLIST.url());
-			dispatcher.forward(request, response);
-		} else {
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Jsp.STAFFTICKETLIST.url());
-			dispatcher.forward(request, response);
-		}
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Jsp.TICKETLIST.url());
+		dispatcher.forward(request, response);
 	}
 
 

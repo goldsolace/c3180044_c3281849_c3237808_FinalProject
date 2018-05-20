@@ -5,7 +5,7 @@
 <%@ taglib prefix="date" uri="http://localhost:8080/c3180044_c3281849_c3237808_FinalProject/taglib/date" %>
 <%@ page import="itserviceportal.model.*" %>
 
-<c:import url="/WEB-INF/view/header.jsp"/>
+<c:import url="/WEB-INF/view/includes/header.jsp"/>
 
 <div class="my-2">
 	<h1 class="text-center"><strong>Support Tickets</strong></h1>
@@ -48,7 +48,7 @@
 		<c:forEach var="ticket" items="${tickets}" varStatus="ticketIndex">
 		
 			<%-- Link to Ticket Controller passing ticketID as a parameter --%>
-			<a class="nounderline" href="Ticket?ticket=${ticket.ticketID}">
+			<a class="nounderline" href="Ticket?ticketID=${ticket.ticketID}">
 				<li class="list-group-item list-group-item-action text-dark py-3">
 					<div class="d-flex justify-content-between">
 						<%-- Display TicketID --%>
@@ -107,7 +107,7 @@
 </c:if>
 
 
-<c:import url="/WEB-INF/view/footer.jsp"/>
+<c:import url="/WEB-INF/view/includes/footer.jsp"/>
 
 <%
 HttpServletResponse httpResponse = (HttpServletResponse)response;

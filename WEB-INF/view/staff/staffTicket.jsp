@@ -5,7 +5,7 @@
 <%@ taglib prefix="date" uri="http://localhost:8080/c3180044_c3281849_c3237808_FinalProject/taglib/date" %>
 <%@ page import="itserviceportal.model.*" %>
 
-<c:import url="/WEB-INF/view/header.jsp"/>
+<c:import url="/WEB-INF/view/includes/header.jsp"/>
 
 <%-- Only display if there is ticket --%>
 <c:if test="${not empty supportTicket}">
@@ -105,21 +105,7 @@
 					<h2 class="mb-1">Actions</h2>
 
 					<%-- Decide which actions should be available to user --%>
-
-					<%-- For user --%>
-					<c:if test="${supportTicket.state == State.NEW || supportTicket.state == State.INPROGRESS}">
-						<button name="setCompleted" class="btn btn-lg btn-primary m-1" type="submit">Set Completed</button>
-					</c:if>
-
-					<c:if test="${supportTicket.state == State.COMPLETED}">
-						<button name="acceptSolution" class="btn btn-lg btn-success m-1" type="submit">Accept Solution</button>
-					</c:if>
-
-					<c:if test="${supportTicket.state == State.COMPLETED}">
-						<button name="rejectSolution" class="btn btn-lg btn-danger m-1" type="submit">Reject Solution</button>
-					</c:if>
-
-					<%-- For staff --%>
+					
 					<c:if test="${supportTicket.state == State.NEW}">
 						<button name="startWork" class="btn btn-lg btn-progress m-1" type="submit">Start Work</button>
 					</c:if>
@@ -145,8 +131,7 @@
 
 		<%-- Iterate through comments list --%>
 		<c:forEach var="comment" items="${supportTicket.comments}">
-			<%-- <c:import url="/WEB-INF/view/comment.jsp"/> --%>
-			<%@ include file="/WEB-INF/view/comment.jsp" %>
+			<%@ include file="/WEB-INF/view/includes/comment.jsp" %>
 		</c:forEach>
 
 		<%-- Allow commenting unless resolved --%>
@@ -166,7 +151,7 @@
 
 </c:if>
 
-<c:import url="/WEB-INF/view/footer.jsp"/>
+<c:import url="/WEB-INF/view/includes/footer.jsp"/>
 
 <%
 HttpServletResponse httpResponse = (HttpServletResponse)response;

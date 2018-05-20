@@ -46,8 +46,8 @@ public class LoginController extends HttpServlet{
 		HttpSession session = request.getSession();
 
 		// Get the data posted by the user
-		String username = request.getParameter("inputEmail");
-		String password = request.getParameter("inputPassword");
+		String username = request.getParameter("email");
+		String password = request.getParameter("password");
 
 		// Calling the Data access layer to get the user from the database
 		try

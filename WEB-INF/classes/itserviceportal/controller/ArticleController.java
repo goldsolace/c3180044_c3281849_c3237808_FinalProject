@@ -47,14 +47,8 @@ public class ArticleController extends HttpServlet {
 
 		request.setAttribute("article", article);
 
-		// Send user to the correct jsp based on role
-		if (user.getRole() == Role.USER) {
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Jsp.USERARTICLE.url());
-			dispatcher.forward(request, response);
-		} else {
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Jsp.STAFFARTICLE.url());
-			dispatcher.forward(request, response);
-		}
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Jsp.ARTICLE.url());
+		dispatcher.forward(request, response);
 	}
 
 	/**

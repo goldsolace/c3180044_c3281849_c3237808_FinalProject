@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:import url="/WEB-INF/view/header.jsp"/>
+<c:import url="/WEB-INF/view/includes/header.jsp"/>
 
 <div class="my-2">
 	<h1 class="text-center"><strong>Staff Portal</strong></h1>
@@ -33,7 +33,7 @@
 	</div>
 </div>
 
-<c:import url="/WEB-INF/view/footer.jsp"/>
+<c:import url="/WEB-INF/view/includes/footer.jsp"/>
 
 <%
 HttpServletResponse httpResponse = (HttpServletResponse)response;

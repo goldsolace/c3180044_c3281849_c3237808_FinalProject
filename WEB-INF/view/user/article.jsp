@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:import url="/WEB-INF/view/header.jsp"/>
+<c:import url="/WEB-INF/view/includes/header.jsp"/>
 
 <ul class="list-group my-2 mb-5">
 	<li class="list-group-item text-dark py-3">
@@ -37,7 +37,7 @@
 	</li>
 </ul>
 
-<c:import url="/WEB-INF/view/footer.jsp"/>
+<c:import url="/WEB-INF/view/includes/footer.jsp"/>
 
 <%
 HttpServletResponse httpResponse = (HttpServletResponse)response;
