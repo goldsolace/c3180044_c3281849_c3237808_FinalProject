@@ -1,8 +1,8 @@
 package itserviceportal.model;
 import java.io.*;
-import java.util.Date;
-import java.util.ArrayList;
+import java.util.*;
 import javax.sql.*;
+import java.util.Date;
 
 import itserviceportal.model.SupportTicket;
 
@@ -15,6 +15,48 @@ public class TicketDataAccess extends DataAccessLayer{
         super();
     }
 
+	public void newTicket(User users, String category, String title, String description, Map<String, String> issueDetails) throws SQLException
+	{
+		
+		//String Query
+		String query = "INSERT INTO tbl_SupportTicket (Title, Descript, ReportedOn, CreatedByUserID, CategoryID) VALUES (?, ?, ?, ?, ?)";
+		
+		try 
+		{
+			
+		//Prepare Statement
+		statement = dbConnection.prepareStatement(query);
+		
+		//Set Statement
+		statement.setString(1, title);
+		statement.setString(2, description);
+		statement.setString(3, "NOW()");
+		statement.setInt(4, users.getUserID());
+		statement.setInt(5, getCategoryID(category));
+		
+		//Execute Statement, adding ticket to DB
+		statement.executeUpdate();
+		statement.close();
+		
+		//Creating statement to retrieve ticketID
+		Statement statement = dbConnection.createStatement();
+		query = "SELECT LAST_INSERT_ID()";
+		ResultSet rs = statement.executeQuery(query);
+		int ticketID = rs.getInt("TicketID");
+		closeConnections();
+		
+		//Add IssueDetails for ticket to DB
+		IssueDetailDataAccess IDDA = new IssueDetailDataAccess();
+		IDDA.newIssueDetails(ticketID, issueDetails);
+		
+		}
+		catch(Exception e)
+        {
+            System.out.println("EXCEPTION CAUGHT: TicketDataAccess -- newTicket");
+            closeConnections();
+        }
+			
+	}
 
     /**
 	 * Gets all the tickets from the database matching the passed in filter parameters
@@ -245,4 +287,32 @@ public class TicketDataAccess extends DataAccessLayer{
             return null;
         }
     }
+	
+	public int getCategoryID(String category)
+	{
+		if (category.equals("Network"))
+		{
+			return 1;
+		}
+		else if (category.equals("Software"))
+		{
+			return 2;
+		}
+		else if (category.equals("Hardware"))
+		{
+			return 3;
+		}
+		else if (category.equals("Email"))
+		{
+			return 4;
+		}
+		else if (category.equals("Account"))
+		{
+			return 5;
+		}
+		else
+		{
+			return 0;
+		}
+	}
 }
