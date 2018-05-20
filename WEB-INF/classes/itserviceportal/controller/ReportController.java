@@ -45,103 +45,26 @@ public class ReportController extends HttpServlet{
 		// Map of questions and responses
 		Map<String, String> issueDetails = new HashMap<String, String>();
 		
-		// Lists of questions and responses
-		List<String> questions = new ArrayList<String>();
-		List<String> responses = new ArrayList<String>();
-				
+		//Fill hashmap with issue details
 		if (category.equals("NETWORK"))
 		{
 			issueDetails = getNetworkDetails(request);
-			
 		}
 		else if (category.equals("SOFTWARE"))
 		{
-			String device = request.getParameter("device");
-			String software = request.getParameter("software");
-			String install = request.getParameter("install");
-			String run = request.getParameter("run");
-			String version = request.getParameter("version");
-			String anotherDevice = request.getParameter("anotherDevice");
-			
-			questions.add("My Device:");
-			questions.add("The software im trying to use:");
-			questions.add("I can install the software:");
-			questions.add("I can run the software:");
-			questions.add("What software version are you running on:");
-			questions.add("Have you tried to run the software on another computer?");
-			
-			responses.add(device);
-			responses.add(software);
-			responses.add(install);
-			responses.add(run);
-			responses.add(version);
-			responses.add(anotherDevice);
+			issueDetails = getSoftwareDetails(request);
 		}
 		else if (category.equals("HARDWARE"))
 		{
-			String device = request.getParameter("device");
-			String location = request.getParameter("location");
-			String access = request.getParameter("access");
-			String damaged = request.getParameter("damaged");
-			String power = request.getParameter("power");
-			String error = request.getParameter("error");
-			
-			questions.add("Device im trying to use:");
-			questions.add("My Location:");
-			questions.add("I can access the device with my account login:");
-			questions.add("Is the device damaged:");
-			questions.add("Does the device power on?");
-			questions.add("If error message is displayed, what is the message?");
-			
-			responses.add(device);
-			responses.add(location);
-			responses.add(access);
-			responses.add(damaged);
-			responses.add(power);
-			responses.add(error);
-			
+			issueDetails = getHardwareDetails(request);
 		}
 		else if (category.equals("EMAIL"))
 		{
-			String setup = request.getParameter("setup");
-			String signin = request.getParameter("signIn");
-			String reset = request.getParameter("reset");
-			String sendAndReceive = request.getParameter("sendAndReceive");
-			String internet = request.getParameter("internet");
-			
-			questions.add("I have setup my email:");
-			questions.add("I can sign in:");
-			questions.add("Ive tried resetting my password:");
-			questions.add("I can send and receive emails:");
-			questions.add("I have confirmed my internet connection:");
-			
-			responses.add(setup);
-			responses.add(signin);
-			responses.add(reset);
-			responses.add(sendAndReceive);
-			responses.add(internet);
-			
+			issueDetails = getEmailDetails(request);
 		}
 		else if (category.equals("ACCOUNT"))
 		{
-			String activate = request.getParameter("activate");
-			String university = request.getParameter("university");
-			String error = request.getParameter("error");
-			String reset = request.getParameter("reset");
-			String system = request.getParameter("system");
-			
-			questions.add("I have activated my account:");
-			questions.add("I can log into a university computer:");
-			questions.add("If error message is displayed, what is the message?");
-			questions.add("I have tried resetting my password:");
-			questions.add("University system im trying to access:");
-			
-			responses.add(activate);
-			responses.add(university);
-			responses.add(error);
-			responses.add(reset);
-			responses.add(system);
-			
+			issueDetails = getAccountDetails(request);
 		}
 		else
 		{
@@ -151,9 +74,12 @@ public class ReportController extends HttpServlet{
 		}
 		
 		//Send all form info to TicketDataAccess
+		
+		/*
 		TicketDataAccess TDA = new TicketDataAccess();
 		TDA.newTicket(user, category, title, description, questions, responses);
-
+		*/
+		
 		//Successful form
 		session.setAttribute("successMessage", "Your issue has been reported!");
 		response.sendRedirect("ServicePortal");
@@ -175,6 +101,68 @@ public class ReportController extends HttpServlet{
 		details.put("I have tried restarting my device:", request.getParameter("restart"));
 		details.put("Can you access the website on another device?", request.getParameter("anotherDevice"));
 
+		return details;
+	}
+	
+	/**
+	 * Get Software Details 
+	 */
+	public Map<String, String> getSoftwareDetails(HttpServletRequest request) {
+		HashMap<String, String> details = new HashMap<String, String>();
+		
+		details.put("My Device:", request.getParameter("device"));
+		details.put("The software im trying to use:", request.getParameter("software"));
+		details.put("I can install the software:", request.getParameter("install"));
+		details.put("I can run the software:", request.getParameter("run"));
+		details.put("What software version are you running on:", request.getParameter("version"));
+		details.put("Have you tried to run the software on another computer?", request.getParameter("anotherDevice"));
+		
+		return details;
+	}
+	
+	/**
+	 * Get Hardware Details 
+	 */
+	public Map<String, String> getHardwareDetails(HttpServletRequest request) {
+		HashMap<String, String> details = new HashMap<String, String>();
+		
+		details.put("Device im trying to use:", request.getParameter("device"));
+		details.put("My Location:", request.getParameter("location"));
+		details.put("I can access the device with my account login:", request.getParameter("access"));
+		details.put("Is the device damaged:", request.getParameter("damaged"));
+		details.put("Does the device power on?", request.getParameter("power"));
+		details.put("If error message is displayed, what is the message?", request.getParameter("error"));
+		
+		return details;
+	}
+	
+	/**
+	 * Get Email Details 
+	 */
+	public Map<String, String> getEmailDetails(HttpServletRequest request) {
+		HashMap<String, String> details = new HashMap<String, String>();
+		
+		details.put("I have setup my email:", request.getParameter("setup"));
+		details.put("I can sign in:", request.getParameter("signIn"));
+		details.put("Ive tried resetting my password:", request.getParameter("reset"));
+		details.put("I can send and receive emails:", request.getParameter("sendAndReceive"));
+		details.put("I have confirmed my internet connection:", request.getParameter("internet"));
+		
+		return details;
+	}
+	
+	/**
+	 * Get Account Details 
+	 */
+	public Map<String, String> getAccountDetails(HttpServletRequest request) {
+		HashMap<String, String> details = new HashMap<String, String>();
+		
+		details.put("I have activated my account:", request.getParameter("activate"));
+		details.put("I can log into a university computer:", request.getParameter("university"));
+		details.put("If error message is displayed, what is the message?", request.getParameter("error"));
+		details.put("I have tried resetting my password:", request.getParameter("reset"));
+		details.put("University system im trying to access:", request.getParameter("system"));
+		
 		return details;
 	}
 }
