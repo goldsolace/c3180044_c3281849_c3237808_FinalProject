@@ -11,3 +11,25 @@ USER
 c3237123@uon.edu.au
 c3180456@uon.edu.au
 c3281789@uon.edu.au
+
+mysql -h teachdb -u c3180044 -p
+test
+
+mysql -h teachdb -u c3237808 -p
+260696
+
+USE c3180044_db;
+
+show databases;
+use [database];
+create database [database];
+select database();
+
+show tables;
+describe [table];
+SELECT * FROM tbl_User;
+
+SELECT User FROM mysql.user;
+SET PASSWORD FOR 'c3180044' = PASSWORD('test');
+
+source path_to_DB_script;
