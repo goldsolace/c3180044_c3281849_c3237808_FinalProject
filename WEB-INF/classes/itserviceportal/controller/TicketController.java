@@ -5,6 +5,8 @@ import java.util.*;
 import java.io.*;
 import java.util.regex.Pattern;
 import java.lang.NumberFormatException;
+import java.sql.SQLException;
+
 import javax.servlet.http.*;
 import javax.servlet.*;
 
@@ -33,9 +35,32 @@ public class TicketController extends HttpServlet {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 
-		//UserDataAccess userDAL = new UserDataAccess();
-		//List<Tickets> tickets = userDAL.getTicket(ticketId);
-		SupportTicket supportTicket = createTempTicket(139, 14, 43, State.NEW, Category.NETWORK);
+		//Get the ticket ID passed in as a URL param
+		int ticketID = -1;
+		try
+		{
+			ticketID = Integer.parseInt(request.getParameter("ticket"));
+		}
+		//The URL did not contain a valid int value. Display error
+		catch (NumberFormatException e)
+		{
+			System.out.println("EXCEPTION CAUGHT: TicketController -- NumberFormatException thrown while trying to parse ticketid");
+			session.setAttribute("errorMessage", "Invalid Request");
+			response.sendRedirect("ServicePortal");
+			return;
+		}
+		
+		//Get the support ticket by id
+		SupportTicket supportTicket;
+		TicketDataAccess ticketDAL = new TicketDataAccess();
+		try
+		{
+			supportTicket = ticketDAL.getTicketByIDFromDB(ticketID);
+		}
+		catch (SQLException e)
+		{
+			supportTicket = null;
+		}
 
 		if (supportTicket == null) {
 			session.setAttribute("errorMessage", "Invalid Request");
