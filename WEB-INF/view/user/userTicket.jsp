@@ -6,14 +6,13 @@
 <%@ page import="itserviceportal.model.*" %>
 
 <c:import url="/WEB-INF/view/header.jsp"/>
- 
+
 <%-- Only display if there is ticket --%>
 <c:if test="${not empty supportTicket}">
 
 	<ul class="list-group my-2">
 		<li class="list-group-item text-dark py-3">
 			<div class="d-flex justify-content-between">
-
 				<%-- Display TicketID --%>
 				<h5>Ticket <c:out value="${supportTicket.ticketID}"/></h5>
 				<h5 class="d-flex justify-content-between">
@@ -72,7 +71,7 @@
 				</c:if>
 			</div>
 		</li>
-	 	<li class="list-group-item">
+		<li class="list-group-item">
 			<h5 class="mb-1">Question 1</h5>
 			<p>Answer1</p>
 			<h5 class="mb-1">Question 2</h5>
@@ -82,20 +81,17 @@
 			<h5 class="mb-1">Question 4</h5>
 			<p>Answer4</p>
 		</li>
-
 		<li class="list-group-item">
 			<h5 class="mb-1">Description</h5>
 			<p><c:out value="${supportTicket.description}"/></p>
 		</li>
 		<form class="">
-
 			<c:if test="${not empty supportTicket.resolutionDetails}">
 				<li class="list-group-item">
 					<h5 class="mb-1">Resolution Details</h5>
 					<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
 				</li>
 			</c:if>
-
 			<c:if test="${empty supportTicket.resolutionDetails}">
 				<li class="list-group-item">
 					<div class="form-group">
@@ -104,7 +100,6 @@
 					</div>
 				</li>
 			</c:if>
-
 			<li class="list-group-item text-dark py-3">
 				<div class="text-center">
 					<h2 class="mb-1">Actions</h2>
@@ -161,13 +156,21 @@
 						<label class="h5" for="solution">Comment<span class="mx-1 far fa-comment"></span></label>
 						<textarea name="commentText" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Comment text..."></textarea>
 					</div>
-					
+
 					<button class="btn btn-success my-2 my-sm-0 m-2 float-right" type="submit">Post</button>
 				</form>
 			</li>
 		</c:if>
 	</ul>
- 
+
 </c:if>
- 
+
 <c:import url="/WEB-INF/view/footer.jsp"/>
+
+<%
+HttpServletResponse httpResponse = (HttpServletResponse)response;
+httpResponse.setHeader("Cache-Control","no-cache, no-store, must-revalidate"); 
+response.addHeader("Cache-Control", "post-check=0, pre-check=0");
+httpResponse.setHeader("Pragma","no-cache"); 
+httpResponse.setDateHeader ("Expires", 0); 
+%>
