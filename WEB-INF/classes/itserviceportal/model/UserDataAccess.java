@@ -15,7 +15,7 @@ public class UserDataAccess extends DataAccessLayer{
 
     public User loginUser(String username, String password) throws SQLException {
 
-        String query = "SELECT * FROM tbl_User WHERE Email = ? AND Password = ?";
+        String query = "SELECT * FROM tbl_User WHERE Email = ? AND UserPassword = ?";
         User user = null;
         try 
         {
@@ -35,7 +35,7 @@ public class UserDataAccess extends DataAccessLayer{
                 String firstName = results.getString("FirstName");
                 String lastName = results.getString("LastName");
                 String contactNumber = results.getString("ContactNum");
-                String role = results.getString("Role");
+                String role = results.getString("UserRole");
                 
                 user.setUserID(id);
                 user.setFirstName(firstName);
