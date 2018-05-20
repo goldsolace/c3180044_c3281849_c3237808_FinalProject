@@ -23,7 +23,11 @@
 		</select>
 	</div>
 
-	<c:import url="/WEB-INF/view/userx/network.jsp"/>
+	<c:import url="/WEB-INF/view/includes/network.jsp"/>
+	<c:import url="/WEB-INF/view/includes/software.jsp"/>
+	<c:import url="/WEB-INF/view/includes/hardware.jsp"/>
+	<c:import url="/WEB-INF/view/includes/email.jsp"/>
+	<c:import url="/WEB-INF/view/includes/account.jsp"/>
 
 	<div class="form-group">
 		<label for="details">Problem Details</label>
