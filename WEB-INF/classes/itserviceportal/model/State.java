@@ -1,7 +1,7 @@
 package itserviceportal.model;
 
 public enum State {
-    NEW("Network"),
+    NEW("New"),
     INPROGRESS("In Progress"),
     COMPLETED("Completed"),
     RESOLVED("Resolved");

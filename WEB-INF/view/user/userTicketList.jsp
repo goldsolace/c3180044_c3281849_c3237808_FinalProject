@@ -57,7 +57,6 @@
 						<h5 class="d-flex justify-content-between">
 
 							<%-- Add class based on ticket state to add different colours --%>
-							<c:set var="state" value="${ticket.state}"/>
 							<c:choose>
 								<c:when test="${ticket.state == State.NEW}">
 									<c:set var="stateClass" value="badge-danger"/>
