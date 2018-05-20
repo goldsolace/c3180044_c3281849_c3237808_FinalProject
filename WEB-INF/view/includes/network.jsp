@@ -19,16 +19,16 @@
 			<option value="Opera">Opera</option>
 			<option value="Firefox">Microsoft Edge</option>
 			<option value="UC Browswer">UC Browswer</option>
-			<option value="Other">Other<small class="text-muted">(Please specifiy in description)</small></option>
+			<option value="Other">Other (Please specifiy in description)</option>
 		</select>
 	</div>
 	<div class="form-group">
-		<label for="website">Website I'm trying to connect to?</label>
+		<label for="website">Website you're trying to connect to?</label>
 		<input name="website" type="text" class="form-control" placeholder="google.com, newcastle.edu.au, etc">
 	</div>
 
 	<div class="form-group">
-		<label for="website">I am able to access internal websites?</label>
+		<label for="website">Are you able to access internal websites?</label>
 		<div class="form-check form-check-inline">
 			<input name="website" class="form-check-input" type="radio" value="Yes">
 			<label class="form-check-label mr-1" for="website">
@@ -41,7 +41,7 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="alternate">I have tried using an alternate browser?</label>
+		<label for="alternate">Have you tried using an alternate browser?</label>
 		<div class="form-check form-check-inline">
 			<input name="alternate" class="form-check-input" type="radio" value="Yes">
 			<label class="form-check-label mr-1" for="alternate">
@@ -54,7 +54,7 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="restart">I have tried restarting my device?</label>
+		<label for="restart">Have you tried restarting my device?</label>
 		<div class="form-check form-check-inline">
 			<input name="restart" class="form-check-input" type="radio" value="Yes">
 			<label class="form-check-label mr-1" for="restart">

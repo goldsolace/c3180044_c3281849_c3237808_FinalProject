@@ -2,7 +2,7 @@
 
 <div id="hardware" class="d-none">
 	<div class="form-group">
-		<label for="device">Device I'm trying to use?</label>
+		<label for="device">Device you're trying to use?</label>
 		<input name="device" type="text" class="form-control" placeholder="Printer, iMac, etc">
 	</div>
 	<div class="form-group">
@@ -10,7 +10,7 @@
 		<input name="device" type="text" class="form-control" placeholder="GP Building, MCTH100, EAG01, etc">
 	</div>
 	<div class="form-group">
-		<label for="access">I can access the device with my account login?</label>
+		<label for="access">Can you access the device with your account login?</label>
 		<div class="form-check form-check-inline">
 			<input name="access" class="form-check-input" type="radio" value="Yes">
 			<label class="form-check-label mr-1" for="access">

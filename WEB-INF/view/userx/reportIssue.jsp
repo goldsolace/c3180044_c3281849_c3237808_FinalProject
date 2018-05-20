@@ -30,8 +30,8 @@
 	<c:import url="/WEB-INF/view/includes/account.jsp"/>
 
 	<div class="form-group">
-		<label for="details">Problem Details</label>
-		<textarea name="details" class="form-control" id="details" rows="3" placeholder="Details..." required></textarea>
+		<label for="description">Problem Details</label>
+		<textarea name="description" class="form-control" id="details" rows="3" placeholder="Details..." required></textarea>
 	</div>
 
 	<button class="btn btn-lg btn-danger btn-block" type="submit">Report</button>

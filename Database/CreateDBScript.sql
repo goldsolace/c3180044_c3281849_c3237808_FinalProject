@@ -1,13 +1,10 @@
---File Description: Create Database Script
---Authors: c3180044 c3281849 c3237808
---SENG2050 Assignment 3: Final Project
+-- File Description: Create Database Script
+-- Authors: c3180044 c3281849 c3237808
+-- SENG2050 Assignment 3: Final Project
 
 
---BEGIN: CREATE DATABASE TABLES
-----------------------------------------------------------------
-----------------------------------------------------------------
 
---Creating the Users table
+-- Creating the Users table
 CREATE TABLE tbl_User (
     UserID INT NOT NULL AUTO_INCREMENT,
     Email VARCHAR(255) NOT NULL,
@@ -20,7 +17,7 @@ CREATE TABLE tbl_User (
 );
 
 
---Creating the Category Table
+-- Creating the Category Table
 CREATE TABLE tbl_Category (
     CategoryID INT NOT NULL AUTO_INCREMENT,
     CatName VARCHAR(255) NOT NULL,
@@ -28,7 +25,7 @@ CREATE TABLE tbl_Category (
 );
 
 
---Creating the Support Ticket Table
+-- Creating the Support Ticket Table
 CREATE TABLE tbl_SupportTicket (
     TicketID INT NOT NULL AUTO_INCREMENT,
     Title VARCHAR(255) NOT NULL,
@@ -49,7 +46,7 @@ CREATE TABLE tbl_SupportTicket (
 );
 
 
---Creating the Comment Table
+-- Creating the Comment Table
 CREATE TABLE tbl_Comment (
     CommentID INT NOT NULL AUTO_INCREMENT,
     CommentText VARCHAR(255) NOT NULL,
@@ -63,7 +60,7 @@ CREATE TABLE tbl_Comment (
 );
 
 
---Creating the IssueDetails Table
+-- Creating the IssueDetails Table
 CREATE TABLE tbl_IssueDetails (
     IssueDetailsID INT NOT NULL AUTO_INCREMENT,
     QuestionText VARCHAR(255) NOT NULL,
@@ -75,7 +72,7 @@ CREATE TABLE tbl_IssueDetails (
 );
 
 
---Creating Database View For Support Tickets
+-- Creating Database View For Support Tickets
 CREATE VIEW vw_SupportTickets AS
 SELECT	t.TicketID, t.Title, t.Descrip, t.TicketState, t.ReportedOn, t.ResolvedOn, t.IsKnowledgeBase, t.ResolutionDetails, t.CategoryID, cat.CatName AS CategoryName, createdBy.UserID AS CreatedByUserID, createdBy.Email AS CreatedByEmail, createdBy.FirstName AS CreatedByFName, createdBy.LastName AS CreatedByLName, createdBy.ContactNum AS CreatedByContactNum, createdBy.UserRole AS CreatedByRole, resolvedBy.UserID AS ResolvedByUserID, resolvedBy.Email AS ResolvedByEmail, resolvedBy.FirstName AS ResolvedByFName, resolvedBy.LastName AS ResolvedByLName, resolvedBy.ContactNum AS ResolvedByContactNum, resolvedBy.UserRole AS ResolvedByRole
 FROM tbl_SupportTicket t
@@ -84,24 +81,23 @@ INNER JOIN tbl_User createdBy ON (t.CreatedByUserID = createdBy.UserID)
 LEFT JOIN tbl_User resolvedBy ON (t.ResolvedByUserID = resolvedBy.UserID);
 
 
---Creating Database View for Comments
+-- Creating Database View for Comments
 CREATE VIEW vw_Comments
 AS
 SELECT c.*, u.FirstName, u.LastName, u.Email, u.ContactNum, u.UserRole
 FROM tbl_Comment c
 INNER JOIN tbl_User u ON (c.UserID = u.UserID);
 
-
---END: CREATE DATABASE TABLES
+-- END: CREATE DATABASE TABLES
 ----------------------------------------------------------------
 ----------------------------------------------------------------
 
 
---BEGIN: INSERT DUMMY TEST DATA
+-- BEGIN: INSERT DUMMY TEST DATA
 ----------------------------------------------------------------
 ----------------------------------------------------------------
 
---Inserting Values Into the Users Table
+-- Inserting Values Into the Users Table
 INSERT INTO tbl_User (Email, UserPassword, FirstName, LastName, ContactNum, UserRole) 
 VALUES ('c3237808@uon.edu.au', 'test', 'jono', 'williams', '0412345678', 'Staff');
 INSERT INTO tbl_User (Email, UserPassword, FirstName, LastName, ContactNum, UserRole)
@@ -115,7 +111,7 @@ VALUES ('c1111111@uon.edu.au', 'test', 'Tom', 'Scott', '0412345678', 'User');
 INSERT INTO tbl_User (Email, UserPassword, FirstName, LastName, ContactNum, UserRole)
 VALUES ('c2222222@uon.edu.au', 'test', 'Joe', 'Blogs', '0478945612', 'User');
 
---Inserting Values into the Category table
+-- Inserting Values into the Category table
 INSERT INTO tbl_Category (CatName) VALUES ('Network');
 INSERT INTO tbl_Category (CatName) VALUES ('Software');
 INSERT INTO tbl_Category (CatName) VALUES ('Hardware');
@@ -123,7 +119,7 @@ INSERT INTO tbl_Category (CatName) VALUES ('Email');
 INSERT INTO tbl_Category (CatName) VALUES ('Account');
 
 
---Inserting into tickets tables
+-- Inserting into tickets tables
 INSERT INTO tbl_SupportTicket (Title, Descrip, TicketState, ReportedOn, ResolvedOn, IsKnowledgeBase, ResolutionDetails, CreatedByUserID, ResolvedByUserID, CategoryID)
 VALUES ('No internet connection', 'Having trouble connecting to google.', 'new', '2018-05-01', NULL, 0, NULL, 6, NULL, 1);
 
@@ -148,7 +144,7 @@ VALUES ('Can''t connect to wifi', 'My phone cannot connect to the wifi on campus
 INSERT INTO tbl_SupportTicket (Title, Descrip, TicketState, ReportedOn, ResolvedOn, IsKnowledgeBase, ResolutionDetails, CreatedByUserID, ResolvedByUserID, CategoryID)
 VALUES ('Can''t Print', 'I can''t print using a printer in the Auchmuty library', 'in progress', NOW(), NULL, 0, NULL, 5, NULL, 3);
 
---Inserting into comments table
+-- Inserting into comments table
 INSERT INTO tbl_Comment (CommentText, UserID, TicketID, CommentDate)
 VALUES ('Still wont open.', 6, 2, '2018-05-15');
 INSERT INTO tbl_Comment (CommentText, UserID, TicketID, CommentDate)
@@ -177,9 +173,9 @@ INSERT INTO tbl_Comment (CommentText, UserID, TicketID, CommentDate)
 VALUES ('This issue has been resolved for you. Have a good day', 2, 6, '2018-03-22');
 INSERT INTO tbl_Comment (CommentText, UserID, TicketID, CommentDate)
 VALUES ('Thanks!', 4, 6, '2018-03-23');
---TODO: Insert IssueDetails values
+-- TODO: Insert IssueDetails values
 
 
---END: INSERT DUMMY TEST DATA
+-- END: INSERT DUMMY TEST DATA
 ----------------------------------------------------------------
 ----------------------------------------------------------------

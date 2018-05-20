@@ -3,7 +3,7 @@
 <div id="email" class="d-none">
 
 	<div class="form-group">
-		<label for="setup">I have setup my email?</label>
+		<label for="setup">Have you setup your email?</label>
 		<div class="form-check form-check-inline">
 			<input name="setup" class="form-check-input" type="radio" value="Yes">
 			<label class="form-check-label mr-1" for="setup">
@@ -16,7 +16,7 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="signIn">I can sign in?</label>
+		<label for="signIn">Can you sign in?</label>
 		<div class="form-check form-check-inline">
 			<input name="signIn" class="form-check-input" type="radio" value="Yes">
 			<label class="form-check-label mr-1" for="signIn">
@@ -29,7 +29,7 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="reset">I've tried resetting my password?</label>
+		<label for="reset">Have you tried resetting your password?</label>
 		<div class="form-check form-check-inline">
 			<input name="reset" class="form-check-input" type="radio" value="Yes">
 			<label class="form-check-label mr-1" for="reset">
@@ -42,7 +42,7 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="sendAndReceive">I can send and receive emails?</label>
+		<label for="sendAndReceive">Can you send and receive emails?</label>
 		<div class="form-check form-check-inline">
 			<input name="sendAndReceive" class="form-check-input" type="radio" value="Yes">
 			<label class="form-check-label mr-1" for="sendAndReceive">
@@ -55,7 +55,7 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="internet">I have confirmed my internet connection?</label>
+		<label for="internet">Have you confirmed your internet connection?</label>
 		<div class="form-check form-check-inline">
 			<input name="internet" class="form-check-input" type="radio" value="Yes">
 			<label class="form-check-label mr-1" for="internet">

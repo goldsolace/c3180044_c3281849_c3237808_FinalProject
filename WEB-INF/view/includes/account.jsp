@@ -2,7 +2,7 @@
 
 <div id="account" class="d-none">
 	<div class="form-group">
-		<label for="activate">I have activated my account?</label>
+		<label for="activate">Have you activated your account?</label>
 		<div class="form-check form-check-inline">
 			<input name="activate" class="form-check-input" type="radio" value="Yes">
 			<label class="form-check-label mr-1" for="activate">
@@ -15,7 +15,7 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="university">I can log into a university computer?</label>
+		<label for="university">Can you log into a university computer?</label>
 		<div class="form-check form-check-inline">
 			<input name="university" class="form-check-input" type="radio" value="Yes">
 			<label class="form-check-label mr-1" for="university">
@@ -28,11 +28,11 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="system">University system im trying to access?</label>
+		<label for="system">University system you're trying to access?</label>
 		<input name="system" type="text" class="form-control" placeholder="e.g. NuMail, Myhub, etc">
 	</div>
 	<div class="form-group">
-		<label for="reset">I've tried resetting my password?</label>
+		<label for="reset">Have you tried resetting your password?</label>
 		<div class="form-check form-check-inline">
 			<input name="reset" class="form-check-input" type="radio" value="Yes">
 			<label class="form-check-label mr-1" for="reset">

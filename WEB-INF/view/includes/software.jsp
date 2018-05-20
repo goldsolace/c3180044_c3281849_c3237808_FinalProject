@@ -14,7 +14,7 @@
 		<input name="software" type="text" class="form-control" placeholder="2016, CC, etc">
 	</div>
 	<div class="form-group">
-		<label for="install">I can install the software?</label>
+		<label for="install">Can you install the software?</label>
 		<div class="form-check form-check-inline">
 			<input name="install" class="form-check-input" type="radio" value="Yes">
 			<label class="form-check-label mr-1" for="install">
@@ -27,7 +27,7 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="run">I can run the software?</label>
+		<label for="run">Can you run the software?</label>
 		<div class="form-check form-check-inline">
 			<input name="run" class="form-check-input" type="radio" value="Yes">
 			<label class="form-check-label mr-1" for="run">
@@ -40,7 +40,7 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="anotherDevice">I have tried running the software on another device?</label>
+		<label for="anotherDevice">Have you tried running the software on another device?</label>
 		<div class="form-check form-check-inline">
 			<input name="anotherDevice" class="form-check-input" type="radio" value="Yes">
 			<label class="form-check-label mr-1" for="anotherDevice">
