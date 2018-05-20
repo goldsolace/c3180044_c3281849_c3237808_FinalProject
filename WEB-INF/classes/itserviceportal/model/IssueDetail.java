@@ -34,4 +34,5 @@ public class IssueDetail implements Serializable {
 	
 	public String getResponse () { return response; }
 	public void setResponse () { this.response = response; }
+}
 	

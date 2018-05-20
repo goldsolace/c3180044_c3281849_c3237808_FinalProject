@@ -1,4 +1,5 @@
 package itserviceportal.controller;
+
 import java.io.*;
 import java.util.*;
 import java.sql.SQLException;
@@ -15,76 +16,52 @@ import itserviceportal.model.*;
 
 public class ReportController extends HttpServlet{
 
-	//Display the Login Page
+	// Display the Report Page
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Jsp.REPORT.url());
 		dispatcher.forward(request, response);
 	}
-
 
     //
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		// Get user
 		HttpSession session = request.getSession();
-		User user = (User)session.getAttribute("User");
+		User user = (User) session.getAttribute("user");
 		
-		//Ticket category, description and title
-		String category = request.getParameter("Category");
-		String description = request.getParameter("Description");
-		String title = request.getParameter("Title");
+		// Ticket category, description and title
+		String title = request.getParameter("title");
+		String category = request.getParameter("category");
+		String description = request.getParameter("description");
 		
-		//Check for form category
+		// Check for form category
 		if (category == null)
 		{
 			session.setAttribute("errorMessage", "Sorry, incorrect issue submitted. Please try again.");
 			response.sendRedirect("Report");
 			return;
 		}
+
+		// Map of questions and responses
+		Map<String, String> issueDetails = new HashMap<String, String>();
 		
-		//Lists of questions and responses
+		// Lists of questions and responses
 		List<String> questions = new ArrayList<String>();
 		List<String> responses = new ArrayList<String>();
 				
 		if (category.equals("NETWORK"))
 		{
-			String device = request.getParameter("Device");
-			String location = request.getParameter("Location");
-			String browser = request.getParameter("Browser");
-			String website = request.getParameter("Website");
-			String access = request.getParameter("Access");
-			String alternate = request.getParameter("Alternate");
-			String restart = request.getParameter("Restart");
-			String anotherDevice = request.getParameter("AnotherDevice");
-			
-			questions.add("My Device:")
-			questions.add("My Location:");
-			questions.add("My Internet Browser is:");
-			questions.add("I am trying to connect to the following website:");
-			questions.add("I am able to access internal websites:");
-			questions.add("I have tried using an alternate internet browser:");
-			questions.add("I have tried restarting my device:");
-			questions.add("Who is your ISP:");
-			questions.add("Can you access the website on another device?")
-
-			responses.add(device);
-			responses.add(location);
-			responses.add(browser);
-			responses.add(website);
-			responses.add(access);
-			responses.add(alternate);
-			responses.add(restart);
-			responses.add(anotherDevice);
+			issueDetails = getNetworkDetails(request);
 			
 		}
 		else if (category.equals("SOFTWARE"))
 		{
-			String device = request.getParameter("Device");
-			String software = request.getParameter("Software");
-			String install = request.getParameter("Install");
-			String run = request.getParameter("Run");
-			String version = request.getParameter("Version");
-			String anotherDevice = request.getParameter("AnotherDevice");
+			String device = request.getParameter("device");
+			String software = request.getParameter("software");
+			String install = request.getParameter("install");
+			String run = request.getParameter("run");
+			String version = request.getParameter("version");
+			String anotherDevice = request.getParameter("anotherDevice");
 			
 			questions.add("My Device:");
 			questions.add("The software im trying to use:");
@@ -102,19 +79,19 @@ public class ReportController extends HttpServlet{
 		}
 		else if (category.equals("HARDWARE"))
 		{
-			String device = request.getParameter("Device");
-			String location = request.getParameter("Location");
-			String access = request.getParameter("Access");
-			String damaged = request.getParameter("Damaged");
-			String power = request.getParameter("Power");
-			String error = request.getParameter("Error");
+			String device = request.getParameter("device");
+			String location = request.getParameter("location");
+			String access = request.getParameter("access");
+			String damaged = request.getParameter("damaged");
+			String power = request.getParameter("power");
+			String error = request.getParameter("error");
 			
 			questions.add("Device im trying to use:");
 			questions.add("My Location:");
 			questions.add("I can access the device with my account login:");
 			questions.add("Is the device damaged:");
 			questions.add("Does the device power on?");
-			questions.add("If error message is displayed, what is the message?")
+			questions.add("If error message is displayed, what is the message?");
 			
 			responses.add(device);
 			responses.add(location);
@@ -126,11 +103,11 @@ public class ReportController extends HttpServlet{
 		}
 		else if (category.equals("EMAIL"))
 		{
-			String setup = request.getParameter("Setup");
-			String signin = request.getParameter("Signin");
-			String reset = request.getParameter("Reset");
-			String sendAndReceive = request.getParameter("SendAndReceive");
-			String internet = request.getParameter("Internet");
+			String setup = request.getParameter("setup");
+			String signin = request.getParameter("signIn");
+			String reset = request.getParameter("reset");
+			String sendAndReceive = request.getParameter("sendAndReceive");
+			String internet = request.getParameter("internet");
 			
 			questions.add("I have setup my email:");
 			questions.add("I can sign in:");
@@ -147,14 +124,14 @@ public class ReportController extends HttpServlet{
 		}
 		else if (category.equals("ACCOUNT"))
 		{
-			String activate = request.getParameter("Activate");
-			String university = request.getParameter("University");
-			String error = request.getParameter("Error");
-			String reset = request.getParameter("Reset");
-			String system = request.getParameter("System");
+			String activate = request.getParameter("activate");
+			String university = request.getParameter("university");
+			String error = request.getParameter("error");
+			String reset = request.getParameter("reset");
+			String system = request.getParameter("system");
 			
 			questions.add("I have activated my account:");
-			questions.add("I can log into a university computer:")
+			questions.add("I can log into a university computer:");
 			questions.add("If error message is displayed, what is the message?");
 			questions.add("I have tried resetting my password:");
 			questions.add("University system im trying to access:");
@@ -180,5 +157,24 @@ public class ReportController extends HttpServlet{
 		//Successful form
 		session.setAttribute("successMessage", "Your issue has been reported!");
 		response.sendRedirect("ServicePortal");
+	}
+
+	/**
+	 * Get Network Details 
+	 */
+	public Map<String, String> getNetworkDetails(HttpServletRequest request) {
+		HashMap<String, String> details = new HashMap<String, String>();
+
+		// Put Question, Answer into details map
+		details.put("My Device:", request.getParameter("device"));
+		details.put("My Location:", request.getParameter("location"));
+		details.put("My Internet Browser is:", request.getParameter("browser"));
+		details.put("I am trying to connect to the following website:", request.getParameter("website"));
+		details.put("I am able to access internal websites:", request.getParameter("access"));
+		details.put("I have tried using an alternate internet browser:", request.getParameter("alternate"));
+		details.put("I have tried restarting my device:", request.getParameter("restart"));
+		details.put("Can you access the website on another device?", request.getParameter("anotherDevice"));
+
+		return details;
 	}
 }
