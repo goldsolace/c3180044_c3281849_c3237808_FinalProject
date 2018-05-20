@@ -34,13 +34,7 @@ public class TicketListController extends HttpServlet {
 		User user = (User) session.getAttribute("user");
 
 		// Get List of all Support Tickets the user is allowed to view
-		List<SupportTicket> tickets = getTickets(user, "all", "all");
-
-		tickets.add(createTempTickets(139, 14, 43, State.NEW, Category.NETWORK));
-		tickets.add(createTempTickets(140, 5, 0, State.INPROGRESS, Category.SOFTWARE));
-		tickets.add(createTempTickets(140, 7, 43, State.RESOLVED, Category.EMAIL));
-		tickets.add(createTempTickets(140, 9, 48, State.COMPLETED, Category.ACCOUNT));
-		tickets.add(createTempTickets(140, 10, 25, State.NEW, Category.HARDWARE));
+		ArrayList<SupportTicket> tickets = getTickets(user, "all", "all", false, "newest");
 
 		// If tickets is null send back to portal with error message
 		if (tickets == null) {
@@ -93,6 +87,7 @@ public class TicketListController extends HttpServlet {
 		String categorySelect = request.getParameter("categorySelect");
 		String stateSelect = request.getParameter("stateSelect");
 		String orderSelect = request.getParameter("orderSelect");
+		System.out.println(categorySelect);
 
 		// If no sort criteria send to portal with error
 		if (categorySelect == null || stateSelect == null || orderSelect == null) {
@@ -102,7 +97,7 @@ public class TicketListController extends HttpServlet {
 		}
 
 		// Get List of Support Tickets the user is allowed to view matching criteria
-		List<SupportTicket> tickets = getTickets(user, categorySelect, stateSelect);
+		List<SupportTicket> tickets = getTickets(user, categorySelect, stateSelect, false, orderSelect);
 
 		// If tickets is null send back to portal with error message
 		if (tickets == null) {
@@ -114,10 +109,6 @@ public class TicketListController extends HttpServlet {
 		} else if (tickets.isEmpty()) {
 			session.setAttribute("errorMessage", "No tickets");
 		}
-
-		// Sort tickets (default newest to oldest)
-		SupportTicketComparator.SortOrder order = orderSelect == "oldest" ? SupportTicketComparator.SortOrder.DESCENDING : SupportTicketComparator.SortOrder.ASCENDING;
-		Collections.sort(tickets, new SupportTicketComparator(order, SupportTicketComparator.SortDate.REPORTED));
 
 		// Attach tickets to the request to be forwarded to the jsp
 		request.setAttribute("tickets", tickets);
@@ -136,49 +127,18 @@ public class TicketListController extends HttpServlet {
 	/**
 	 * Get List of all Support Tickets the user is allowed to view
 	 */
-	public List<SupportTicket> getTickets(User user, String categorySelect, String stateSelect) {
-		// Something like this
-		// categorySelect = "all", "new", "inProgress", "completed", "resolved"
-		// stateSelect = "all", "software", "hardware", "network", "account", "email"
-		// Returns an arraylist of SupportTickets
-		// Can return null for invalid or empty list if no tickets the user can view
-
-		// UserDataAccess userDAL = new UserDataAccess();
-		// if (user.getRole() == Role.STAFF) {
-		// 	return userDAL.getAllSupportTickets(user, categorySelect, stateSelect);
-		// } else {
-		// 	return userDAL.getSupportTickets(user, categorySelect, stateSelect);
-		// }
-		
-		return new ArrayList<SupportTicket>();
-	}
-
-	/**
-	 * Get List of all Support Tickets the user is allowed to view
-	 */
-	public SupportTicket createTempTickets(int day, int hour, int minute, State state, Category net) {
-		SupportTicket ticket = new SupportTicket();
-		ticket.setTicketID(56);
-		User user2 = new User();
-		user2.setUserID(1);
-		user2.setFirstName("Joe");
-		user2.setLastName("West");
-		ticket.setReportedBy(user2);
-		ticket.setResolvedBy(user2);
-
-		GregorianCalendar gc = new GregorianCalendar();
-		gc.set(gc.YEAR, 2018);
-		gc.set(gc.DAY_OF_YEAR, day);
-		gc.set(gc.HOUR_OF_DAY, hour);
-		gc.set(gc.MINUTE, minute);
-		Date d = gc.getTime();
-		ticket.setReportedOn(d);
-		ticket.setResolvedOn(d);
-		ticket.setTitle("Can't connect to uni wifi");
-		ticket.setState(state);
-		ticket.setCategory(net);
-
-		return ticket;
+	public ArrayList<SupportTicket> getTickets(User user, String categorySelect, String stateSelect, boolean knowledgeBase, String orderBy) {
+		try
+		{
+			//Calling the Ticket Data Access to retrieve all the tickets from the database
+			TicketDataAccess ticketDAL = new TicketDataAccess();
+			ArrayList<SupportTicket> ticketList = ticketDAL.getAllTicketsFromDB(user, stateSelect, categorySelect, false, orderBy);
+			return ticketList;
+		}
+		catch (Exception e)
+		{
+			return null;
+		}
 	}
 }
 

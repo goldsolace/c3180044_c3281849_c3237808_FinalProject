@@ -27,5 +27,14 @@ public class DataAccessLayer {
             return null;
         }
     }
+
+    protected void closeConnections() throws SQLException {
+        if(dbConnection != null)
+            dbConnection.close();
+        else if (statement != null)
+            statement.close();
+        else if(results != null)
+            statement.close();
+    }
 }
 

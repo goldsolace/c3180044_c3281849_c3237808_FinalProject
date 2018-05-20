@@ -3,6 +3,9 @@ package itserviceportal.model;
 import java.io.Serializable;
 import java.util.*;
 
+
+import itserviceportal.model.Category;
+
 /**
  * SupportTicket Bean
  *
@@ -24,13 +27,13 @@ public class SupportTicket implements Serializable {
 	private User resolvedBy;
 	private boolean knowledgeBase;
 	private String resolutionDetails;
-	private List<Comment> comments;
+	private ArrayList<Comment> comments;
 
 	public SupportTicket() {
 	}
 
 	public SupportTicket(int ticketID, Category category, State state, String title, String description, Date reportedOn,
-		User reportedBy, Date resolvedOn, User resolvedBy, boolean knowledgeBase, String resolutionDetails, List<Comment> comments) {
+		User reportedBy, Date resolvedOn, User resolvedBy, boolean knowledgeBase, String resolutionDetails, ArrayList<Comment> comments) {
 		this.ticketID = ticketID;
 		this.category = category;
 		this.state = state;
@@ -42,6 +45,23 @@ public class SupportTicket implements Serializable {
 		this.resolvedBy = resolvedBy;
 		this.knowledgeBase = knowledgeBase;
 		this.resolutionDetails = resolutionDetails;
+		this.comments = comments;
+	}
+
+	public SupportTicket(int ticketID, String category, String state, String title, String description, Date reportedOn,
+		User reportedBy, Date resolvedOn, User resolvedBy, boolean knowledgeBase, String resolutionDetails, ArrayList<Comment> comments) {
+		this.ticketID = ticketID;
+		setCategory(category);
+		setState(state);
+		this.title = title;
+		this.description = description;
+		this.reportedOn = reportedOn;
+		this.reportedBy = reportedBy;
+		this.resolvedOn = resolvedOn;
+		this.resolvedBy = resolvedBy;
+		this.knowledgeBase = knowledgeBase;
+		this.resolutionDetails = resolutionDetails;
+		this.comments = comments;
 	}
 
 	public int getTicketID() { return ticketID; }
@@ -49,9 +69,34 @@ public class SupportTicket implements Serializable {
 
 	public Category getCategory() { return category; }
 	public void setCategory(Category category) { this.category = category; }
+	public void setCategory(String category) {
+		if(category.equalsIgnoreCase("network"))
+			this.category = Category.NETWORK;
+		else if(category.equalsIgnoreCase("software"))
+			this.category = Category.SOFTWARE;
+		else if(category.equalsIgnoreCase("hardware"))
+			this.category = Category.HARDWARE;
+		else if(category.equalsIgnoreCase("account"))
+			this.category = Category.ACCOUNT;
+		else
+			this.category = Category.EMAIL;
+	}
 
 	public State getState() { return state; }
 	public void setState(State state) { this.state = state; }
+	public void setState(String state) {
+		if(state.equalsIgnoreCase("new"))
+			this.state = State.NEW;
+
+		else if(state.equalsIgnoreCase("in progress"))
+			this.state = State.INPROGRESS;
+
+		else if(state.equalsIgnoreCase("completed"))
+			this.state = State.COMPLETED;
+
+		else
+			this.state = State.RESOLVED;
+	}
 
 	public String getTitle() { return title; }
 	public void setTitle(String title) { this.title = title; }
@@ -77,6 +122,6 @@ public class SupportTicket implements Serializable {
 	public String getResolutionDetails() { return resolutionDetails; }
 	public void setResolutionDetails(String resolutionDetails) { this.resolutionDetails = resolutionDetails; }
 
-	public List<Comment> getComments() { return comments; }
-	public void setComments(List<Comment> comments) { this.comments = comments; }
+	public ArrayList<Comment> getComments() { return comments; }
+	public void setComments(ArrayList<Comment> comments) { this.comments = comments; }
 }

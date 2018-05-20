@@ -22,9 +22,7 @@ public class DateFormatTag extends SimpleTagSupport {
 
 	@Override
 	public void doTag() throws JspException, IOException {
-		if (date == null) {
-			return;
-		}
+
 		Date now =	new Date();
 		// Get time difference in minutes and hours
 		long diff = now.getTime() - date.getTime();

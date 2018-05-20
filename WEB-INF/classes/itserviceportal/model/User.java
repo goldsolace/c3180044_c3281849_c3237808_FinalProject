@@ -19,6 +19,15 @@ public class User {
         role = Role.USER;
     }
 
+    public User(int id, String email, String fName, String lName, String num, String userRole) {
+        userID = id;
+        this.email = email;
+        firstName = fName;
+        lastName = lName;
+        contactNumber = num;
+        setRole(userRole);
+    }
+
     //GETTERS
     public int getUserID() {
         return userID;

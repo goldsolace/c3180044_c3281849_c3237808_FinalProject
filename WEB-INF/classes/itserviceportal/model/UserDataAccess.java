@@ -1,8 +1,6 @@
 package itserviceportal.model;
 import java.io.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.WebServlet;
+import java.util.*;
 import javax.sql.*;
 import java.sql.*;
 import javax.naming.InitialContext;
@@ -44,25 +42,14 @@ public class UserDataAccess extends DataAccessLayer{
                 user.setContactNumber(contactNumber);
                 user.setRole(role);
             }
-            results.close();
+            closeConnections();
             return user;
         }
         //If any errors occurred close all connections and return null 
         catch (Exception e) 
         {
-            e.printStackTrace();
-            if(dbConnection != null)
-            {
-                dbConnection.close();
-            }
-            if(statement != null)
-            {
-                statement.close();
-            }
-            if(results != null)
-            {
-                results.close();
-            }
+            System.out.println("EXCEPTION CAUGHT: UserDataAccess -- loginUser()");
+            closeConnections();
             return null;
         }
     }
