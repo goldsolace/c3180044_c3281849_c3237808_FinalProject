@@ -51,8 +51,11 @@
 			<a class="nounderline" href="Ticket?ticket=${ticket.ticketID}">
 				<li class="list-group-item list-group-item-action text-dark py-3">
 					<div class="d-flex justify-content-between">
+						<%-- Display TicketID --%>
 						<h5>Ticket <c:out value="${ticket.ticketID}"/></h5>
 						<h5 class="d-flex justify-content-between">
+
+							<%-- Add class based on ticket state to add different colours --%>
 							<c:set var="state" value="${ticket.state}"/>
 							<c:choose>
 								<c:when test="${ticket.state == State.NEW}">

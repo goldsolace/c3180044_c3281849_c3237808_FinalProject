@@ -8,9 +8,9 @@ c3281849@uon.edu.au
 
 USER
 
-c3237123@uon.edu.au
-c3180456@uon.edu.au
-c3281789@uon.edu.au
+c1234567@uon.edu.au
+c1111111@uon.edu.au
+c2222222@uon.edu.au
 
 
 mysql -h teachdb -u c3180044 -p
@@ -18,6 +18,10 @@ test
 
 mysql -h teachdb -u c3237808 -p
 260696
+
+USE c3237808_db;
+
+SHOW FULL TABLES IN c3237808_db WHERE TABLE_TYPE LIKE 'VIEW';
 
 USE c3180044_db;
 
@@ -29,6 +33,7 @@ select database();
 show tables;
 describe [table];
 SELECT * FROM tbl_User;
+SELECT * FROM tbl_SupportTicket;
 
 SELECT User FROM mysql.user;
 SET PASSWORD FOR 'c3180044' = PASSWORD('test');

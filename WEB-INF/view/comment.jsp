@@ -6,8 +6,13 @@
 <c:if test="${not empty comment}">
 	<li class="list-group-item">
 		<div class="d-flex justify-content-between">
-			<h6><c:out value="${comment.createdBy.firstName} ${comment.createdBy.lastName}"/></h6>
-			<small><date:format date="${comment.createdOn}" /></small>
+			<h6>
+				<c:if test="${comment.createdBy.role == Role.STAFF}">
+					<strong class="mr-1 text-primary">IT STAFF</strong>
+				</c:if>
+				<c:out value="${comment.createdBy.firstName} ${comment.createdBy.lastName}"/>
+			</h6>
+			<small class="text-muted"><date:format date="${comment.createdOn}" /></small>
 		</div>
 		<p><c:out value="${comment.commentText}"/></p>
 	</li>

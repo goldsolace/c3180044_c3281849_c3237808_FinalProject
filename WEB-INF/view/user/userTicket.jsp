@@ -145,7 +145,8 @@
 
 		<%-- Iterate through comments list --%>
 		<c:forEach var="comment" items="${supportTicket.comments}">
-			<c:import url="/WEB-INF/view/comment.jsp"/>
+			<%-- <c:import url="/WEB-INF/view/comment.jsp"/> --%>
+			<%@ include file="/WEB-INF/view/comment.jsp" %>
 		</c:forEach>
 
 		<%-- Allow commenting unless resolved --%>
