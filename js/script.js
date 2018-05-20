@@ -22,7 +22,36 @@ window.onload = function () {
 		// Auto redirect user 5 seconds after timeout
 		window.setTimeout(SessionTimeout, sessionMaxTime+5000);
 	}
+
+	var categorySelect =  document.getElementById('categorySelect');
+	if (categorySelect != null) {
+		SetCategory(categorySelect);
+		categorySelect.addEventListener('change', function(e) {
+			SetCategory(categorySelect);
+		});
+	}
 }
+
+function SetCategory(categorySelect) {
+	switch (categorySelect.value) {
+		case "network":
+			document.getElementById('network').classList.remove('d-none');
+			break;
+		case "software":
+			document.getElementById('network').classList.add('d-none');
+			break;
+		case "hardware":
+			document.getElementById('network').classList.add('d-none');
+			break;
+		case "email":
+			document.getElementById('network').classList.add('d-none');
+			break;
+		case "account":
+			document.getElementById('network').classList.add('d-none');
+			break;
+	}
+}
+
 
 // Method to warn user of session timeout
 function AlertSessionTimeout() {

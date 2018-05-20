@@ -14,7 +14,7 @@
 
 	<div class="form-group">
 		<label for="inputCategory">Category</label>
-		<select name="category" id="category" class="form-control" required>
+		<select name="category" id="categorySelect" class="form-control" required>
 			<option value="network">Network</option>
 			<option value="software">Software</option>
 			<option value="hardware">Hardware</option>
@@ -22,6 +22,8 @@
 			<option value="account">Account</option>
 		</select>
 	</div>
+
+	<c:import url="/WEB-INF/view/userx/network.jsp"/>
 
 	<div class="form-group">
 		<label for="details">Problem Details</label>

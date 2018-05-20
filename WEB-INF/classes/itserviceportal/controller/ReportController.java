@@ -152,7 +152,7 @@ public class ReportController extends HttpServlet{
 		
 		//Send all form info to TicketDataAccess
 		TicketDataAccess TDA = new TicketDataAccess();
-		TDA.newTicket(user, category, title, description, questions, responses);
+		//TDA.newTicket(user, category, title, description, questions, responses);
 
 		//Successful form
 		session.setAttribute("successMessage", "Your issue has been reported!");
