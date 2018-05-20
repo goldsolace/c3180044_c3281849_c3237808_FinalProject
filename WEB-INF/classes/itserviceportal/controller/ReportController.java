@@ -55,7 +55,7 @@ public class ReportController extends HttpServlet{
 			String access = request.getParameter("Access");
 			String alternate = request.getParameter("Alternate");
 			String restart = request.getParameter("Restart");
-			String isp = request.getParameter("ISP");
+			String anotherDevice = request.getParameter("AnotherDevice");
 			
 			questions.add("My Device:")
 			questions.add("My Location:");
@@ -65,6 +65,7 @@ public class ReportController extends HttpServlet{
 			questions.add("I have tried using an alternate internet browser:");
 			questions.add("I have tried restarting my device:");
 			questions.add("Who is your ISP:");
+			questions.add("Can you access the website on another device?")
 
 			responses.add(device);
 			responses.add(location);
@@ -73,7 +74,7 @@ public class ReportController extends HttpServlet{
 			responses.add(access);
 			responses.add(alternate);
 			responses.add(restart);
-			responses.add(isp);
+			responses.add(anotherDevice);
 			
 		}
 		else if (category.equals("SOFTWARE"))
@@ -83,18 +84,21 @@ public class ReportController extends HttpServlet{
 			String install = request.getParameter("Install");
 			String run = request.getParameter("Run");
 			String version = request.getParameter("Version");
+			String anotherDevice = request.getParameter("AnotherDevice");
 			
 			questions.add("My Device:");
 			questions.add("The software im trying to use:");
 			questions.add("I can install the software:");
 			questions.add("I can run the software:");
 			questions.add("What software version are you running on:");
+			questions.add("Have you tried to run the software on another computer?");
 			
 			responses.add(device);
 			responses.add(software);
 			responses.add(install);
 			responses.add(run);
 			responses.add(version);
+			responses.add(anotherDevice);
 		}
 		else if (category.equals("HARDWARE"))
 		{
@@ -102,16 +106,22 @@ public class ReportController extends HttpServlet{
 			String location = request.getParameter("Location");
 			String access = request.getParameter("Access");
 			String damaged = request.getParameter("Damaged");
+			String power = request.getParameter("Power");
+			String error = request.getParameter("Error");
 			
 			questions.add("Device im trying to use:");
 			questions.add("My Location:");
 			questions.add("I can access the device with my account login:");
 			questions.add("Is the device damaged:");
+			questions.add("Does the device power on?");
+			questions.add("If error message is displayed, what is the message?")
 			
 			responses.add(device);
 			responses.add(location);
 			responses.add(access);
 			responses.add(damaged);
+			responses.add(power);
+			responses.add(error);
 			
 		}
 		else if (category.equals("EMAIL"))
@@ -138,14 +148,20 @@ public class ReportController extends HttpServlet{
 		else if (category.equals("ACCOUNT"))
 		{
 			String activate = request.getParameter("Activate");
+			String university = request.getParameter("University");
+			String error = request.getParameter("Error");
 			String reset = request.getParameter("Reset");
 			String system = request.getParameter("System");
 			
 			questions.add("I have activated my account:");
+			questions.add("I can log into a university computer:")
+			questions.add("If error message is displayed, what is the message?");
 			questions.add("I have tried resetting my password:");
 			questions.add("University system im trying to access:");
 			
 			responses.add(activate);
+			responses.add(university);
+			responses.add(error);
 			responses.add(reset);
 			responses.add(system);
 			
