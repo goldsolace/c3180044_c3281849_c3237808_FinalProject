@@ -1,5 +1,4 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div id="network" class="d-none">
 	<div class="form-group">
@@ -7,8 +6,8 @@
 		<input name="device" type="text" class="form-control" placeholder="Chromebook, iPhone 6, Dell Inspiron, etc">
 	</div>
 	<div class="form-group">
-		<label for="device">Location?</label>
-		<input name="device" type="text" class="form-control" placeholder="GP Building, MCTH100, EAG01, etc">
+		<label for="location">Location?</label>
+		<input name="location" type="text" class="form-control" placeholder="GP Building, MCTH100, EAG01, etc">
 	</div>
 	<div class="form-group">
 		<label for="browser">Browser?</label>
@@ -32,11 +31,9 @@
 		<label for="website">I am able to access internal websites?</label>
 		<div class="form-check form-check-inline">
 			<input name="website" class="form-check-input" type="radio" value="Yes">
-			<label class="form-check-label" for="website">
+			<label class="form-check-label mr-1" for="website">
 				Yes
 			</label>
-		</div>
-		<div class="form-check form-check-inline">
 			<input name="website"  class="form-check-input" type="radio" value="No">
 			<label class="form-check-label" for="website">
 				No
@@ -47,11 +44,9 @@
 		<label for="alternate">I have tried using an alternate browser?</label>
 		<div class="form-check form-check-inline">
 			<input name="alternate" class="form-check-input" type="radio" value="Yes">
-			<label class="form-check-label" for="alternate">
+			<label class="form-check-label mr-1" for="alternate">
 				Yes
 			</label>
-		</div>
-		<div class="form-check form-check-inline">
 			<input name="alternate"  class="form-check-input" type="radio" value="No">
 			<label class="form-check-label" for="alternate">
 				No
@@ -62,11 +57,9 @@
 		<label for="restart">I have tried restarting my device?</label>
 		<div class="form-check form-check-inline">
 			<input name="restart" class="form-check-input" type="radio" value="Yes">
-			<label class="form-check-label" for="restart">
+			<label class="form-check-label mr-1" for="restart">
 				Yes
 			</label>
-		</div>
-		<div class="form-check form-check-inline">
 			<input name="restart"  class="form-check-input" type="radio" value="No">
 			<label class="form-check-label" for="restart">
 				No
@@ -77,11 +70,9 @@
 		<label for="anotherDevice">Can you access the website on another device?</label>
 		<div class="form-check form-check-inline">
 			<input name="anotherDevice" class="form-check-input" type="radio" value="Yes">
-			<label class="form-check-label" for="anotherDevice">
+			<label class="form-check-label mr-1" for="anotherDevice">
 				Yes
 			</label>
-		</div>
-		<div class="form-check form-check-inline">
 			<input name="anotherDevice"  class="form-check-input" type="radio" value="No">
 			<label class="form-check-label" for="anotherDevice">
 				No

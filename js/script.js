@@ -36,22 +36,41 @@ function SetCategory(categorySelect) {
 	switch (categorySelect.value) {
 		case "network":
 			document.getElementById('network').classList.remove('d-none');
+			document.getElementById('software').classList.add('d-none');
+			document.getElementById('hardware').classList.add('d-none');
+			document.getElementById('email').classList.add('d-none');
+			document.getElementById('account').classList.add('d-none');
 			break;
 		case "software":
 			document.getElementById('network').classList.add('d-none');
+			document.getElementById('software').classList.remove('d-none');
+			document.getElementById('hardware').classList.add('d-none');
+			document.getElementById('email').classList.add('d-none');
+			document.getElementById('account').classList.add('d-none');
 			break;
 		case "hardware":
 			document.getElementById('network').classList.add('d-none');
+			document.getElementById('software').classList.add('d-none');
+			document.getElementById('hardware').classList.remove('d-none');
+			document.getElementById('email').classList.add('d-none');
+			document.getElementById('account').classList.add('d-none');
 			break;
 		case "email":
 			document.getElementById('network').classList.add('d-none');
+			document.getElementById('software').classList.add('d-none');
+			document.getElementById('hardware').classList.add('d-none');
+			document.getElementById('email').classList.remove('d-none');
+			document.getElementById('account').classList.add('d-none');
 			break;
 		case "account":
 			document.getElementById('network').classList.add('d-none');
+			document.getElementById('software').classList.add('d-none');
+			document.getElementById('hardware').classList.add('d-none');
+			document.getElementById('email').classList.add('d-none');
+			document.getElementById('account').classList.remove('d-none');
 			break;
 	}
 }
-
 
 // Method to warn user of session timeout
 function AlertSessionTimeout() {
