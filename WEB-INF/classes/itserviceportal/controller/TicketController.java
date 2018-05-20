@@ -35,7 +35,7 @@ public class TicketController extends HttpServlet {
 
 		//UserDataAccess userDAL = new UserDataAccess();
 		//List<Tickets> tickets = userDAL.getTicket(ticketId);
-		SupportTicket supportTicket = new SupportTicket();
+		SupportTicket supportTicket = createTempTicket(139, 14, 43, State.NEW, Category.NETWORK);
 
 		if (supportTicket == null) {
 			session.setAttribute("errorMessage", "Invalid Request");
@@ -69,6 +69,35 @@ public class TicketController extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 			doGet(request, response);
+	}
+
+	/**
+	 * Get List of all Support Tickets the user is allowed to view
+	 */
+	public SupportTicket createTempTicket(int day, int hour, int minute, State state, Category net) {
+		SupportTicket ticket = new SupportTicket();
+		ticket.setTicketID(56);
+		User user2 = new User();
+		user2.setUserID(1);
+		user2.setFirstName("Joe");
+		user2.setLastName("West");
+		ticket.setReportedBy(user2);
+		ticket.setResolvedBy(user2);
+
+		GregorianCalendar gc = new GregorianCalendar();
+		gc.set(gc.YEAR, 2018);
+		gc.set(gc.DAY_OF_YEAR, day);
+		gc.set(gc.HOUR_OF_DAY, hour);
+		gc.set(gc.MINUTE, minute);
+		Date d = gc.getTime();
+		ticket.setReportedOn(d);
+		ticket.setResolvedOn(d);
+		ticket.setTitle("Can't connect to uni wifi");
+		ticket.setDescription("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.");
+		ticket.setState(state);
+		ticket.setCategory(net);
+
+		return ticket;
 	}
 }
 

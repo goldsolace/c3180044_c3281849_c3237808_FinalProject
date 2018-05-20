@@ -11,45 +11,52 @@
 	<h1 class="text-center"><strong>Support Tickets</strong></h1>
 </div>
 
-<form class="form-sort" method="POST" action="TicketList">
-	<div class="input-group">
-		<select name="categorySelect" class="custom-select">
-			<option value="all">All Categories</option>
-			<option value="software">Software</option>
-			<option value="hardware">Hardware</option>
-			<option value="network">Network</option>
-			<option value="account">Account</option>
-			<option value="email">Email</option>
-		</select>
-		<select name="stateSelect" class="custom-select">
-			<option value="all">All States</option>
-			<option value="new">New</option>
-			<option value="inProgress">In Progress</option>
-			<option value="completed">Completed</option>
-			<option value="resolved">Resolved</option>
-		</select>
-		<select name="orderSelect" class="custom-select">
-			<option value="newest">Newest Reported</option>
-			<option value="oldest">Oldest Reported</option>
-		</select>
-		<div class="input-group-append">
-			<button class="btn btn-outline-info" type="submit" >Sort</button>
-		</div>
-	</div>
-</form>
 
-<%-- Only display if their are tickets --%>
+<%-- Only display if there are tickets --%>
 <c:if test="${not empty tickets}">
+
+	<form class="form-sort" method="POST" action="TicketList">
+		<div class="input-group">
+			<select name="categorySelect" class="custom-select">
+				<option value="all">All Categories</option>
+				<option value="software">Software</option>
+				<option value="hardware">Hardware</option>
+				<option value="network">Network</option>
+				<option value="account">Account</option>
+				<option value="email">Email</option>
+			</select>
+			<select name="stateSelect" class="custom-select">
+				<option value="all">All States</option>
+				<option value="new">New</option>
+				<option value="inProgress">In Progress</option>
+				<option value="completed">Completed</option>
+				<option value="resolved">Resolved</option>
+			</select>
+			<select name="orderSelect" class="custom-select">
+				<option value="newest">Newest Reported</option>
+				<option value="oldest">Oldest Reported</option>
+			</select>
+			<div class="input-group-append">
+				<button class="btn btn-outline-info" type="submit" >Sort</button>
+			</div>
+		</div>
+	</form>
+
 	<ul class="list-group my-2 mb-5">
 
 		<%-- Iterate through tickets list --%>
 		<c:forEach var="ticket" items="${tickets}" varStatus="ticketIndex">
+
 			<%-- Link to Ticket Controller passing ticketID as a parameter --%>
 			<a class="nounderline" href="Ticket?ticket=${ticket.ticketID}">
 				<li class="list-group-item list-group-item-action text-dark py-3">
 					<div class="d-flex justify-content-between">
+
+						<%-- Display TicketID --%>
 						<h5>Ticket <c:out value="${ticket.ticketID}"/></h5>
 						<h5 class="d-flex justify-content-between">
+
+							<%-- Add class based on ticket state to add different colours --%>
 							<c:set var="state" value="${ticket.state}"/>
 							<c:choose>
 								<c:when test="${ticket.state == State.NEW}">
@@ -65,31 +72,39 @@
 									<c:set var="stateClass" value="badge-success"/>
 								</c:when>
 							</c:choose>
+
+							<%-- Display State --%>
 							<span class="state mx-1 badge ${stateClass}">
 								<span class="mx-1 fas fa-tasks"></span>
 								<c:out value="${ticket.state.str}"/>
 							</span>
+							<%-- Display Category --%>
 							<span class="mx-1 badge badge-secondary">
 								<span class="mx-1 fas fa-tag"></span>
 								<c:out value="${ticket.category.str}"/>
 							</span>
 						</h5>
 					</div>
+					<%-- Display Title --%>
 					<h3 class="mb-1 text-left"><c:out value="${ticket.title}"/></h3>
 					<div class="d-flex justify-content-between">
 						<p class="mr-2 mb-0">
 							Reported
 							<span class=" fas fa-user"></span>
+							<%-- Display User who reported the ticket's name --%>
 							<c:out value="${ticket.reportedBy.firstName} ${ticket.reportedBy.lastName}"/>
 							<span class="mx-1 fas fa-calendar-alt hidden-sm"></span>
+							<%-- Display date it was reported on using custom date format taglib --%>
 							<date:format date="${ticket.reportedOn}" />
 						</p>
 						<c:if test="${not empty ticket.resolvedOn}">
 							<p class="mr-2 mb-0">
 								Resolved
 								<span class=" fas fa-user"></span>
+								<%-- Display User who resolved the ticket's name --%>
 								<c:out value="${ticket.resolvedBy.firstName} ${ticket.resolvedBy.lastName}"/>
 								<span class="mx-1 fas fa-calendar-alt hidden-sm"></span>
+								<%-- Display date it was reported on using custom date format taglib --%>
 								<date:format date="${ticket.resolvedOn}" />
 							</p>
 						</c:if>
@@ -99,95 +114,6 @@
 		</c:forEach>
 	</ul>
 </c:if>
-
-
-<ul class="list-group my-2 mb-5">
-
-	<a class="nounderline" href="Ticket?ticket=1">
-		<li class="list-group-item list-group-item-action text-dark py-3">
-			<div class="d-flex justify-content-between">
-				<h5>Ticket 1</h5>
-				<h5 class="d-flex justify-content-between">
-					<span class="state mx-1 badge badge-danger">
-						<span class="mx-1 fas fa-tasks"></span>New
-					</span>
-					<span class="mx-1 badge badge-secondary">
-						<span class="mx-1 fas fa-tag"></span>Software
-					</span>
-				</h5>
-			</div>
-			<h3 class="mb-1 text-left">How do I change my University Password</h3>
-			<div class="d-flex justify-content-between">
-				<p class="mr-2 mb-0">Reported: <span class="mx-1 fas fa-user"></span>Billy Jones<span class="mx-1 fas fa-calendar-alt hidden-sm"></span>5:13pm 13/05/2018</p>
-				<p class="mr-2 mb-0">Resolved: <span class="mx-1 fas fa-user"></span>Brice Purton<span class="mx-1 fas fa-calendar-alt hidden-sm"></span>11:48am 14/05/2018</p>
-			</div>
-		</li>
-	</a>
-
-	<a class="nounderline" href="Ticket?ticket=2">
-		<li class="list-group-item list-group-item-action text-dark py-3">
-			<div class="d-flex justify-content-between">
-				<h5>Ticket 1</h5>
-				<h5 class="d-flex justify-content-between">
-					<span class="state mx-1 badge" >
-						<span class="mx-1 fas fa-tasks"></span>In Progress
-					</span>
-					<span class="mx-1 badge badge-secondary">
-						<span class="mx-1 fas fa-tag"></span>Software
-					</span>
-				</h5>
-			</div>
-			<h3 class="mb-1 text-left">How do I change my University Password</h3>
-			<div class="d-flex justify-content-between">
-				<p class="mr-2 mb-0">Reported: <span class="mx-1 fas fa-user"></span>Billy Jones<span class="mx-1 fas fa-calendar-alt"></span>5:13pm 13/05/2018</p>
-				<p class="mr-2 mb-0">Resolved: <span class="mx-1 fas fa-user"></span>Brice Purton<span class="mx-1 fas fa-calendar-alt"></span>11:48am 14/05/2018</p>
-			</div>
-		</li>
-	</a>
-
-	<a class="nounderline" href="Ticket?ticket=3">
-		<li class="list-group-item list-group-item-action text-dark py-3">
-			<div class="d-flex justify-content-between">
-				<h5>Ticket 1</h5>
-				<h5 class="d-flex justify-content-between">
-					<span class="state mx-1 badge">
-						<span class="mx-1 fas fa-tasks"></span>Completed
-					</span>
-					<span class="mx-1 badge badge-secondary">
-						<span class="mx-1 fas fa-tag"></span>Software
-					</span>
-				</h5>
-			</div>
-			<h3 class="mb-1 text-left">How do I change my University Password</h3>
-			<div class="d-flex justify-content-between">
-				<p class="mr-2 mb-0">Reported: <span class="mx-1 fas fa-user"></span>Billy Jones<span class="mx-1 fas fa-calendar-alt"></span>5:13pm 13/05/2018</p>
-				<p class="mr-2 mb-0">Resolved: <span class="mx-1 fas fa-user"></span>Brice Purton<span class="mx-1 fas fa-calendar-alt"></span>11:48am 14/05/2018</p>
-			</div>
-		</li>
-	</a>
-
-	<a class="nounderline" href="Ticket?ticket=4">
-		<li class="list-group-item list-group-item-action text-dark py-3">
-			<div class="d-flex justify-content-between">
-				<h5>Ticket 1</h5>
-				<h5 class="d-flex justify-content-between">
-					<span class="state mx-1 badge" >
-						<span class="mx-1 fas fa-tasks"></span>Resolved
-					</span>
-					<span class="mx-1 badge badge-secondary" >
-						<span class="mx-1 fas fa-tag"></span>Software
-					</span>
-				</h5>
-			</div>
-			<h3 class="mb-1 text-left">How do I change my University Password</h3>
-			<div class="d-flex justify-content-between">
-				<p class="mr-2 mb-0">Reported: <span class="mx-1 fas fa-user"></span>Billy Jones<span class="mx-1 fas fa-calendar-alt"></span>5:13pm 13/05/2018</p>
-				<p class="mr-2 mb-0">Resolved: <span class="mx-1 fas fa-user"></span>Brice Purton<span class="mx-1 fas fa-calendar-alt"></span>11:48am 14/05/2018</p>
-			</div>
-		</li>
-	</a>
-
-</ul>
 
 <c:import url="/WEB-INF/view/footer.jsp"/>
 

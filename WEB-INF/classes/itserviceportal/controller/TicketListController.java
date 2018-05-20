@@ -37,10 +37,10 @@ public class TicketListController extends HttpServlet {
 		List<SupportTicket> tickets = getTickets(user, "all", "all");
 
 		tickets.add(createTempTickets(139, 14, 43, State.NEW, Category.NETWORK));
-		tickets.add(createTempTickets(139, 14, 43, State.INPROGRESS, Category.SOFTWARE));
-		tickets.add(createTempTickets(139, 14, 43, State.RESOLVED, Category.EMAIL));
-		tickets.add(createTempTickets(139, 14, 43, State.COMPLETED, Category.ACCOUNT));
-		tickets.add(createTempTickets(139, 14, 43, State.NEW, Category.HARDWARE));
+		tickets.add(createTempTickets(140, 5, 0, State.INPROGRESS, Category.SOFTWARE));
+		tickets.add(createTempTickets(140, 7, 43, State.RESOLVED, Category.EMAIL));
+		tickets.add(createTempTickets(140, 9, 48, State.COMPLETED, Category.ACCOUNT));
+		tickets.add(createTempTickets(140, 10, 25, State.NEW, Category.HARDWARE));
 
 		// If tickets is null send back to portal with error message
 		if (tickets == null) {
