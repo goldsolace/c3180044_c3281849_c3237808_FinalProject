@@ -71,16 +71,15 @@
 				</c:if>
 			</div>
 		</li>
-		<li class="list-group-item">
-			<h5 class="mb-1">Question 1</h5>
-			<p>Answer1</p>
-			<h5 class="mb-1">Question 2</h5>
-			<p>Answer2</p>
-			<h5 class="mb-1">Question 3</h5>
-			<p>Answer3</p>
-			<h5 class="mb-1">Question 4</h5>
-			<p>Answer4</p>
-		</li>
+		<c:if test="${not empty supportTicket.issueDetails}">
+			<li class="list-group-item">
+				<%-- Iterate through issueDetails list --%>
+				<c:forEach var="issueDetail" items="${supportTicket.issueDetails}">
+					<h5 class="mb-1"><c:out value="${issueDetail.question}"/></h5>
+					<p><c:out value="${issueDetail.response}"/></p>
+				</c:forEach>
+			</li>
+		</c:if>
 		<li class="list-group-item">
 			<h5 class="mb-1">Description</h5>
 			<p><c:out value="${supportTicket.description}"/></p>

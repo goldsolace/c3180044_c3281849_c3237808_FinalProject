@@ -27,13 +27,14 @@ public class SupportTicket implements Serializable {
 	private User resolvedBy;
 	private boolean knowledgeBase;
 	private String resolutionDetails;
+	private ArrayList<IssueDetail> issueDetails;
 	private ArrayList<Comment> comments;
 
 	public SupportTicket() {
 	}
 
 	public SupportTicket(int ticketID, Category category, State state, String title, String description, Date reportedOn,
-		User reportedBy, Date resolvedOn, User resolvedBy, boolean knowledgeBase, String resolutionDetails, ArrayList<Comment> comments) {
+		User reportedBy, Date resolvedOn, User resolvedBy, boolean knowledgeBase, String resolutionDetails, ArrayList<IssueDetail> issueDetails, ArrayList<Comment> comments) {
 		this.ticketID = ticketID;
 		this.category = category;
 		this.state = state;
@@ -45,11 +46,12 @@ public class SupportTicket implements Serializable {
 		this.resolvedBy = resolvedBy;
 		this.knowledgeBase = knowledgeBase;
 		this.resolutionDetails = resolutionDetails;
+		this.issueDetails = issueDetails;
 		this.comments = comments;
 	}
 
 	public SupportTicket(int ticketID, String category, String state, String title, String description, Date reportedOn,
-		User reportedBy, Date resolvedOn, User resolvedBy, boolean knowledgeBase, String resolutionDetails, ArrayList<Comment> comments) {
+		User reportedBy, Date resolvedOn, User resolvedBy, boolean knowledgeBase, String resolutionDetails, ArrayList<IssueDetail> issueDetails, ArrayList<Comment> comments) {
 		this.ticketID = ticketID;
 		setCategory(category);
 		setState(state);
@@ -61,6 +63,7 @@ public class SupportTicket implements Serializable {
 		this.resolvedBy = resolvedBy;
 		this.knowledgeBase = knowledgeBase;
 		this.resolutionDetails = resolutionDetails;
+		this.issueDetails = issueDetails;
 		this.comments = comments;
 	}
 
@@ -121,6 +124,9 @@ public class SupportTicket implements Serializable {
 
 	public String getResolutionDetails() { return resolutionDetails; }
 	public void setResolutionDetails(String resolutionDetails) { this.resolutionDetails = resolutionDetails; }
+
+	public ArrayList<IssueDetail> getIssueDetails() { return issueDetails; }
+	public void setIssueDetails(ArrayList<IssueDetail> issueDetails) { this.issueDetails = issueDetails; }
 
 	public ArrayList<Comment> getComments() { return comments; }
 	public void setComments(ArrayList<Comment> comments) { this.comments = comments; }

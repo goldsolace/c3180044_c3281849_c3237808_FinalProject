@@ -16,6 +16,8 @@ c2222222@uon.edu.au
 mysql -h teachdb -u c3180044 -p
 test
 
+mysqldump -- opt -u c3180044 -h teachdb --all-databases -p > C:/Users/Brice/Documents/Curse/test.txt
+
 mysql -h teachdb -u c3237808 -p
 260696
 
@@ -30,12 +32,25 @@ use [database];
 create database [database];
 select database();
 
+SELECT * FROM TEST;
+
 show tables;
 describe [table];
 SELECT * FROM tbl_User;
 SELECT * FROM tbl_SupportTicket;
+SELECT * FROM tbl_Comment;
+
+DROP TABLE tbl_Comment;
+DROP TABLE tbl_IssueDetails;
+DROP TABLE tbl_SupportTicket;
 
 SELECT User FROM mysql.user;
-SET PASSWORD FOR 'c3180044' = PASSWORD('test');
+SET PASSWORD FOR 'c3180044' = PASSWORD('300894');
 
 source path_to_DB_script;
+
+source C:/Users/Brice/Documents/`Computer Science`/`BA. CompSci`/`Semester 2`/SENG2050/`Apache Tomcat`/apache-tomcat-8.5.28/webapps/test.sql;
+
+SOURCE C:/Users/Brice/Documents/Curse/test.sql;
+
+SOURCE C:/Users/Brice/Documents/Curse/test.txt;

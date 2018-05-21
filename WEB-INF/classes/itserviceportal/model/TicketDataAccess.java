@@ -276,12 +276,16 @@ public class TicketDataAccess extends DataAccessLayer{
 				resolvedByUser = getResolvedByUserFromResults(results);
 
 			//Calling the comments data access to get all the comments for this ticket
+			IssueDetailDataAccess issueDetailDAL = new IssueDetailDataAccess();
+			ArrayList<IssueDetail> issueDetails = issueDetailDAL.getAllIssueDetailsForTicket(id);
+
+			//Calling the comments data access to get all the comments for this ticket
 			CommentDataAccess commentDAL = new CommentDataAccess();
 			ArrayList<Comment> comments = commentDAL.getAllCommentsForTicket(id);
 
 
 			//Creating the support ticket from the values retrieved from the query
-			SupportTicket ticket = new SupportTicket(id, catName, state, title, desc, reportedOn, createdByUser, resolvedOn, resolvedByUser, isKnowledgeBase, resolutionDetails, comments);
+			SupportTicket ticket = new SupportTicket(id, catName, state, title, desc, reportedOn, createdByUser, resolvedOn, resolvedByUser, isKnowledgeBase, resolutionDetails, issueDetails, comments);
 
 			return ticket;
 		}
