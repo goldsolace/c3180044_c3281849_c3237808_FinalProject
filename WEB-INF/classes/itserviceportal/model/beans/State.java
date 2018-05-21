@@ -1,4 +1,4 @@
-package itserviceportal.model;
+package itserviceportal.model.beans;
 
 public enum State {
     NEW("New"),

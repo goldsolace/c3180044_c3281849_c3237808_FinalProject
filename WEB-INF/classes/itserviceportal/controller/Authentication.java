@@ -1,12 +1,11 @@
 package itserviceportal.controller;
 
-import itserviceportal.model.*;
+import itserviceportal.model.beans.*;
+import itserviceportal.model.datalayer.*;
 import java.util.*;
 import java.io.IOException;
 import javax.servlet.*;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 
 /**
  * The Authentication class is a web filter that manages user permissions.

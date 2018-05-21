@@ -1,16 +1,11 @@
 package itserviceportal.controller;
 
-import java.util.*;
-import itserviceportal.model.*;
+import itserviceportal.model.beans.*;
+import itserviceportal.model.datalayer.*;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpSessionAttributeListener;
-import javax.servlet.http.HttpSessionBindingEvent;
-import javax.servlet.http.HttpSessionEvent;
-import javax.servlet.http.HttpSessionListener;
+import java.util.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
 
 /**
  * SessionListener

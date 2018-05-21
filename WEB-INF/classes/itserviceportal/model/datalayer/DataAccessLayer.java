@@ -1,4 +1,6 @@
-package itserviceportal.model;
+package itserviceportal.model.datalayer;
+
+import itserviceportal.model.beans.*;
 import javax.sql.*;
 import java.sql.*;
 import javax.naming.InitialContext;

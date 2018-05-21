@@ -1,10 +1,10 @@
-package itserviceportal.model;
+package itserviceportal.model.datalayer;
+
+import itserviceportal.model.beans.*;
 import java.io.*;
 import java.util.*;
 import javax.sql.*;
 import java.util.Date;
-
-import itserviceportal.model.SupportTicket;
 
 import java.sql.*;
 import javax.naming.InitialContext;

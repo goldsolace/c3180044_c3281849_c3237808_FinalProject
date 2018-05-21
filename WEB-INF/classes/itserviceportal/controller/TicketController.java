@@ -1,6 +1,7 @@
 package itserviceportal.controller;
 
-import itserviceportal.model.*;
+import itserviceportal.model.beans.*;
+import itserviceportal.model.datalayer.*;
 import java.util.*;
 import java.io.*;
 import java.util.regex.Pattern;

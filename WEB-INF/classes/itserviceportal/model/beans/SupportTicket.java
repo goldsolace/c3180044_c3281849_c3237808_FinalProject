@@ -1,10 +1,8 @@
-package itserviceportal.model;
+package itserviceportal.model.beans;
 
 import java.io.Serializable;
 import java.util.*;
 
-
-import itserviceportal.model.Category;
 
 /**
  * SupportTicket Bean

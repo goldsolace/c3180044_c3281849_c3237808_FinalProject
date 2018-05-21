@@ -1,10 +1,12 @@
 package itserviceportal.controller;
 
+import itserviceportal.model.beans.*;
+import itserviceportal.model.datalayer.*;
 import java.io.*;
 import java.sql.SQLException;
 import javax.servlet.*;
 import javax.servlet.http.*;
-import itserviceportal.model.*;
+
 
 /**
  * TimeoutController

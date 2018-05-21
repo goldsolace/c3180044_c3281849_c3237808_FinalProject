@@ -1,4 +1,6 @@
-package itserviceportal.model;
+package itserviceportal.model.datalayer;
+
+import itserviceportal.model.beans.*;
 import java.io.*;
 import java.util.*;
 import javax.sql.*;

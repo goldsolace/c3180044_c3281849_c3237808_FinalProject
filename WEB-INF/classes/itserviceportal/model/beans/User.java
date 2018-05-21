@@ -1,4 +1,4 @@
-package itserviceportal.model;
+package itserviceportal.model.beans;
 import java.lang.*;
 
 public class User {

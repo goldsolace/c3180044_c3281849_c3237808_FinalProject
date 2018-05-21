@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="date" uri="http://localhost:8080/c3180044_c3281849_c3237808_FinalProject/taglib/date" %>
-<%@ page import="itserviceportal.model.*" %>
+<%@ page import="itserviceportal.model.beans.*" %>
  
 <c:if test="${not empty comment}">
 	<li class="list-group-item">

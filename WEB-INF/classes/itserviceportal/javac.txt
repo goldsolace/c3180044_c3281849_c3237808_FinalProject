@@ -1,4 +1,4 @@
-javac controller/*.java model/*.java
+javac controller/*.java model/*/*.java
 
 STAFF
 
