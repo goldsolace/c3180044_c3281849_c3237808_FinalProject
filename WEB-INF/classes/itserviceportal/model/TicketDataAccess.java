@@ -258,8 +258,16 @@ public class TicketDataAccess extends DataAccessLayer{
 			String title = results.getString("Title");
 			String desc = results.getString("Descrip");
 			String state = results.getString("TicketState");
-			Date reportedOn = results.getDate("ReportedOn");
-			Date resolvedOn = results.getDate("ResolvedOn");
+			Date reportedOn = null;
+			Timestamp ts = results.getTimestamp("ReportedOn");
+			if (ts != null) {
+				reportedOn = new Date(ts.getTime());
+			}
+			Date resolvedOn = null;
+			ts = results.getTimestamp("ResolvedOn");
+			if (ts != null) {
+				resolvedOn = new Date(ts.getTime());
+			}
 			Boolean isKnowledgeBase = results.getBoolean("IsKnowledgeBase");
 			String resolutionDetails = results.getString("ResolutionDetails");
 			int catID = results.getInt("CategoryID");
@@ -283,7 +291,6 @@ public class TicketDataAccess extends DataAccessLayer{
 			CommentDataAccess commentDAL = new CommentDataAccess();
 			ArrayList<Comment> comments = commentDAL.getAllCommentsForTicket(id);
 
-
 			//Creating the support ticket from the values retrieved from the query
 			SupportTicket ticket = new SupportTicket(id, catName, state, title, desc, reportedOn, createdByUser, resolvedOn, resolvedByUser, isKnowledgeBase, resolutionDetails, issueDetails, comments);
 
@@ -291,6 +298,7 @@ public class TicketDataAccess extends DataAccessLayer{
 		}
 		catch (Exception e)
 		{
+			e.printStackTrace();
 			return null;
 		}
 	}

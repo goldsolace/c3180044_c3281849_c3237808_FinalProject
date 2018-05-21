@@ -78,35 +78,35 @@ public class ReportController extends HttpServlet{
 		HashMap<String, String> details = new HashMap<String, String>();
 
 		// Put Question, Answer into details map
-		String device = request.getParameter("device");
+		String device = request.getParameter("networkDevice");
 		if (device != null && !device.isEmpty()) {
 			details.put("Device", device);
 		}
-		String location = request.getParameter("location");
+		String location = request.getParameter("networkLocation");
 		if (location != null && !location.isEmpty()) {
 			details.put("Location", location);
 		}
-		String browser = request.getParameter("browser");
+		String browser = request.getParameter("networkBrowser");
 		if (browser != null && !browser.isEmpty()) {
 			details.put("Browser", browser);
 		}
-		String website = request.getParameter("website");
+		String website = request.getParameter("networkWebsite");
 		if (website != null && !website.isEmpty()) {
 			details.put("Website I'm trying to connect to?", website);
 		}
-		String access = request.getParameter("access");
+		String access = request.getParameter("networkAccess");
 		if (access != null && !access.isEmpty()) {
 			details.put("I am able to access internal websites?", access);
 		}
-		String alternate = request.getParameter("alternate");
+		String alternate = request.getParameter("networkAlternate");
 		if (alternate != null && !alternate.isEmpty()) {
 			details.put("I have tried using an alternate internet browser?", alternate);
 		}
-		String restart = request.getParameter("restart");
+		String restart = request.getParameter("networkRestart");
 		if (restart != null && !restart.isEmpty()) {
 			details.put("I have tried restarting my device?", restart);
 		}
-		String anotherDevice = request.getParameter("anotherDevice");
+		String anotherDevice = request.getParameter("networkAnotherDevice");
 		if (anotherDevice != null && !anotherDevice.isEmpty()) {
 			details.put("I can access the website on another device?", anotherDevice);
 		}
@@ -120,27 +120,27 @@ public class ReportController extends HttpServlet{
 	public Map<String, String> getSoftwareDetails(HttpServletRequest request) {
 		HashMap<String, String> details = new HashMap<String, String>();
 		
-		String device = request.getParameter("device");
+		String device = request.getParameter("softwareDevice");
 		if (device != null && !device.isEmpty()) {
 			details.put("Device", device);
 		}
-		String software = request.getParameter("software");
+		String software = request.getParameter("softwareSoftware");
 		if (software != null && !software.isEmpty()) {
 			details.put("Software", software);
 		}
-		String version = request.getParameter("version");
+		String version = request.getParameter("softwareVersion");
 		if (version != null && !version.isEmpty()) {
 			details.put("Version", version);
 		}
-		String install = request.getParameter("install");
+		String install = request.getParameter("softwareInstall");
 		if (install != null && !install.isEmpty()) {
 			details.put("I can install the software?", install);
 		}
-		String run = request.getParameter("run");
+		String run = request.getParameter("softwareRun");
 		if (run != null && !run.isEmpty()) {
 			details.put("I can run the software?", run);
 		}
-		String anotherDevice = request.getParameter("anotherDevice");
+		String anotherDevice = request.getParameter("softwareAnotherDevice");
 		if (anotherDevice != null && !anotherDevice.isEmpty()) {
 			details.put("I have tried to run the software on another computer?", anotherDevice);
 		}
@@ -154,27 +154,27 @@ public class ReportController extends HttpServlet{
 	public Map<String, String> getHardwareDetails(HttpServletRequest request) {
 		HashMap<String, String> details = new HashMap<String, String>();
 		
-		String device = request.getParameter("device");
+		String device = request.getParameter("hardwareDevice");
 		if (device != null && !device.isEmpty()) {
 			details.put("Device", device);
 		}
-		String location = request.getParameter("location");
+		String location = request.getParameter("hardwareLocation");
 		if (location != null && !location.isEmpty()) {
 			details.put("Location", location);
 		}
-		String access = request.getParameter("access");
+		String access = request.getParameter("hardwareAccess");
 		if (access != null && !access.isEmpty()) {
 			details.put("I can access the device with my account login?", access);
 		}
-		String damaged = request.getParameter("damaged");
+		String damaged = request.getParameter("hardwareDamaged");
 		if (damaged != null && !damaged.isEmpty()) {
 			details.put("Device is damaged?", damaged);
 		}
-		String power = request.getParameter("power");
+		String power = request.getParameter("hardwarePower");
 		if (power != null && !power.isEmpty()) {
 			details.put("Device powers on?", power);
 		}
-		String error = request.getParameter("error");
+		String error = request.getParameter("hardwareError");
 		if (error != null && !error.isEmpty()) {
 			details.put("Error message?", error);
 		}
@@ -188,23 +188,23 @@ public class ReportController extends HttpServlet{
 	public Map<String, String> getEmailDetails(HttpServletRequest request) {
 		HashMap<String, String> details = new HashMap<String, String>();
 		
-		String setup = request.getParameter("setup");
+		String setup = request.getParameter("emailSetup");
 		if (setup != null && !setup.isEmpty()) {
 			details.put("I have setup my email?", setup);
 		}
-		String signIn = request.getParameter("signIn");
+		String signIn = request.getParameter("emailSignIn");
 		if (signIn != null && !signIn.isEmpty()) {
 			details.put("I can sign in?", signIn);
 		}
-		String reset = request.getParameter("reset");
+		String reset = request.getParameter("emailReset");
 		if (reset != null && !reset.isEmpty()) {
 			details.put("I've tried resetting my password?", reset);
 		}
-		String sendAndReceive = request.getParameter("sendAndReceive");
-		if (sendAndReceive != null && !sendAndReceive.isEmpty()) {
-			details.put("I can send and receive emails?", sendAndReceive);
+		String sendReceive = request.getParameter("emailSendReceive");
+		if (sendReceive != null && !sendReceive.isEmpty()) {
+			details.put("I can send and receive emails?", sendReceive);
 		}
-		String internet = request.getParameter("internet");
+		String internet = request.getParameter("emailInternet");
 		if (internet != null && !internet.isEmpty()) {
 			details.put("Internet connection confirmed??", internet);
 		}
@@ -218,23 +218,24 @@ public class ReportController extends HttpServlet{
 	public Map<String, String> getAccountDetails(HttpServletRequest request) {
 		HashMap<String, String> details = new HashMap<String, String>();
 		
-		String activate = request.getParameter("activate");
+		String activate = request.getParameter("accountActivate");
 		if (activate != null && !activate.isEmpty()) {
 			details.put("I have activated my account?", activate);
 		}
-		String system = request.getParameter("system");
+		String university = request.getParameter("accountUniversity");
+		if (university != null && !university.isEmpty()) {
+			details.put("I can log into a university computer?", university);
+		}
+		String system = request.getParameter("accountSystem");
 		if (system != null && !system.isEmpty()) {
 			details.put("University system im trying to access?", system);
 		}
-		String university = request.getParameter("university");
-		if (university != null && !university.isEmpty()) {
-			details.put("I can log into a university computer?", request.getParameter("university"));
-		}
-		String reset = request.getParameter("reset");
+
+		String reset = request.getParameter("accountReset");
 		if (reset != null && !reset.isEmpty()) {
 			details.put("I have tried resetting my password?", reset);
 		}
-		String error = request.getParameter("error");
+		String error = request.getParameter("accountError");
 		if (error != null && !error.isEmpty()) {
 			details.put("Error message?", error);
 		}

@@ -2,48 +2,48 @@
 
 <div id="hardware" class="d-none">
 	<div class="form-group">
-		<label for="device">Device you're trying to use?</label>
-		<input name="device" type="text" class="form-control" placeholder="Printer, iMac, etc">
+		<label for="hardwareDevice">Device you're trying to use?</label>
+		<input name="hardwareDevice" type="text" class="form-control" placeholder="Printer, iMac, etc">
 	</div>
 	<div class="form-group">
-		<label for="device">Location?</label>
-		<input name="device" type="text" class="form-control" placeholder="GP Building, MCTH100, EAG01, etc">
+		<label for="hardwareLocation">Location?</label>
+		<input name="hardwareLocation" type="text" class="form-control" placeholder="GP Building, MCTH100, EAG01, etc">
 	</div>
 	<div class="form-group">
-		<label for="access">Can you access the device with your account login?</label>
+		<label for="hardwareAccess">Can you access the device with your account login?</label>
 		<div class="form-check form-check-inline">
-			<input name="access" class="form-check-input" type="radio" value="Yes">
-			<label class="form-check-label mr-1" for="access">
+			<input name="hardwareAccess" class="form-check-input" type="radio" value="Yes">
+			<label class="form-check-label mr-1" for="hardwareAccess">
 				Yes
 			</label>
-			<input name="access"  class="form-check-input" type="radio" value="No">
-			<label class="form-check-label" for="access">
+			<input name="hardwareAccess"  class="form-check-input" type="radio" value="No">
+			<label class="form-check-label" for="hardwareAccess">
 				No
 			</label>
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="damaged">Is the device damaged?</label>
+		<label for="hardwareDamaged">Is the device damaged?</label>
 		<div class="form-check form-check-inline">
-			<input name="damaged" class="form-check-input" type="radio" value="Yes">
-			<label class="form-check-label mr-1" for="damaged">
+			<input name="hardwareDamaged" class="form-check-input" type="radio" value="Yes">
+			<label class="form-check-label mr-1" for="hardwareDamaged">
 				Yes
 			</label>
-			<input name="damaged"  class="form-check-input" type="radio" value="No">
-			<label class="form-check-label" for="damaged">
+			<input name="hardwareDamaged"  class="form-check-input" type="radio" value="No">
+			<label class="form-check-label" for="hardwareDamaged">
 				No
 			</label>
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="power">Does the device power on?</label>
+		<label for="hardwarePower">Does the device power on?</label>
 		<div class="form-check form-check-inline">
-			<input name="power" class="form-check-input" type="radio" value="Yes">
-			<label class="form-check-label mr-1" for="power">
+			<input name="hardwarePower" class="form-check-input" type="radio" value="Yes">
+			<label class="form-check-label mr-1" for="hardwarePower">
 				Yes
 			</label>
-			<input name="power"  class="form-check-input" type="radio" value="No">
-			<label class="form-check-label" for="power">
+			<input name="hardwarePower"  class="form-check-input" type="radio" value="No">
+			<label class="form-check-label" for="hardwarePower">
 				No
 			</label>
 		</div>

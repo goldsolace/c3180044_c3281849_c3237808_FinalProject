@@ -2,50 +2,50 @@
 
 <div id="account" class="d-none">
 	<div class="form-group">
-		<label for="activate">Have you activated your account?</label>
+		<label for="accountActivate">Have you activated your account?</label>
 		<div class="form-check form-check-inline">
-			<input name="activate" class="form-check-input" type="radio" value="Yes">
-			<label class="form-check-label mr-1" for="activate">
+			<input name="accountActivate" class="form-check-input" type="radio" value="Yes">
+			<label class="form-check-label mr-1" for="accountActivate">
 				Yes
 			</label>
-			<input name="activate"  class="form-check-input mr-1" type="radio" value="No">
-			<label class="form-check-label" for="activate">
+			<input name="accountActivate"  class="form-check-input mr-1" type="radio" value="No">
+			<label class="form-check-label" for="accountActivate">
 				No
 			</label>
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="university">Can you log into a university computer?</label>
+		<label for="accountUniversity">Can you log into a university computer?</label>
 		<div class="form-check form-check-inline">
-			<input name="university" class="form-check-input" type="radio" value="Yes">
-			<label class="form-check-label mr-1" for="university">
+			<input name="accountUniversity" class="form-check-input" type="radio" value="Yes">
+			<label class="form-check-label mr-1" for="accountUniversity">
 				Yes
 			</label>
-			<input name="university"  class="form-check-input" type="radio" value="No">
-			<label class="form-check-label" for="university">
+			<input name="accountUniversity"  class="form-check-input" type="radio" value="No">
+			<label class="form-check-label" for="accountUniversity">
 				No
 			</label>
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="system">University system you're trying to access?</label>
-		<input name="system" type="text" class="form-control" placeholder="e.g. NuMail, Myhub, etc">
+		<label for="accountSystem">University system you're trying to access?</label>
+		<input name="accountSystem" type="text" class="form-control" placeholder="e.g. NuMail, Myhub, etc">
 	</div>
 	<div class="form-group">
-		<label for="reset">Have you tried resetting your password?</label>
+		<label for="accountReset">Have you tried resetting your password?</label>
 		<div class="form-check form-check-inline">
-			<input name="reset" class="form-check-input" type="radio" value="Yes">
-			<label class="form-check-label mr-1" for="reset">
+			<input name="accountReset" class="form-check-input" type="radio" value="Yes">
+			<label class="form-check-label mr-1" for="accountReset">
 				Yes
 			</label>
-			<input name="reset"  class="form-check-input" type="radio" value="No">
-			<label class="form-check-label" for="reset">
+			<input name="accountReset"  class="form-check-input" type="radio" value="No">
+			<label class="form-check-label" for="accountReset">
 				No
 			</label>
 		</div>
 	</div>
 	<div class="form-group">
-		<label for="error">Error message if displayed?</label>
-		<input name="error" type="text" class="form-control" placeholder="e.g. Your username is not recognised Error: 3001">
+		<label for="accountError">Error message if displayed?</label>
+		<input name="accountError" type="text" class="form-control" placeholder="e.g. Your username is not recognised Error: 3001">
 	</div>
 </div>

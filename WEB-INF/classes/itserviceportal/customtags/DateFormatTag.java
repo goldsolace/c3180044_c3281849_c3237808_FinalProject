@@ -38,9 +38,13 @@ public class DateFormatTag extends SimpleTagSupport {
 		String formattedDate = df.format(date).replace("AM", "am").replace("PM","pm");
 
 		// If less than an hour ago then display as minutes ago
-		if (diffMins < 60) {
+		if (diffMins < 2) {
+			formattedDate = minutes + "1 minute ago";
+		} else if (diffMins < 60) {
 			formattedDate = minutes + " minutes ago";
 		// If 6 or less hours ago then display as hours ago
+		} else if (diffMins < 120) {
+			formattedDate = "1 hour ago";
 		} else if (diffMins <= 360) {
 			formattedDate = hours + " hours ago";
 		}

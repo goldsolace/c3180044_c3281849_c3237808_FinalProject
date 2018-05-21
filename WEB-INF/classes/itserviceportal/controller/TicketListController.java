@@ -33,8 +33,11 @@ public class TicketListController extends HttpServlet {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 
+		long start = System.nanoTime();
 		// Get List of all Support Tickets the user is allowed to view
 		ArrayList<SupportTicket> tickets = getTickets(user, "all", "all", false, "newest");
+		long end = System.nanoTime();
+		System.out.println("Took: " + ((end - start) / 1000000) + "ms");
 
 		// If tickets is null send back to portal with error message
 		if (tickets == null) {
@@ -90,8 +93,12 @@ public class TicketListController extends HttpServlet {
 			return;
 		}
 
+		long start = System.nanoTime();
 		// Get List of Support Tickets the user is allowed to view matching criteria
 		List<SupportTicket> tickets = getTickets(user, categorySelect, stateSelect, false, orderSelect);
+		long end = System.nanoTime();
+		System.out.println("Took: " + ((end - start) / 1000000) + "ms");
+
 
 		// If tickets is null send back to portal with error message
 		if (tickets == null) {
@@ -121,6 +128,7 @@ public class TicketListController extends HttpServlet {
 			//Calling the Ticket Data Access to retrieve all the tickets from the database
 			TicketDataAccess ticketDAL = new TicketDataAccess();
 			ArrayList<SupportTicket> ticketList = ticketDAL.getAllTicketsFromDB(user, stateSelect, categorySelect, false, orderBy);
+
 			return ticketList;
 		}
 		catch (Exception e)
