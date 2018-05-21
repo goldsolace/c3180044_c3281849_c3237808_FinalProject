@@ -275,6 +275,12 @@ a.bg-progress:focus, a.bg-progress:hover, button.bg-progress:focus, button.bg-pr
   border-top-right-radius: 0;
 }
 
+/* Sort Solution */
+
+.form-solution {
+  display: inline;
+}
+
 /* Error Page CSS */
 
 canvas {

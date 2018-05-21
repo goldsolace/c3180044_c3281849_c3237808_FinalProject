@@ -100,12 +100,12 @@
 		<c:if test="${supportTicket.state == State.COMPLETED}">
 			<li class="list-group-item text-dark py-3">
 				<div class="text-center">
-					<form method="POST" action="Ticket">
+					<form method="POST" action="Ticket" class="form-solution">
 						<input type="hidden" name="ticketID" value="${supportTicket.ticketID}">
 						<input type="hidden" name="action" value="acceptSolution">
 						<button class="btn btn-lg btn-success m-1" type="submit">Accept Solution</button>
 					</form>
-					<form method="POST" action="Ticket">
+					<form method="POST" action="Ticket" class="form-solution">
 						<input type="hidden" name="ticketID" value="${supportTicket.ticketID}">
 						<input type="hidden" name="action" value="rejectSolution">
 						<button class="btn btn-lg btn-danger m-1" type="submit">Reject Solution</button>
