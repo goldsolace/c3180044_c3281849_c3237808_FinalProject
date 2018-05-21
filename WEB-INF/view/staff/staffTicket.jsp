@@ -109,21 +109,26 @@
 					<h2 class="mb-1">Actions</h2>
 
 					<%-- Decide which actions should be available to staff --%>
+					<input type="hidden" name="ticketID" value="${supportTicket.ticketID}">
 					
 					<c:if test="${supportTicket.state == State.NEW}">
-						<button name="startWork" class="btn btn-lg btn-progress m-1" type="submit">Start Work</button>
+						<input type="hidden" name="action" value="startWork">
+						<button class="btn btn-lg btn-progress m-1" type="submit">Start Work</button>
 					</c:if>
 
 					<c:if test="${supportTicket.state == State.INPROGRESS}">
-						<button name="submitSolution" class="btn btn-lg btn-primary m-1" type="submit">Submit Solution</button>
+						<input type="hidden" name="action" value="submitSolution">
+						<button class="btn btn-lg btn-primary m-1" type="submit">Submit Solution</button>
 					</c:if>
 
 					<c:if test="${(supportTicket.state == State.COMPLETED || supportTicket.state == State.RESOLVED) && not supportTicket.knowledgeBase}">
-						<button name="addKnowledge" class="btn btn-lg btn-success m-1" type="submit">Add Knowledge</button>
+						<input type="hidden" name="action" value="addKnowledge">
+						<button class="btn btn-lg btn-success m-1" type="submit">Add Knowledge</button>
 					</c:if>
 
 					<c:if test="${supportTicket.knowledgeBase}">
-						<button name="removeKnowledge" class="btn btn-lg btn-danger m-1" type="submit">Remove Knowledge</button>
+						<input type="hidden" name="action" value="removeKnowledge">
+						<button class="btn btn-lg btn-danger m-1" type="submit">Remove Knowledge</button>
 					</c:if>
 				</div>
 			</li>
@@ -143,11 +148,12 @@
 			<li class="list-group-item">
 				<form class="my-2 my-lg-0" method="POST" action="Ticket">
 					<div class="form-group">
-						<label class="h5" for="solution">Comment<span class="mx-1 far fa-comment"></span></label>
+						<label class="h5" for="commentText">Comment<span class="mx-1 far fa-comment"></span></label>
 						<textarea name="commentText" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Comment text..." required></textarea>
 					</div>
-
-					<button name="comment" class="btn btn-success my-2 my-sm-0 m-2 float-right" type="submit">Post</button>
+					<input type="hidden" name="ticketID" value="${supportTicket.ticketID}">
+					<input type="hidden" name="action" value="comment">
+					<button class="btn btn-success my-2 my-sm-0 m-2 float-right" type="submit">Post</button>
 				</form>
 			</li>
 		</c:if>

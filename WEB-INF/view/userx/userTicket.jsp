@@ -89,24 +89,30 @@
 		</li>
 
 		<%-- Resolution and offer user actions to modify the ticket --%>
-		<form class="">
-			<c:if test="${not empty supportTicket.resolutionDetails}">
-				<li class="list-group-item">
-					<h5 class="mb-1">Resolution Details</h5>
-					<p><c:out value="${supportTicket.resolutionDetails}"/></p>
-				</li>
-			</c:if>
+		<c:if test="${not empty supportTicket.resolutionDetails}">
+			<li class="list-group-item">
+				<h5 class="mb-1">Resolution Details</h5>
+				<p><c:out value="${supportTicket.resolutionDetails}"/></p>
+			</li>
+		</c:if>
 
-			<%-- Decide which actions should be available to user --%>
-			<c:if test="${supportTicket.state == State.COMPLETED}">
-				<li class="list-group-item text-dark py-3">
-					<div class="text-center">
-						<button name="acceptSolution" class="btn btn-lg btn-success m-1" type="submit">Accept Solution</button>
-						<button name="rejectSolution" class="btn btn-lg btn-danger m-1" type="submit">Reject Solution</button>
-					</div>
-				</li>
-			</c:if>
-		</form>
+		<%-- Decide which actions should be available to user --%>
+		<c:if test="${supportTicket.state == State.COMPLETED}">
+			<li class="list-group-item text-dark py-3">
+				<div class="text-center">
+					<form method="POST" action="Ticket">
+						<input type="hidden" name="ticketID" value="${supportTicket.ticketID}">
+						<input type="hidden" name="action" value="acceptSolution">
+						<button class="btn btn-lg btn-success m-1" type="submit">Accept Solution</button>
+					</form>
+					<form method="POST" action="Ticket">
+						<input type="hidden" name="ticketID" value="${supportTicket.ticketID}">
+						<input type="hidden" name="action" value="rejectSolution">
+						<button class="btn btn-lg btn-danger m-1" type="submit">Reject Solution</button>
+					</form>
+				</div>
+			</li>
+		</c:if>
 	</ul>
 
 	<ul class="list-group my-2 mb-5">
@@ -122,10 +128,11 @@
 			<li class="list-group-item">
 				<form class="my-2 my-lg-0" method="POST" action="Ticket">
 					<div class="form-group">
-						<label class="h5" for="solution">Comment<span class="mx-1 far fa-comment"></span></label>
+						<label class="h5" for="commentText">Comment<span class="mx-1 far fa-comment"></span></label>
 						<textarea name="commentText" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Comment text..." required></textarea>
 					</div>
-
+					<input type="hidden" name="ticketID" value="${supportTicket.ticketID}">
+					<input type="hidden" name="action" value="comment">
 					<button class="btn btn-success my-2 my-sm-0 m-2 float-right" type="submit">Post</button>
 				</form>
 			</li>
