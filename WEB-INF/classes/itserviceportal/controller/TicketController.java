@@ -36,40 +36,31 @@ public class TicketController extends HttpServlet {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 
-		//Get the ticket ID passed in as a URL param
+		// Get the ticket ID passed in as a URL param
 		int ticketID = -1;
 		try
 		{
 			ticketID = Integer.parseInt(request.getParameter("ticketID"));
 		}
-		//The URL did not contain a valid int value. Display error
+		// The URL did not contain a valid int value. Display error
 		catch (NumberFormatException e)
 		{
 			System.out.println("EXCEPTION CAUGHT: TicketController -- NumberFormatException thrown while trying to parse ticketid");
-			session.setAttribute("errorMessage", "Invalid Request");
+			session.setAttribute("errorMessage", "Sorry! The ticket you've requested does not exist.");
 			response.sendRedirect("ServicePortal");
 			return;
 		}
 		
-		//Get the support ticket by id
-		SupportTicket supportTicket;
-		TicketDataAccess ticketDAL = new TicketDataAccess();
-		try
-		{
-			supportTicket = ticketDAL.getTicketByIDFromDB(ticketID);
-		}
-		catch (SQLException e)
-		{
-			supportTicket = null;
-		}
+		// Get the support ticket by id
+		SupportTicket supportTicket = getTicket(ticketID);
 
 		if (supportTicket == null) {
-			session.setAttribute("errorMessage", "Invalid Request");
+			session.setAttribute("errorMessage", "Sorry! The ticket you've requested does not exist.");
 			response.sendRedirect("ServicePortal");
 			return;
 		// If no ticket display error message
 		} else if (supportTicket.getTitle() == null) {
-			session.setAttribute("errorMessage", "No ticket to view");
+			session.setAttribute("errorMessage", "Sorry! We could not display that ticket");
 		}
 
 		request.setAttribute("supportTicket", supportTicket);
@@ -98,32 +89,17 @@ public class TicketController extends HttpServlet {
 	}
 
 	/**
-	 * Get List of all Support Tickets the user is allowed to view
+	 * Get Support Ticket
 	 */
-	public SupportTicket createTempTicket(int day, int hour, int minute, State state, Category net) {
-		SupportTicket ticket = new SupportTicket();
-		ticket.setTicketID(56);
-		User user2 = new User();
-		user2.setUserID(1);
-		user2.setFirstName("Joe");
-		user2.setLastName("West");
-		ticket.setReportedBy(user2);
-		ticket.setResolvedBy(user2);
-
-		GregorianCalendar gc = new GregorianCalendar();
-		gc.set(gc.YEAR, 2018);
-		gc.set(gc.DAY_OF_YEAR, day);
-		gc.set(gc.HOUR_OF_DAY, hour);
-		gc.set(gc.MINUTE, minute);
-		Date d = gc.getTime();
-		ticket.setReportedOn(d);
-		ticket.setResolvedOn(d);
-		ticket.setTitle("Can't connect to uni wifi");
-		ticket.setDescription("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.");
-		ticket.setState(state);
-		ticket.setCategory(net);
-
-		return ticket;
+	public SupportTicket getTicket(int ticketID) {
+		try {
+			// Calling the Ticket Data Access to retrieve the ticket from the database
+			TicketDataAccess ticketDAL = new TicketDataAccess();
+			SupportTicket supportTicket = ticketDAL.getTicketByIDFromDB(ticketID);
+			return supportTicket;
+		} catch (Exception e) {
+			return null;
+		}
 	}
 }
 

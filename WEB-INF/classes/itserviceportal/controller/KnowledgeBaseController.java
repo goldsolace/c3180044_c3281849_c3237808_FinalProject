@@ -36,21 +36,19 @@ public class KnowledgeBaseController extends HttpServlet {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 
-		// Get List of all Knowledge Base articles
-		List<SupportTicket> knowledgeBase = getKnowledgeBase(user, "all", "all");
+		// Get List of all knowledge base articles
+		List<SupportTicket> knowledgeBase = getKnowledgeBase(user, "all", "newest");
 
 		// If knowledgeBase is null send back to portal with error message
 		if (knowledgeBase == null) {
+			session.setAttribute("errorMessage", "Sorry! Knowledge Base is unavailable.");
 			session.setAttribute("errorMessage", "Invalid Request");
 			response.sendRedirect("ServicePortal");
 			return;
 		
 		// If knowledgeBase empty display error message
 		} else if (knowledgeBase.isEmpty()) {
-			session.setAttribute("successMessage", "Issue has been reported.");
-			session.setAttribute("errorMessage", "Knowledge Base is empty!");
-			session.setAttribute("infoMessage", "Tickets automatically sent to staff.");
-			session.setAttribute("warningMessage", "NOTICE: System Maintenance at 12:00pm-3:00pm Friday 18/05/2018.");
+			session.setAttribute("errorMessage", "Knowledge Base is empty");
 		}
 
 		// Attach knowledgeBase to the request to be forwarded to the jsp
@@ -70,27 +68,58 @@ public class KnowledgeBaseController extends HttpServlet {
 	 */ 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
-			// Do stuff
+	
+		// Get user
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
+
+		// Get sort criteria
+		String categorySelect = request.getParameter("categorySelect");
+		String orderSelect = request.getParameter("orderSelect");
+
+		// If no sort criteria send to portal with error
+		if (categorySelect == null || orderSelect == null) {
+			session.setAttribute("errorMessage", "Sorry! We could not sort tickets.");
+			response.sendRedirect("ServicePortal");
+			return;
+		}
+
+		// Get List of all knowledge base articles matching criteria
+		List<SupportTicket> knowledgeBase = getKnowledgeBase(user, categorySelect, orderSelect);
+
+		// If tickets is null send back to portal with error message
+		if (knowledgeBase == null) {
+			session.setAttribute("errorMessage", "Sorry! Knowledge Base are unavailable.");
+			response.sendRedirect("ServicePortal");
+			return;
+		
+		// If no tickets display error message
+		} else if (knowledgeBase.isEmpty()) {
+			session.setAttribute("errorMessage", "There are no articles to display.");
+		}
+
+		// Attach tickets to the request to be forwarded to the jsp
+		request.setAttribute("knowledgeBase", knowledgeBase);
+
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Jsp.KNOWLEDGEBASE.url());
+		dispatcher.forward(request, response);
 	}
 
 	/**
-	 * Get List of all Support Tickets the user is allowed to view
+	 * Get List of all Articles(Support Tickets) in the knowledge base
 	 */
-	public List<SupportTicket> getKnowledgeBase(User user, String categorySelect, String stateSelect) {
-		// Something like this
-		// categorySelect = "all", "new", "inProgress", "completed", "resolved"
-		// stateSelect = "all", "software", "hardware", "network", "account", "email"
-		// Returns an arraylist of SupportTickets
-		// Can return null for invalid or empty list if no tickets the user can view
-
-		// UserDataAccess userDAL = new UserDataAccess();
-		// if (user.getRole() == Role.STAFF) {
-		// 	return userDAL.getAllSupportTickets(user, categorySelect, stateSelect);
-		// } else {
-		// 	return userDAL.getSupportTickets(user, categorySelect, stateSelect);
-		// }
-		
-		return new ArrayList<SupportTicket>();
+	public ArrayList<SupportTicket> getKnowledgeBase(User user, String categorySelect, String orderBy) {
+		try
+		{
+			//Calling the Ticket Data Access to retrieve all articles from the database
+			TicketDataAccess ticketDAL = new TicketDataAccess();
+			ArrayList<SupportTicket> knowledgeBase = ticketDAL.getAllTicketsFromDB(user, "all", categorySelect, false, orderBy);
+			return knowledgeBase;
+		}
+		catch (Exception e)
+		{
+			return null;
+		}
 	}
 }
 

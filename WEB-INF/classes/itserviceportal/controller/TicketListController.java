@@ -42,13 +42,13 @@ public class TicketListController extends HttpServlet {
 
 		// If tickets is null send back to portal with error message
 		if (tickets == null) {
-			session.setAttribute("errorMessage", "Invalid Request");
+			session.setAttribute("errorMessage", "Sorry! Support tickets are unavailable.");
 			response.sendRedirect("ServicePortal");
 			return;
 		
 		// If no tickets display error message
 		} else if (tickets.isEmpty()) {
-			session.setAttribute("errorMessage", "No tickets");
+			session.setAttribute("errorMessage", "There are no tickets to display.");
 		}
 
 		// Attach tickets to the request to be forwarded to the jsp
@@ -68,15 +68,7 @@ public class TicketListController extends HttpServlet {
 	 */ 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
-		// Print params
-		Map params = request.getParameterMap();
-		Iterator i = params.keySet().iterator();
-		while ( i.hasNext() ) {
-			String key = (String) i.next();
-			String value = ((String[]) params.get( key ))[ 0 ];
-			System.out.println(key+" "+value);
-		}
-		
+	
 		// Get user
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
@@ -89,7 +81,7 @@ public class TicketListController extends HttpServlet {
 
 		// If no sort criteria send to portal with error
 		if (categorySelect == null || stateSelect == null || orderSelect == null) {
-			session.setAttribute("errorMessage", "Could not sort tickets");
+			session.setAttribute("errorMessage", "Sorry! We could not sort tickets");
 			response.sendRedirect("ServicePortal");
 			return;
 		}
@@ -103,13 +95,13 @@ public class TicketListController extends HttpServlet {
 
 		// If tickets is null send back to portal with error message
 		if (tickets == null) {
-			session.setAttribute("errorMessage", "Invalid Request");
+			session.setAttribute("errorMessage", "Sorry! Support tickets are unavailable.");
 			response.sendRedirect("ServicePortal");
 			return;
 		
 		// If no tickets display error message
 		} else if (tickets.isEmpty()) {
-			session.setAttribute("errorMessage", "No tickets");
+			session.setAttribute("errorMessage", "There are no tickets to display.");
 		}
 
 		// Attach tickets to the request to be forwarded to the jsp

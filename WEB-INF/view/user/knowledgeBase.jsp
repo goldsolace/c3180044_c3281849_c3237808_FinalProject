@@ -40,9 +40,9 @@
 		<c:forEach var="article" items="${knowledgeBase}">
 		
 			<%-- Link to Article Controller passing ticketID as a parameter --%>
-			<a class="nounderline" href="Article?ticketID=${article.ticketID}">
+			<a class="nounderline" href="Article?articleID=${article.ticketID}">
 				<li class="list-group-item list-group-item-action text-dark py-3">
-					<div class="d-flex justify-content-between">
+					<div class="d-flex justify-content-between float-right">
 						<h5 class="d-flex justify-content-between float-right">
 							<%-- Display category --%>
 							<span class="mx-1 badge badge-secondary">
@@ -70,96 +70,6 @@
 		</c:forEach>
 	</ul>
 </c:if>
-
-
-<ul class="list-group my-2 mb-5">
-
-	<a class="nounderline" href="Article?article=1">
-		<li class="list-group-item list-group-item-action text-dark py-3">
-			<h5 class="d-flex justify-content-between float-right">
-				<span id="stateBadge" class="mx-1 badge badge-secondary" >
-					<span class="mx-1 fas fa-tag"></span>Software
-				</span>
-			</h5>
-			<div class="d-flex justify-content-between">
-				<h3 class="mb-1 text-left"><span class="mx-1 fas fa-book text-info"></span>How do I change my University Password</h3>
-			</div>
-			
-			<div class="d-flex justify-content-between">
-				<p class="mr-2 mb-0">Resolved <span class="mx-1 fas fa-user-check"></span>Brice Purton<span class="mx-1 fas fa-calendar-alt"></span>11:48am 14/05/2018</p>
-			</div>
-		</li>
-	</a>
-
-	<a class="nounderline" href="Article?article=1">
-		<li class="list-group-item list-group-item-action text-dark py-3">
-			<h5 class="d-flex justify-content-between float-right">
-				<span id="stateBadge" class="mx-1 badge badge-secondary" >
-					<span class="mx-1 fas fa-tag"></span>Software
-				</span>
-			</h5>
-			<div class="d-flex justify-content-between">
-				<h3 class="mb-1 text-left"><span class="mx-1 fas fa-book text-info"></span>How do I change my University Password</h3>
-			</div>
-			
-			<div class="d-flex justify-content-between">
-				<p class="mr-2 mb-0">Resolved <span class="mx-1 fas fa-user-check"></span>Brice Purton<span class="mx-1 fas fa-calendar-alt"></span>11:48am 14/05/2018</p>
-			</div>
-		</li>
-	</a>
-
-	<a class="nounderline" href="Article?article=1">
-		<li class="list-group-item list-group-item-action text-dark py-3">
-			<h5 class="d-flex justify-content-between float-right">
-				<span id="stateBadge" class="mx-1 badge badge-secondary" >
-					<span class="mx-1 fas fa-tag"></span>Software
-				</span>
-			</h5>
-			<div class="d-flex justify-content-between">
-				<h3 class="mb-1 text-left"><span class="mx-1 fas fa-book text-info"></span>How do I change my University Password</h3>
-			</div>
-			
-			<div class="d-flex justify-content-between">
-				<p class="mr-2 mb-0">Resolved <span class="mx-1 fas fa-user-check"></span>Brice Purton<span class="mx-1 fas fa-calendar-alt"></span>11:48am 14/05/2018</p>
-			</div>
-		</li>
-	</a>
-
-	<a class="nounderline" href="Article?article=1">
-		<li class="list-group-item list-group-item-action text-dark py-3">
-			<h5 class="d-flex justify-content-between float-right">
-				<span id="stateBadge" class="mx-1 badge badge-secondary" >
-					<span class="mx-1 fas fa-tag"></span>Software
-				</span>
-			</h5>
-			<div class="d-flex justify-content-between">
-				<h3 class="mb-1 text-left"><span class="mx-1 fas fa-book text-info"></span>How do I change my University Password</h3>
-			</div>
-			
-			<div class="d-flex justify-content-between">
-				<p class="mr-2 mb-0">Resolved <span class="mx-1 fas fa-user-check"></span>Brice Purton<span class="mx-1 fas fa-calendar-alt"></span>11:48am 14/05/2018</p>
-			</div>
-		</li>
-	</a>
-
-	<a class="nounderline" href="Article?article=1">
-		<li class="list-group-item list-group-item-action text-dark py-3">
-			<h5 class="d-flex justify-content-between float-right">
-				<span id="stateBadge" class="mx-1 badge badge-secondary" >
-					<span class="mx-1 fas fa-tag"></span>Software
-				</span>
-			</h5>
-			<div class="d-flex justify-content-between">
-				<h3 class="mb-1 text-left"><span class="mx-1 fas fa-book text-info"></span>How do I change my University Password</h3>
-			</div>
-			
-			<div class="d-flex justify-content-between">
-				<p class="mr-2 mb-0">Resolved <span class="mx-1 fas fa-user-check"></span>Brice Purton<span class="mx-1 fas fa-calendar-alt"></span>11:48am 14/05/2018</p>
-			</div>
-		</li>
-	</a>
-
-</ul>
 
 <c:import url="/WEB-INF/view/includes/footer.jsp"/>
 

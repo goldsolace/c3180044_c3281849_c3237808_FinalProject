@@ -33,17 +33,26 @@ public class ArticleController extends HttpServlet {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 
-		//UserDataAccess userDAL = new UserDataAccess();
-		//List<Tickets> tickets = userDAL.getTicket(ticketId);
-		SupportTicket article = new SupportTicket();
-
-		if (article == null) {
-			session.setAttribute("errorMessage", "Invalid Request");
+		// Get the ticket ID passed in as a URL param
+		int articleID = -1;
+		try {
+			articleID = Integer.parseInt(request.getParameter("articleID"));
+		} catch (NumberFormatException e) {
+			session.setAttribute("errorMessage", "Sorry! The article you've requested does not exist.");
 			response.sendRedirect("ServicePortal");
 			return;
-		// If no ticket display error message
+		}
+
+		// Get the article by id
+		SupportTicket article = getArticle(articleID);
+
+		if (article == null) {
+			session.setAttribute("errorMessage", "Sorry! The ticket you've requested does not exist.");
+			response.sendRedirect("ServicePortal");
+			return;
+		// If no article display error message
 		} else if (article.getTitle() == null) {
-			session.setAttribute("errorMessage", "No ticket to view");
+			session.setAttribute("errorMessage", "Sorry! We could not display that article");
 		}
 
 		request.setAttribute("article", article);
@@ -63,6 +72,20 @@ public class ArticleController extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 			// Do stuff
+	}
+
+	/**
+	 * Get Article
+	 */
+	public SupportTicket getArticle(int articleID) {
+		try {
+			// Calling the Ticket Data Access to retrieve the ticket from the database
+			TicketDataAccess ticketDAL = new TicketDataAccess();
+			SupportTicket article = ticketDAL.getTicketByIDFromDB(articleID);
+			return article;
+		} catch (Exception e) {
+			return null;
+		}
 	}
 }
 

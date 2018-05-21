@@ -24,27 +24,29 @@ public class LoginController extends HttpServlet{
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 		
-		// If the user is not null then the user has already logged in, direct to the portal
-		if(user != null)
-		{
+		// If user already logged in send to portal
+		if(user != null) {
 			response.sendRedirect("ServicePortal");
-		}
-
-		// The user is not logged in so display the login page
-		else
-		{
+		} else {
+			// Display the login page
 			RequestDispatcher requestDispatcher; 
 			requestDispatcher = request.getRequestDispatcher(Jsp.INDEX.url());
 			requestDispatcher.forward(request, response);
 		}	
 	}
 
-
     // Log the user into the IT Service Portal
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		// Get session
 		HttpSession session = request.getSession();
+
+		// Check if user already logged in
+		User user = (User) session.getAttribute("user");
+		if(user != null) {
+			response.sendRedirect("ServicePortal");
+			return;
+		}
 
 		// Get the data posted by the user
 		String username = request.getParameter("email");
@@ -54,7 +56,7 @@ public class LoginController extends HttpServlet{
 		try
 		{
 			UserDataAccess userDAL = new UserDataAccess();
-			User user = userDAL.loginUser(username, password);
+			user = userDAL.loginUser(username, password);
 		
 			// If the user is null then the user did not login correctly with a valid account
 			if(user == null)

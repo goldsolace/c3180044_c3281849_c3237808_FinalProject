@@ -22,10 +22,10 @@ public class LogoutController extends HttpServlet{
 
 		// Check to see if the user is currently already inside the session
 		HttpSession session = request.getSession();
-		User user = (User)session.getAttribute("user");
+		User user = (User) session.getAttribute("user");
 		
 		// If the user is not null then perform the logout
-		if(user != null)
+		if (user != null)
 		{
 			session.invalidate();
 			request.getSession().setAttribute("successMessage", "You've been logged out!");
