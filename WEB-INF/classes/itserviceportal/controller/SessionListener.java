@@ -17,12 +17,12 @@ import javax.servlet.http.*;
 
 public final class SessionListener implements HttpSessionListener, HttpSessionAttributeListener  {
 
-	// Map to store active sessions
-	private static HashMap<String, String> activeSessions = new HashMap<String, String>();
+	// Map to store active user sessions
+	private static HashMap<Integer, HttpSession> activeUserSessions = new HashMap<Integer, HttpSession>();
 
 	// Utility method to print out all active sessions
-	private static void printActiveSessions() {
-		activeSessions.forEach((key,value) -> System.out.println(key+", "+value));
+	private static void printActiveUserSessions() {
+		activeUserSessions.forEach((key,value) -> System.out.println(key+", "+value));
 	}
 
 	/**
@@ -31,16 +31,33 @@ public final class SessionListener implements HttpSessionListener, HttpSessionAt
 	 * @param userID
 	 * @return true if active
 	 */
-	public static boolean isActive(String userID) {
-		// Iterate through map entries
-		for (Map.Entry<String,String> entries : activeSessions.entrySet()) {
-			// If stored username matches username return in use (true)
-		 	if (entries.getValue().equals(userID)) {
-				return true;
-			}
+	public static boolean isUserActive(int userID) {
+		return activeUserSessions.containsKey(userID);
+	}
+
+	/**
+	 * Return active user's session
+	 * 
+	 * @param userID
+	 * @return user's session
+	 */
+	public static HttpSession getActiveUserSession(int userID) {
+		return activeUserSessions.get(userID);
+	}
+
+	/**
+	 * Reload an active user's notifcations into their session
+	 * 
+	 * @param userID
+	 */
+	public static void updateActiveUserNotifications(int userID) {
+		if (isUserActive(userID)) {
+			HttpSession session = activeUserSessions.get(userID);
+			// Create DAL
+			// GetNotifications
+			List<Notification> notifications = new ArrayList<Notification>();
+			session.setAttribute("notifications", notifications);
 		}
-		// Not found
-		return false;
 	}
 
 	@Override
@@ -62,24 +79,30 @@ public final class SessionListener implements HttpSessionListener, HttpSessionAt
 			// Do stuff
 		}
 		// Remove from active session map
-		activeSessions.remove(event.getSession().getId());
+		activeUserSessions.remove(user.getUserID());
 	}
 
 	/**
-	 * Add session Id and userID if user attribute added to a session
+	 * Add userID and session to activeUserSessions map if user attribute added to a session
 	 *
 	 * @param event The HttpSessionBindingEvent event
 	 */
 	@Override
 	public void attributeAdded(HttpSessionBindingEvent event) {
+		// User logs in
 		if (event.getName().equals("user")) {
 			User user = (User) event.getValue();
-			activeSessions.put(event.getSession().getId(), String.valueOf(user.getUserID()));
+			activeUserSessions.put(user.getUserID(), event.getSession());
 		}
 	}
 
 	@Override
 	public void attributeRemoved(HttpSessionBindingEvent event) {
+		// User logs out
+		if (event.getName().equals("user")) {
+			User user = (User) event.getValue();
+			activeUserSessions.remove(user.getUserID());
+		}
 	}
 
 	@Override

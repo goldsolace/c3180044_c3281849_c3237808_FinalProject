@@ -39,6 +39,7 @@ describe [table];
 SELECT * FROM tbl_User;
 SELECT * FROM tbl_SupportTicket;
 SELECT * FROM tbl_Comment;
+SELECT * FROM tbl_Notification;
 
 DROP TABLE tbl_Comment;
 DROP TABLE tbl_IssueDetails;
@@ -54,3 +55,17 @@ source C:/Users/Brice/Documents/`Computer Science`/`BA. CompSci`/`Semester 2`/SE
 SOURCE C:/Users/Brice/Documents/Curse/test.sql;
 
 SOURCE C:/Users/Brice/Documents/Curse/test.txt;
+
+DELETE FROM table ORDER BY the field DESC|ASC limit 100
+
+DELETE FROM tbl_Notification;
+WHERE WHERE userID = 3 AND NotificationID NOT IN (
+  SELECT NotificationID 
+  FROM (
+    SELECT NotificationID 
+    FROM tbl_Notification
+    ORDER BY NotificationID DESC
+    LIMIT 5 -- keep this many records
+  ) foo
+);
+
