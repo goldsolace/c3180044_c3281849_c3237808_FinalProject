@@ -36,16 +36,49 @@ VALUES ('4Solution submitted to <strong>Support Ticket 9</strong>.', NOW(), 3, 9
 INSERT INTO tbl_Notification (NotificationText, NotificationDate, UserID, TicketID)
 VALUES ('5Solution submitted to <strong>Support Ticket 9</strong>.', NOW(), 3, 9);
 
+INSERT INTO tbl_Notification (NotificationText, NotificationDate, UserID, TicketID)
+VALUES ('1 - 4.', NOW(), 4, 9);
+
+INSERT INTO tbl_Notification (NotificationText, NotificationDate, UserID, TicketID)
+VALUES ('2 - 4', NOW(), 4, 9);
+
+INSERT INTO tbl_Notification (NotificationText, NotificationDate, UserID, TicketID)
+VALUES ('2 - 4', NOW(), 4, 9);
+
+INSERT INTO tbl_Notification (NotificationText, NotificationDate, UserID, TicketID)
+VALUES ('1 - 5', NOW(), 5, 9);
+
+INSERT INTO tbl_Notification (NotificationText, NotificationDate, UserID, TicketID)
+VALUES ('2 - 5', NOW(), 5, 9);
+
+INSERT INTO tbl_Notification (NotificationText, NotificationDate, UserID, TicketID)
+VALUES ('3 - 5', NOW(), 5, 9);
+
+INSERT INTO tbl_Notification (NotificationText, NotificationDate, UserID, TicketID)
+VALUES ('4 - 5', NOW(), 5, 9);
+
+INSERT INTO tbl_Notification (NotificationText, NotificationDate, UserID, TicketID)
+VALUES ('5 - 5', NOW(), 5, 9);
+
+INSERT INTO tbl_Notification (NotificationText, NotificationDate, UserID, TicketID)
+VALUES ('6 - 5', NOW(), 5, 9);
+
+
+DROP TABLE tbl_Notification;
+
+TRUNCATE tbl_Notification;
+
 SELECT * FROM tbl_Notification;
 
 -- Query will be used whenever a new notification is made to limit user notifications to 5
 
 DELETE FROM `tbl_Notification`
-WHERE userID = 3 AND NotificationID NOT IN (
+WHERE userID = 5 AND NotificationID NOT IN (
   SELECT NotificationID
   FROM (
     SELECT NotificationID 
     FROM `tbl_Notification`
+    WHERE userID = 5
     ORDER BY NotificationID DESC
     LIMIT 5
   ) AS n
