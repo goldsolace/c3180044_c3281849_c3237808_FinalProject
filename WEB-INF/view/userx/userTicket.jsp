@@ -82,6 +82,7 @@
 		</c:if>
 		<li class="list-group-item">
 			<h5 class="mb-1">Description</h5>
+			<%-- Display description --%>
 			<p><c:out value="${supportTicket.description}"/></p>
 		</li>
 		<form class="">
@@ -165,6 +166,9 @@
 </c:if>
 
 <c:import url="/WEB-INF/view/includes/footer.jsp"/>
+
+<%-- Prevent caching to prevent issue like a user logging out then pressing back
+	 still being able to see a restricted page --%>
 
 <%
 HttpServletResponse httpResponse = (HttpServletResponse)response;

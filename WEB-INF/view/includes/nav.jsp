@@ -14,8 +14,10 @@
 				<a class="nounderline text-dark" href="ServicePortal">
 					<c:out value="${sessionScope.user.firstName} ${sessionScope.user.lastName}"/></strong>
 				</a>
-
-				<jsp:include page="/WEB-INF/view/includes/notifications.jsp"/>
+				<%-- Only display for user --%>
+				<c:if test="${user.role == Role.USER}">
+					<jsp:include page="/WEB-INF/view/includes/notifications.jsp"/>
+				</c:if>
 			</span>
 
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse">
@@ -34,7 +36,7 @@
 						<a class="nav-link" href="TicketList"><strong>Support Tickets</strong></a>
 					</li>
 
-					<%-- Only display non-staff user --%>
+					<%-- Only display for user --%>
 					<c:if test="${user.role == Role.USER}">
 						<li class="nav-item">
 							<a class="nav-link" href="Report"><strong>Report Issue</strong></a>

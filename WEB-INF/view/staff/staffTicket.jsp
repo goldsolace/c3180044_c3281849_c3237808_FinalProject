@@ -153,6 +153,9 @@
 
 <c:import url="/WEB-INF/view/includes/footer.jsp"/>
 
+<%-- Prevent caching to prevent issue like a user logging out then pressing back
+	 still being able to see a restricted page --%>
+
 <%
 HttpServletResponse httpResponse = (HttpServletResponse)response;
 httpResponse.setHeader("Cache-Control","no-cache, no-store, must-revalidate"); 
