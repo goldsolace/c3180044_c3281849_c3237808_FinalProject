@@ -54,49 +54,53 @@
 					<span class=" fas fa-user"></span>
 					<%-- Display User who reported the ticket's name --%>
 					<c:out value="${supportTicket.reportedBy.firstName} ${supportTicket.reportedBy.lastName}"/>
-					<span class="mx-1 fas fa-calendar-alt hidden-sm"></span>
+					<span class="mx-1 fas fa-calendar-alt"></span>
 					<%-- Display date it was reported on using custom date format taglib --%>
 					<date:format date="${supportTicket.reportedOn}" />
 				</p>
 				<c:if test="${not empty supportTicket.resolvedOn}">
 					<p class="mr-2 mb-0">
 						Resolved
-						<span class=" fas fa-user"></span>
+						<span class=" fas fa-user-check"></span>
 						<%-- Display User who resolved the ticket's name --%>
 						<c:out value="${supportTicket.resolvedBy.firstName} ${supportTicket.resolvedBy.lastName}"/>
-						<span class="mx-1 fas fa-calendar-alt hidden-sm"></span>
+						<span class="mx-1 fas fa-calendar-alt"></span>
 						<%-- Display date it was reported on using custom date format taglib --%>
 						<date:format date="${supportTicket.resolvedOn}" />
 					</p>
 				</c:if>
 			</div>
 		</li>
-		<li class="list-group-item">
-			<h5 class="mb-1">Question 1</h5>
-			<p>Answer1</p>
-			<h5 class="mb-1">Question 2</h5>
-			<p>Answer2</p>
-			<h5 class="mb-1">Question 3</h5>
-			<p>Answer3</p>
-			<h5 class="mb-1">Question 4</h5>
-			<p>Answer4</p>
-		</li>
+
+		<%-- Display category based issue details --%>
+		<c:if test="${not empty supportTicket.issueDetails}">
+			<li class="list-group-item">
+				<c:forEach var="issueDetail" items="${supportTicket.issueDetails}">
+					<h5 class="mb-1"><c:out value="${issueDetail.question}"/></h5>
+					<p><c:out value="${issueDetail.response}"/></p>
+				</c:forEach>
+			</li>
+		</c:if>
+
+		<%-- Display description --%>
 		<li class="list-group-item">
 			<h5 class="mb-1">Description</h5>
 			<p><c:out value="${supportTicket.description}"/></p>
 		</li>
-		<form class="">
+
+		<%-- Resolution or Solution text box and offer staff actions to modify the ticket --%>
+		<form method="POST" action="Ticket">
 			<c:if test="${not empty supportTicket.resolutionDetails}">
 				<li class="list-group-item">
 					<h5 class="mb-1">Resolution Details</h5>
-					<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+					<p><c:out value="${supportTicket.resolutionDetails}"/></p>
 				</li>
 			</c:if>
-			<c:if test="${empty supportTicket.resolutionDetails}">
+			<c:if test="${empty supportTicket.resolutionDetails && supportTicket.state == State.INPROGRESS}">
 				<li class="list-group-item">
 					<div class="form-group">
 						<label class="h3" for="solution"><span class="mx-1 far fa-edit"></span>Solution</label>
-						<textarea name="solution" type="text" class="form-control" id="soltuion" rows="3" placeholder="Solution..."></textarea>
+						<textarea name="solution" type="text" class="form-control" id="soltuion" rows="3" placeholder="Solution..." required></textarea>
 					</div>
 				</li>
 			</c:if>
@@ -104,7 +108,7 @@
 				<div class="text-center">
 					<h2 class="mb-1">Actions</h2>
 
-					<%-- Decide which actions should be available to user --%>
+					<%-- Decide which actions should be available to staff --%>
 					
 					<c:if test="${supportTicket.state == State.NEW}">
 						<button name="startWork" class="btn btn-lg btn-progress m-1" type="submit">Start Work</button>
@@ -114,7 +118,7 @@
 						<button name="submitSolution" class="btn btn-lg btn-primary m-1" type="submit">Submit Solution</button>
 					</c:if>
 
-					<c:if test="${supportTicket.state == State.COMPLETED || supportTicket.state == State.RESOLVED}">
+					<c:if test="${(supportTicket.state == State.COMPLETED || supportTicket.state == State.RESOLVED) && not supportTicket.knowledgeBase}">
 						<button name="addKnowledge" class="btn btn-lg btn-success m-1" type="submit">Add Knowledge</button>
 					</c:if>
 
@@ -137,13 +141,13 @@
 		<%-- Allow commenting unless resolved --%>
 		<c:if test="${supportTicket.state != State.RESOLVED}">
 			<li class="list-group-item">
-				<form class="my-2 my-lg-0">
+				<form class="my-2 my-lg-0" method="POST" action="Ticket">
 					<div class="form-group">
 						<label class="h5" for="solution">Comment<span class="mx-1 far fa-comment"></span></label>
-						<textarea name="commentText" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Comment text..."></textarea>
+						<textarea name="commentText" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Comment text..." required></textarea>
 					</div>
 
-					<button class="btn btn-success my-2 my-sm-0 m-2 float-right" type="submit">Post</button>
+					<button name="comment" class="btn btn-success my-2 my-sm-0 m-2 float-right" type="submit">Post</button>
 				</form>
 			</li>
 		</c:if>

@@ -13,7 +13,7 @@
 
 <form class="form-sort" method="POST" action="TicketList">
 	<div class="input-group">
-
+		<%-- Sets options to selected if they were used to sort the tickets --%>
 		<select name="categorySelect" class="custom-select">
 			<option value="all" <c:if test="${param['categorySelect'] == 'all'}">selected</c:if>>All Categories</option>
 			<option value="network" <c:if test="${param['categorySelect'] == 'network'}">selected</c:if>>Network</option>
@@ -34,21 +34,17 @@
 			<option value="oldest" <c:if test="${param['orderSelect'] == 'oldest'}">selected</c:if>>Oldest Reported</option>
 		</select>
 		<div class="input-group-append">
-			<button class="btn btn-outline-info" type="submit" >Sort</button>
+			<button class="btn btn-outline-info" type="submit">Sort</button>
 		</div>
 	</div>
 </form>
 
 <%-- Only display if their are tickets --%>
 <c:if test="${not empty tickets}">
-
-
-
-
 	<ul class="list-group my-2 mb-5">
 
 		<%-- Iterate through tickets list --%>
-		<c:forEach var="ticket" items="${tickets}" varStatus="ticketIndex">
+		<c:forEach var="ticket" items="${tickets}">
 		
 			<%-- Link to Ticket Controller passing ticketID as a parameter --%>
 			<a class="nounderline" href="Ticket?ticketID=${ticket.ticketID}">
@@ -94,16 +90,16 @@
 							<span class=" fas fa-user"></span>
 							<%-- Display user's name and date reported --%>
 							<c:out value="${ticket.reportedBy.firstName} ${ticket.reportedBy.lastName}"/>
-							<span class="mx-1 fas fa-calendar-alt hidden-sm"></span>
+							<span class="mx-1 fas fa-calendar-alt"></span>
 							<date:format date="${ticket.reportedOn}" />
 						</p>
 						<%-- Display user's name and date resolved if ticket has a resolvedOn date --%>
 						<c:if test="${not empty ticket.resolvedOn}">
 							<p class="mr-2 mb-0">
 								Resolved
-								<span class=" fas fa-user"></span>
+								<span class=" fas fa-user-check"></span>
 								<c:out value="${ticket.resolvedBy.firstName} ${ticket.resolvedBy.lastName}"/>
-								<span class="mx-1 fas fa-calendar-alt hidden-sm"></span>
+								<span class="mx-1 fas fa-calendar-alt"></span>
 								<date:format date="${ticket.resolvedOn}" />
 							</p>
 						</c:if>
