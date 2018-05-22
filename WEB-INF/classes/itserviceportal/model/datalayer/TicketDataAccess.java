@@ -15,42 +15,39 @@ public class TicketDataAccess extends DataAccessLayer{
 		super();
 	}
 
-	public void newTicket(User users, String category, String title, String description, Map<String, String> issueDetails) throws SQLException
-	{
+	public void newTicket(User users, String category, String title, String description, Map<String, String> issueDetails) throws SQLException {
 		
 		//String Query
 		String query = "INSERT INTO tbl_SupportTicket (Title, Descrip, ReportedOn, CreatedByUserID, CategoryID) VALUES (?, ?, ?, ?, ?)";
 		
 		try 
 		{
+			//Prepare Statement
+			statement = dbConnection.prepareStatement(query);
 			
-		//Prepare Statement
-		statement = dbConnection.prepareStatement(query);
-		
-		//Set Statement
-		statement.setString(1, title);
-		statement.setString(2, description);
-		statement.setTimestamp(3, new Timestamp(new Date().getTime()));
-		statement.setInt(4, users.getUserID());
-		statement.setInt(5, getCategoryID(category));
-		
-		//Execute Statement, adding ticket to DB
-		statement.executeUpdate();
-		statement.close();
-		
-		//Creating statement to retrieve ticketID
-		Statement statement = dbConnection.createStatement();
-		query = "SELECT LAST_INSERT_ID()";
-		ResultSet rs = statement.executeQuery(query);
+			//Set Statement
+			statement.setString(1, title);
+			statement.setString(2, description);
+			statement.setTimestamp(3, new Timestamp(new Date().getTime()));
+			statement.setInt(4, users.getUserID());
+			statement.setInt(5, getCategoryID(category));
+			
+			//Execute Statement, adding ticket to DB
+			statement.executeUpdate();
+			statement.close();
+			
+			//Creating statement to retrieve ticketID
+			Statement statement = dbConnection.createStatement();
+			query = "SELECT LAST_INSERT_ID()";
+			ResultSet rs = statement.executeQuery(query);
 
-		rs.next();
-		int ticketID = rs.getInt("LAST_INSERT_ID()");
-		closeConnections();
-		
-		//Add IssueDetails for ticket to DB
-		IssueDetailDataAccess issueDetailDAL = new IssueDetailDataAccess();
-		issueDetailDAL.newIssueDetails(ticketID, issueDetails);
-		
+			rs.next();
+			int ticketID = rs.getInt("LAST_INSERT_ID()");
+			closeConnections();
+			
+			//Add IssueDetails for ticket to DB
+			IssueDetailDataAccess issueDetailDAL = new IssueDetailDataAccess();
+			issueDetailDAL.newIssueDetails(ticketID, issueDetails);
 		}
 		catch(Exception e)
 		{
@@ -60,6 +57,8 @@ public class TicketDataAccess extends DataAccessLayer{
 		}
 			
 	}
+
+
 
 	/**
 	 * Gets all the tickets from the database matching the passed in filter parameters
@@ -101,7 +100,7 @@ public class TicketDataAccess extends DataAccessLayer{
 			//Loop through the results set
 			while (results.next())
 			{
-				SupportTicket ticket = supportTicketFactory(results);
+				SupportTicket ticket = supportTicketFactory(results, false);
 				if(ticket != null)
 					ticketsList.add(ticket);
 			}
@@ -146,7 +145,7 @@ public class TicketDataAccess extends DataAccessLayer{
 
 			//Get the row and create the ticket object
 			results.next();
-			ticket = supportTicketFactory(results);
+			ticket = supportTicketFactory(results, true);
 				
 			closeConnections();
 			return ticket;
@@ -250,7 +249,7 @@ public class TicketDataAccess extends DataAccessLayer{
 	 * @param results the results set obtained from the database
 	 * @return SupportTicket if created successfully, NULL if exception occured
 	 */
-	private SupportTicket supportTicketFactory(ResultSet results) {
+	private SupportTicket supportTicketFactory(ResultSet results, boolean getCommentsAndIssueDetails) {
 		try
 		{
 			//Create the support ticket and get the values from the results
@@ -283,13 +282,20 @@ public class TicketDataAccess extends DataAccessLayer{
 			if(resolvedOn != null)
 				resolvedByUser = getResolvedByUserFromResults(results);
 
-			//Calling the comments data access to get all the comments for this ticket
-			IssueDetailDataAccess issueDetailDAL = new IssueDetailDataAccess();
-			ArrayList<IssueDetail> issueDetails = issueDetailDAL.getAllIssueDetailsForTicket(id);
 
-			//Calling the comments data access to get all the comments for this ticket
-			CommentDataAccess commentDAL = new CommentDataAccess();
-			ArrayList<Comment> comments = commentDAL.getAllCommentsForTicket(id);
+			//If we are viewing a ticket individually get all the comments and issue details, otherwise, just get the ticket information
+			ArrayList<IssueDetail> issueDetails = null;
+			ArrayList<Comment> comments = null;
+			if(getCommentsAndIssueDetails)
+			{
+				//Calling the comments data access to get all the comments for this ticket
+				IssueDetailDataAccess issueDetailDAL = new IssueDetailDataAccess();
+				issueDetails = issueDetailDAL.getAllIssueDetailsForTicket(id);
+
+				//Calling the comments data access to get all the comments for this ticket
+				CommentDataAccess commentDAL = new CommentDataAccess();
+				comments = commentDAL.getAllCommentsForTicket(id);
+			}
 
 			//Creating the support ticket from the values retrieved from the query
 			SupportTicket ticket = new SupportTicket(id, catName, state, title, desc, reportedOn, createdByUser, resolvedOn, resolvedByUser, isKnowledgeBase, resolutionDetails, issueDetails, comments);
@@ -303,8 +309,7 @@ public class TicketDataAccess extends DataAccessLayer{
 		}
 	}
 	
-	public int getCategoryID(String category)
-	{
+	public int getCategoryID(String category) {
 		switch (category) { 
 			case "network": return 1;
 			case "software": return 2;
@@ -312,6 +317,42 @@ public class TicketDataAccess extends DataAccessLayer{
 			case "email": return 4;
 			case "account": return 5;
 			default: return 0;
+		}
+	}
+
+
+	/**
+	 * Adds a comment to the Support Ticket
+	 *
+	 * @param ticketID the ticket the comment is being added to.
+	 * @param comment the comment being added.
+	 * @throws SQLException
+	 */
+	public void addComment(int ticketID, Comment comment) throws SQLException{
+
+		//The insert statement
+		String insert = "INSERT INTO tbl_Comment (CommentText, CommentDate, UserID, TicketID) VALUES (?, NOW(), ?, ?);";
+
+		try
+		{
+			//Getting the DB connection, performing the query and getting the results
+			statement = dbConnection.prepareStatement(insert);
+
+			//Prepare the insert parameters
+			statement.setString(1, comment.getCommentText());
+			statement.setInt(2, comment.getCreatedBy().getUserID());
+			statement.setInt(3, ticketID);
+
+
+			//Execute the insert
+			statement.execute();
+				
+			closeConnections();
+		}
+		catch(Exception e)
+		{
+			System.out.println("EXCEPTION CAUGHT: TicketDataAccess -- addComment()");
+			closeConnections();
 		}
 	}
 }

@@ -89,7 +89,6 @@ public class TicketController extends HttpServlet {
 		Enumeration<String> params = request.getParameterNames(); 
 		while(params.hasMoreElements()){
 			String paramName = params.nextElement();
-			System.out.println(paramName+" = "+request.getParameter(paramName));
 		}
 
 		HttpSession session = request.getSession();
@@ -376,9 +375,19 @@ public class TicketController extends HttpServlet {
 		session.setAttribute("notifications", notifications);
 			
 
-		///////////////////////////
-		// Update Ticket Methods //
-		///////////////////////////
+		//Add the comment to the ticket
+		try
+		{
+			Comment comment = new Comment(0, commentText, new Date(), user);
+			TicketDataAccess ticketDAL = new TicketDataAccess();
+			ticketDAL.addComment(ticketID, comment);
+		}
+		catch (SQLException e)
+		{
+			session.setAttribute("errorMessage", "Sorry! an error occured while trying to add a comment, please try again.");
+			doGet(request, response);
+			return;
+		}
 		
 		// Display updated ticket
 		doGet(request, response);
