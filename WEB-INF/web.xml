@@ -88,6 +88,15 @@
 	</servlet-mapping>
 
 	<servlet>
+		<servlet-name>NotificationController</servlet-name>
+		<servlet-class>itserviceportal.controller.NotificationController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>NotificationController</servlet-name>
+		<url-pattern>/Notification</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
 		<servlet-name>TimeoutController</servlet-name>
 		<servlet-class>itserviceportal.controller.TimeoutController</servlet-class>
 	</servlet>

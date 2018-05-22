@@ -12,14 +12,14 @@ import javax.servlet.http.*;
 import javax.servlet.*;
 
 /**
- * TicketController
+ * NotificationController
  *
  * @author Brice Purton, Jonothan Williams, Wajdi Yournes
  * @version 1.0
- * @since 19-05-2018
+ * @since 22-05-2018
  */
 
-public class TicketController extends HttpServlet {
+public class NotificationController extends HttpServlet {
 
 	/**
 	 * Redirects get request to doPost method
@@ -31,6 +31,12 @@ public class TicketController extends HttpServlet {
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
+
+		Enumeration<String> params = request.getParameterNames(); 
+		while(params.hasMoreElements()){
+			String paramName = params.nextElement();
+			System.out.println(paramName+" = "+request.getParameter(paramName));
+		}
 
 		// Get user
 		HttpSession session = request.getSession();
@@ -353,28 +359,14 @@ public class TicketController extends HttpServlet {
 			return;
 		}
 
+
+
 		String commentText = request.getParameter("commentText");
 		if (commentText == null || commentText.isEmpty()) {
 			session.setAttribute("errorMessage", "Sorry! Comment can't be empty");
 			doGet(request, response);
 			return;
 		}
-
-		//if (user.getRole() == Role.STAFF)
-		// notify user
-		// create notif data access
-		// setNotification(String action, int userID, int ticketID);
-		// if user active in session update user session notifications
-		
-		// temp
-		ArrayList<Notification> notifications = new ArrayList<Notification>();
-		Notification notification;
-		for (int i = 0; i < 7; i++) {
-			notification = new Notification(2, "startWork", new Date(), user.getUserID(), ticketID);
-			notifications.add(notification);
-		} 
-		session.setAttribute("notifications", notifications);
-			
 
 		///////////////////////////
 		// Update Ticket Methods //

@@ -3,7 +3,7 @@
 -- Creating the Notification Table
 CREATE TABLE tbl_Notification (
     NotificationID INT NOT NULL AUTO_INCREMENT,
-    NotificationText VARCHAR(255) NOT NULL,
+    NotificationAction VARCHAR(20) NOT NULL,
 	NotificationDate DATETIME NOT NULL,
     UserID INT NOT NULL,
     TicketID INT NOT NULL,
@@ -15,54 +15,26 @@ CREATE TABLE tbl_Notification (
 
 -- Insert into Notification Table
 
-INSERT INTO tbl_Notification (NotificationText, NotificationDate, UserID, TicketID)
-VALUES ('<strong>Support Ticket 9</strong> has been commented on.', NOW(), 3, 9);
+INSERT INTO tbl_Notification (NotificationAction, NotificationDate, UserID, TicketID)
+VALUES ('startWork', NOW(), 3, 9);
 
-INSERT INTO tbl_Notification (NotificationText, NotificationDate, UserID, TicketID)
-VALUES ('<strong>Support Ticket 9</strong> has been added to the knowledge base.', NOW(), 3, 9);
+INSERT INTO tbl_Notification (NotificationAction, NotificationDate, UserID, TicketID)
+VALUES ('submitSolution', NOW(), 3, 9);
 
-INSERT INTO tbl_Notification (NotificationText, NotificationDate, UserID, TicketID)
-VALUES ('Solution submitted to <strong>Support Ticket 9</strong>.', NOW(), 3, 9);
+INSERT INTO tbl_Notification (NotificationAction, NotificationDate, UserID, TicketID)
+VALUES ('addKnowledge', NOW(), 3, 9);
 
-INSERT INTO tbl_Notification (NotificationText, NotificationDate, UserID, TicketID)
-VALUES ('2Solution submitted to <strong>Support Ticket 9</strong>.', NOW(), 3, 9);
+INSERT INTO tbl_Notification (NotificationAction, NotificationDate, UserID, TicketID)
+VALUES ('removeKnowledge', NOW(), 3, 9);
 
-INSERT INTO tbl_Notification (NotificationText, NotificationDate, UserID, TicketID)
-VALUES ('3Solution submitted to <strong>Support Ticket 9</strong>.', NOW(), 3, 9);
+INSERT INTO tbl_Notification (NotificationAction, NotificationDate, UserID, TicketID)
+VALUES ('comment', NOW(), 3, 9);
 
-INSERT INTO tbl_Notification (NotificationText, NotificationDate, UserID, TicketID)
-VALUES ('4Solution submitted to <strong>Support Ticket 9</strong>.', NOW(), 3, 9);
+INSERT INTO tbl_Notification (NotificationAction, NotificationDate, UserID, TicketID)
+VALUES ('comment', NOW(), 3, 9);
 
-INSERT INTO tbl_Notification (NotificationText, NotificationDate, UserID, TicketID)
-VALUES ('5Solution submitted to <strong>Support Ticket 9</strong>.', NOW(), 3, 9);
-
-INSERT INTO tbl_Notification (NotificationText, NotificationDate, UserID, TicketID)
-VALUES ('1 - 4.', NOW(), 4, 9);
-
-INSERT INTO tbl_Notification (NotificationText, NotificationDate, UserID, TicketID)
-VALUES ('2 - 4', NOW(), 4, 9);
-
-INSERT INTO tbl_Notification (NotificationText, NotificationDate, UserID, TicketID)
-VALUES ('2 - 4', NOW(), 4, 9);
-
-INSERT INTO tbl_Notification (NotificationText, NotificationDate, UserID, TicketID)
-VALUES ('1 - 5', NOW(), 5, 9);
-
-INSERT INTO tbl_Notification (NotificationText, NotificationDate, UserID, TicketID)
-VALUES ('2 - 5', NOW(), 5, 9);
-
-INSERT INTO tbl_Notification (NotificationText, NotificationDate, UserID, TicketID)
-VALUES ('3 - 5', NOW(), 5, 9);
-
-INSERT INTO tbl_Notification (NotificationText, NotificationDate, UserID, TicketID)
-VALUES ('4 - 5', NOW(), 5, 9);
-
-INSERT INTO tbl_Notification (NotificationText, NotificationDate, UserID, TicketID)
-VALUES ('5 - 5', NOW(), 5, 9);
-
-INSERT INTO tbl_Notification (NotificationText, NotificationDate, UserID, TicketID)
-VALUES ('6 - 5', NOW(), 5, 9);
-
+INSERT INTO tbl_Notification (NotificationAction, NotificationDate, UserID, TicketID)
+VALUES ('startWork', NOW(), 3, 9);
 
 DROP TABLE tbl_Notification;
 
@@ -79,7 +51,7 @@ WHERE userID = 5 AND NotificationID NOT IN (
     SELECT NotificationID 
     FROM `tbl_Notification`
     WHERE userID = 5
-    ORDER BY NotificationID DESC
+    ORDER BY NotificationDate DESC
     LIMIT 5
   ) AS n
 );

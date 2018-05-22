@@ -39,7 +39,7 @@ public class DateFormatTag extends SimpleTagSupport {
 
 		// If less than an hour ago then display as minutes ago
 		if (diffMins < 2) {
-			formattedDate = minutes + "1 minute ago";
+			formattedDate = "1 minute ago";
 		} else if (diffMins < 60) {
 			formattedDate = minutes + " minutes ago";
 		// If 6 or less hours ago then display as hours ago
@@ -48,6 +48,7 @@ public class DateFormatTag extends SimpleTagSupport {
 		} else if (diffMins <= 360) {
 			formattedDate = hours + " hours ago";
 		}
+
 		// Output to jsp
 		getJspContext().getOut().write(formattedDate);
 	}

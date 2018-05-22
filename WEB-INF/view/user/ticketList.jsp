@@ -91,7 +91,7 @@
 							<%-- Display user's name and date reported --%>
 							<c:out value="${ticket.reportedBy.firstName} ${ticket.reportedBy.lastName}"/>
 							<span class="mx-1 fas fa-calendar-alt"></span>
-							<customtags:date date="${ticket.reportedOn}" />
+							<customtags:date date="${ticket.reportedOn}"/>
 						</p>
 						<%-- Display user's name and date resolved if ticket has a resolvedOn date --%>
 						<c:if test="${not empty ticket.resolvedOn}">

@@ -18,7 +18,7 @@ public class NotificationTag extends SimpleTagSupport {
 	public NotificationTag() {
 	}
 
-	public void setNotification(Notification notificaiton) {
+	public void setNotification(Notification notification) {
 		this.notification = notification;
 	}
 
@@ -29,12 +29,12 @@ public class NotificationTag extends SimpleTagSupport {
 		}
 
 		String notifStr = "";
-		switch (notification.getAction()) {
-			case STARTWORK : notifStr+= "Support Ticket " + notification.getTicketID(); break;
-			case SUBMITSOLUTION : notifStr+= "Support Ticket " + notification.getTicketID(); break;
-			case ADDKOWLEDGE : notifStr+= "Support Ticket " + notification.getTicketID(); break;
-			case REMOVEKNOWLEDGE : notifStr+= "Support Ticket " + notification.getTicketID(); break;
-			case COMMENT : notifStr+= "Support Ticket " + notification.getTicketID(); break;
+		switch (notification.getActionStr()) {
+			case "startWork" : notifStr += "Staff has started work on <strong>Support Ticket " + notification.getTicketID() + "</strong>."; break;
+			case "submitSolution" : notifStr += "Solution submitted to <strong>Support Ticket " + notification.getTicketID() + "</strong>."; break;
+			case "addKnowledge" : notifStr += "<strong>Support Ticket " + notification.getTicketID() + "</strong> has been added to the knowledge base."; break;
+			case "removeKnowledge" : notifStr += "<strong>Support Ticket " + notification.getTicketID() + "</strong> has been removed to the knowledge base."; break;
+			case "comment" : notifStr += "<strong>Support Ticket " + notification.getTicketID() + "</strong> has been commented on."; break;
 			default : return;
 		}
 
