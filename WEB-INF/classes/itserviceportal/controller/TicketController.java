@@ -52,7 +52,7 @@ public class TicketController extends HttpServlet {
 		}
 		
 		// Get the support ticket by id
-		SupportTicket supportTicket = getTicket(ticketID);
+		SupportTicket supportTicket = getTicket(ticketID, user);
 
 		if (supportTicket == null) {
 			session.setAttribute("errorMessage", "Sorry! The ticket you've requested does not exist.");
@@ -119,11 +119,11 @@ public class TicketController extends HttpServlet {
 	/**
 	 * Get Support Ticket
 	 */
-	public SupportTicket getTicket(int ticketID) {
+	public SupportTicket getTicket(int ticketID, User user) {
 		try {
 			// Calling the Ticket Data Access to retrieve the ticket from the database
 			TicketDataAccess ticketDAL = new TicketDataAccess();
-			SupportTicket supportTicket = ticketDAL.getTicketByIDFromDB(ticketID);
+			SupportTicket supportTicket = ticketDAL.getTicketByIDFromDB(ticketID, user, false);
 			return supportTicket;
 		} catch (Exception e) {
 			return null;
@@ -378,9 +378,8 @@ public class TicketController extends HttpServlet {
 		//Add the comment to the ticket
 		try
 		{
-			Comment comment = new Comment(0, commentText, new Date(), user);
 			TicketDataAccess ticketDAL = new TicketDataAccess();
-			ticketDAL.addComment(ticketID, comment);
+			ticketDAL.addComment(ticketID, commentText, user.getUserID());
 		}
 		catch (SQLException e)
 		{
