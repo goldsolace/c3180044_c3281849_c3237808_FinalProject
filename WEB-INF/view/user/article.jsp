@@ -58,6 +58,19 @@
 			<h5 class="mb-1">Resolution Details<span class="mx-1 fas fas fa-check text-success"></span></h5>
 			<p><c:out value="${article.resolutionDetails}"/></p>
 		</li>
+
+		<c:if test="${user.role == Role.STAFF}">
+			<form class="my-2 my-lg-0" method="POST" action="Ticket?ticketID=${article.ticketID}">
+				<li class="list-group-item text-dark py-3">
+					<div class="text-center">
+						<h2 class="mb-1">Actions</h2>
+						<input type="hidden" name="action" value="removeKnowledge">
+						<input type="hidden" name="redirection" value="backToList">
+						<button class="btn btn-lg btn-danger m-1" type="submit">Remove Knowledge</button>
+					</div>
+				</li>
+			</form>
+		</c:if>
 	</ul>
 
 </c:if>

@@ -154,9 +154,16 @@ public class TicketController extends HttpServlet {
 			return;
 		}
 
-		///////////////////////////
-		// Update Ticket Methods //
-		///////////////////////////
+		try
+		{
+			TicketDataAccess ticketDAL = new TicketDataAccess();
+			ticketDAL.updateTicketStateToInProgress(ticketID);
+		}
+		catch (SQLException e)
+		{
+			session.setAttribute("errorMessage", "Sorry! An error occured while trying to update the ticket state. Please try again");
+			response.sendRedirect("Ticket?ticketID=" + ticketID);
+		}
 		
 		// Display updated ticket
 		doGet(request, response);
@@ -194,9 +201,17 @@ public class TicketController extends HttpServlet {
 			return;
 		}
 
-		///////////////////////////
-		// Update Ticket Methods //
-		///////////////////////////
+		//Update the ticket to completed status
+		try
+		{
+			TicketDataAccess ticketDAL = new TicketDataAccess();
+			ticketDAL.updateTicketStateToComplete(ticketID, resolutionDetails, user.getUserID());
+		}
+		catch (SQLException e)
+		{
+			session.setAttribute("errorMessage", "Sorry! An error occured while trying to update the ticket state. Please try again");
+			response.sendRedirect("Ticket?ticketID=" + ticketID);
+		}
 		
 		// Display updated ticket
 		doGet(request, response);
@@ -227,9 +242,17 @@ public class TicketController extends HttpServlet {
 			return;
 		}
 
-		///////////////////////////
-		// Update Ticket Methods //
-		///////////////////////////
+		//Update the ticket to resolved status
+		try
+		{
+			TicketDataAccess ticketDAL = new TicketDataAccess();
+			ticketDAL.updateTicketStateToAccepted(ticketID);
+		}
+		catch (SQLException e)
+		{
+			session.setAttribute("errorMessage", "Sorry! An error occured while trying to update the ticket state. Please try again");
+			response.sendRedirect("Ticket?ticketID=" + ticketID);
+		}
 		
 		// Display updated ticket
 		doGet(request, response);
@@ -260,9 +283,18 @@ public class TicketController extends HttpServlet {
 			return;
 		}
 
-		///////////////////////////
-		// Update Ticket Methods //
-		///////////////////////////
+		//Update the ticket to in progress status. When user rejects solution status reverts back to inprogress
+		//And all resolution details such as ResolvedOn, ResolvedByUserID and ResolutionDetails are set back to NULL
+		try
+		{
+			TicketDataAccess ticketDAL = new TicketDataAccess();
+			ticketDAL.updateTicketStateToRejected(ticketID);
+		}
+		catch (SQLException e)
+		{
+			session.setAttribute("errorMessage", "Sorry! An error occured while trying to update the ticket state. Please try again");
+			response.sendRedirect("Ticket?ticketID=" + ticketID);
+		}
 		
 		// Display updated ticket
 		doGet(request, response);
@@ -293,9 +325,17 @@ public class TicketController extends HttpServlet {
 			return;
 		}
 
-		///////////////////////////
-		// Update Ticket Methods //
-		///////////////////////////
+		//Add the ticket to the knowledge base by setting IsKnowledgeBase = 1
+		try
+		{
+			TicketDataAccess ticketDAL = new TicketDataAccess();
+			ticketDAL.AddOrRemoveFromKnowledgeBase(ticketID, true);
+		}
+		catch (SQLException e)
+		{
+			session.setAttribute("errorMessage", "Sorry! An error occured while trying to update the ticket state. Please try again");
+			response.sendRedirect("Ticket?ticketID=" + ticketID);
+		}
 		
 		// Display updated ticket
 		doGet(request, response);
@@ -326,9 +366,27 @@ public class TicketController extends HttpServlet {
 			return;
 		}
 
-		///////////////////////////
-		// Update Ticket Methods //
-		///////////////////////////
+		//Add the ticket to the knowledge base by setting IsKnowledgeBase = 0
+		try
+		{
+			String backToList = request.getParameter("redirection");
+			TicketDataAccess ticketDAL = new TicketDataAccess();
+			ticketDAL.AddOrRemoveFromKnowledgeBase(ticketID, false);
+
+			//If redirection is not null, then we want to go back to the knowledge base list
+			//because a staff member removed a knowledge base article from inside the article and
+			//not the ticket list
+			if(backToList != null)
+			{
+				response.sendRedirect("KnowledgeBase");
+				return;
+			}
+		}
+		catch (SQLException e)
+		{
+			session.setAttribute("errorMessage", "Sorry! An error occured while trying to update the ticket state. Please try again");
+			response.sendRedirect("Ticket?ticketID=" + ticketID);
+		}
 		
 		// Display updated ticket
 		doGet(request, response);
@@ -360,24 +418,19 @@ public class TicketController extends HttpServlet {
 		}
 			
 		// Add the comment to the ticket
-		try {
+		try
+		{
 			TicketDataAccess ticketDAL = new TicketDataAccess();
 			ticketDAL.addComment(ticketID, commentText, user.getUserID());
-			session.setAttribute("successMessage", "Comment has been posted.");
 
-			// If Staff action then notify user
 			if (user.getRole() == Role.STAFF) {
-				// Get the ticket ID
-				int reportedUserID = -1;
-				try {
-					reportedUserID = Integer.parseInt(request.getParameter("reportedBy"));
-					NotificationDataAccess notificationDAL = new NotificationDataAccess();
-					notificationDAL.setNotification(action, reportedUserID, ticketID);
-					SessionListener.updateActiveUserNotifications(reportedUserID);
-					session.setAttribute("successMessage", "Comment has been posted and user has been notified.");
-				} catch (NumberFormatException e) {
-				}
+				System.out.println("Create notif");
+				NotificationDataAccess notificationDAL = new NotificationDataAccess();
+				notificationDAL.setNotification(action, user.getUserID(), ticketID);
+				System.out.println("Set notif");
+				SessionListener.updateActiveUserNotifications(user);
 			}
+			
 		}
 		catch (SQLException e)
 		{
@@ -385,7 +438,7 @@ public class TicketController extends HttpServlet {
 			doGet(request, response);
 			return;
 		}
-
+		
 		// Display updated ticket
 		doGet(request, response);
 	}

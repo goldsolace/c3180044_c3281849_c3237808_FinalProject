@@ -400,4 +400,137 @@ public class TicketDataAccess extends DataAccessLayer{
 			closeConnections();
 		}
 	}
+
+	public void updateTicketStateToInProgress(int ticketID) throws SQLException {
+
+		//Setting the update statement
+		String update = "UPDATE tbl_SupportTicket SET TicketState = 'in progress' WHERE TicketID = ?;";
+
+		try
+		{
+			//Getting the DB connection, and perparing the insert statement
+			statement = dbConnection.prepareStatement(update);
+
+			//Prepare the update parameter
+			statement.setInt(1, ticketID);
+
+
+			//Execute the insert
+			statement.execute();
+				
+			closeConnections();
+		}
+		catch(Exception e)
+		{
+			System.out.println("EXCEPTION CAUGHT: TicketDataAccess -- updateTicketStateToInProgress()");
+			closeConnections();
+		}
+	}
+
+	public void updateTicketStateToComplete(int ticketID, String resolutionDetails, int resolvedByUserID) throws SQLException {
+
+		//Setting the update statement
+		String update = "UPDATE tbl_SupportTicket SET TicketState = 'completed', ResolutionDetails = ?, ResolvedOn = NOW(), ResolvedByUserID = ? WHERE TicketID = ? AND TicketState = 'in progress';";
+
+		try
+		{
+			//Getting the DB connection, and perparing the insert statement
+			statement = dbConnection.prepareStatement(update);
+
+			//Prepare the update parameter
+			statement.setString(1, resolutionDetails);
+			statement.setInt(2, resolvedByUserID);
+			statement.setInt(3, ticketID);
+			
+
+
+			//Execute the insert
+			statement.execute();
+				
+			closeConnections();
+		}
+		catch(Exception e)
+		{
+			System.out.println("EXCEPTION CAUGHT: TicketDataAccess -- updateTicketStateToComplete()");
+			closeConnections();
+		}
+	}
+
+	public void updateTicketStateToAccepted(int ticketID) throws SQLException {
+
+		//Setting the update statement
+		String update = "UPDATE tbl_SupportTicket SET TicketState = 'resolved' WHERE TicketID = ? AND TicketState = 'completed';";
+
+		try
+		{
+			//Getting the DB connection, and perparing the insert statement
+			statement = dbConnection.prepareStatement(update);
+
+			//Prepare the update parameter
+			statement.setInt(1, ticketID);
+
+			//Execute the insert
+			statement.execute();
+				
+			closeConnections();
+		}
+		catch(Exception e)
+		{
+			System.out.println("EXCEPTION CAUGHT: TicketDataAccess -- updateTicketStateToComplete()");
+			closeConnections();
+		}
+	}
+
+	public void updateTicketStateToRejected(int ticketID) throws SQLException {
+
+		//Setting the update statement
+		String update = "UPDATE tbl_SupportTicket SET TicketState = 'in progress', ResolvedOn = NULL, ResolvedByUserID = NULL, ResolutionDetails = NULL, IsKnowledgeBase = 0 WHERE TicketID = ? AND TicketState = 'completed';";
+
+		try
+		{
+			//Getting the DB connection, and perparing the insert statement
+			statement = dbConnection.prepareStatement(update);
+
+			//Prepare the update parameter
+			statement.setInt(1, ticketID);
+
+			//Execute the insert
+			statement.execute();
+				
+			closeConnections();
+		}
+		catch(Exception e)
+		{
+			System.out.println("EXCEPTION CAUGHT: TicketDataAccess -- updateTicketStateToComplete()");
+			closeConnections();
+		}
+	}
+
+
+	public void AddOrRemoveFromKnowledgeBase(int ticketID, boolean doAddToKnowledgeBase) throws SQLException {
+
+		//Setting the update statement
+		String update = "UPDATE tbl_SupportTicket SET IsKnowledgeBase = ? WHERE TicketID = ? AND (TicketState = 'completed' OR TicketState = 'resolved');";
+
+		try
+		{
+			//Getting the DB connection, and perparing the insert statement
+			statement = dbConnection.prepareStatement(update);
+
+			//Prepare the update parameter
+			statement.setBoolean(1, doAddToKnowledgeBase);
+			statement.setInt(2, ticketID);
+
+			//Execute the insert
+			statement.execute();
+				
+			closeConnections();
+		}
+		catch(Exception e)
+		{
+			System.out.println("EXCEPTION CAUGHT: TicketDataAccess -- updateTicketStateToComplete()");
+			closeConnections();
+		}
+	}
+
 }
