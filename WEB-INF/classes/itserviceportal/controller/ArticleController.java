@@ -44,7 +44,7 @@ public class ArticleController extends HttpServlet {
 		}
 
 		// Get the article by id
-		SupportTicket article = getArticle(articleID);
+		SupportTicket article = getArticle(articleID, user);
 
 		if (article == null) {
 			session.setAttribute("errorMessage", "Sorry! The ticket you've requested does not exist.");
@@ -77,11 +77,11 @@ public class ArticleController extends HttpServlet {
 	/**
 	 * Get Article
 	 */
-	public SupportTicket getArticle(int articleID) {
+	public SupportTicket getArticle(int articleID, User user) {
 		try {
 			// Calling the Ticket Data Access to retrieve the ticket from the database
 			TicketDataAccess ticketDAL = new TicketDataAccess();
-			SupportTicket article = ticketDAL.getTicketByIDFromDB(articleID);
+			SupportTicket article = ticketDAL.getTicketByIDFromDB(articleID, user, true);
 			return article;
 		} catch (Exception e) {
 			return null;

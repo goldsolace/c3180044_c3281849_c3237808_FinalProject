@@ -71,28 +71,57 @@ public class TicketDataAccess extends DataAccessLayer{
 	 * @throws SQLException
 	 * @return ArrayList<SupportTicket>
 	 */
-	public ArrayList<SupportTicket> getAllTicketsFromDB(User user, String categorySelect, String stateSelect, boolean knowledgeBase, String orderBy) throws SQLException {
+	public ArrayList<SupportTicket> getAllTicketsFromDB(User user, String categorySelect, String stateSelect, boolean isKnowledgeBase, String orderBy) throws SQLException {
 		
 		//The list of tickets that will be returned
 		ArrayList<SupportTicket> ticketsList = new ArrayList<>();
 		
 		String query;
-		if(orderBy.equals("newest"))
-			query = "SELECT * FROM vw_SupportTickets WHERE CreatedByUserID LIKE ? AND CategoryName LIKE ? AND TicketState LIKE ? AND IsKnowledgeBase LIKE ? ORDER BY ReportedOn DESC";
+
+		//Getting all knowledge base articles
+		if(isKnowledgeBase)
+		{
+			if(orderBy.equals("newest"))
+				query = "SELECT * FROM vw_SupportTickets WHERE CategoryName LIKE ? AND IsKnowledgeBase = 1 ORDER BY ReportedOn DESC;";
+			else
+				query = "SELECT * FROM vw_SupportTickets WHERE CategoryName LIKE ? AND IsKnowledgeBase = 1 ORDER BY ReportedOn ASC;";
+		}
+
+		//Otherwise, getting all the tickets by the userID.
 		else
-			query = "SELECT * FROM vw_SupportTickets WHERE CreatedByUserID LIKE ? AND CategoryName LIKE ? AND TicketState LIKE ? AND IsKnowledgeBase LIKE ? ORDER BY ReportedOn ASC";
+		{
+			if(orderBy.equals("newest"))
+				query = "SELECT * FROM vw_SupportTickets WHERE CreatedByUserID LIKE ? AND CategoryName LIKE ? AND TicketState LIKE ? ORDER BY ReportedOn DESC";
+			else
+				query = "SELECT * FROM vw_SupportTickets WHERE CreatedByUserID LIKE ? AND CategoryName LIKE ? AND TicketState LIKE ? ORDER BY ReportedOn ASC";
+		}
+
+
 
 		try
 		{
 			//Getting the DB connection, performing the query and getting the results
 			statement = dbConnection.prepareStatement(query);
-			String[] filterValues = buildQueryStringValuesGetAllTickets(user, categorySelect, stateSelect, knowledgeBase, orderBy);
+
+			//If the user requesting is a staff member, a wildcard will be returned to allow the access of all tickets,
+			//otherwise, the user will only be able to view tickets created by his id
+			String[] filterValues = buildQueryStringValuesGetAllTickets(user, categorySelect, stateSelect, orderBy);
 
 			//Prepare the query parameters
-			statement.setString(1, filterValues[0]);
-			statement.setString(2, filterValues[1]);
-			statement.setString(3, filterValues[2]);
-			statement.setString(4, filterValues[3]);
+			//If not getting knowledge base articles, set the userID, will be wildcard if staff, or id if regular USER
+			if(!isKnowledgeBase)
+			{
+				statement.setString(1, filterValues[0]);
+				statement.setString(2, filterValues[1]);
+				statement.setString(3, filterValues[2]);
+			}
+
+			//Otherwise, just setting the category filter
+			else
+			{
+				statement.setString(1, filterValues[1]);
+			}
+			
 
 			//Execute the query and get the results
 			results = statement.executeQuery();
@@ -127,10 +156,27 @@ public class TicketDataAccess extends DataAccessLayer{
 	 * @throws SQLException
 	 * @return SupportTicket object if successful, NULL if exception occured
 	 */
-	public SupportTicket getTicketByIDFromDB(int id) throws SQLException {
+	public SupportTicket getTicketByIDFromDB(int id, User user, boolean isKnowledgeBase) throws SQLException {
 		
 		SupportTicket ticket = null;
-		String query = "SELECT * FROM vw_SupportTickets WHERE TicketID = ?;";
+		String query = "";
+
+		//If the request is for a knowledge base article, get the Ticket by ID and where is knowledgebase
+		if(isKnowledgeBase)
+		{
+			query = "SELECT * FROM vw_SupportTickets WHERE TicketID = ? AND IsKnowledgeBase = 1;";
+		}
+
+		//Otherwise, a user is viewing a ticket
+		else
+		{
+			//If the user is a staff, they can view all tickets, otherwise, a user can only view their own tickets
+			if(user.getRole() == Role.STAFF)
+				query = "SELECT * FROM vw_SupportTickets WHERE TicketID = ?;";
+			else
+				query = "SELECT * FROM vw_SupportTickets WHERE TicketID = ? AND CreatedByUserID = ?;";
+		}
+		
 
 		try
 		{
@@ -140,6 +186,12 @@ public class TicketDataAccess extends DataAccessLayer{
 			//Prepare the query parameters
 			statement.setInt(1, id);
 
+			//If the user getting the ticket by ID is a USER, set the extra parameter
+			if(!isKnowledgeBase && user.getRole() == Role.USER)
+			{
+				statement.setInt(2, user.getUserID());
+			}
+				
 			//Execute the query and get the results
 			results = statement.executeQuery();
 
@@ -152,7 +204,7 @@ public class TicketDataAccess extends DataAccessLayer{
 		}
 		catch(Exception e)
 		{
-			System.out.println("EXCEPTION CAUGHT: TicketDataAccess -- getAllTicketsFromDB()");
+			System.out.println("EXCEPTION CAUGHT: TicketDataAccess -- getTicketByIDFromDB()");
 			closeConnections();
 			return null;
 		}
@@ -205,7 +257,7 @@ public class TicketDataAccess extends DataAccessLayer{
 	 * @param orderBy the order by filter selected (newest or oldest)
 	 * @return String[] values will be an SQL wildcard '%' if matching "ALL" criteria for the filter, otherwise, the value passed in will remain
 	 */
-	private String[] buildQueryStringValuesGetAllTickets(User user, String categorySelect, String stateSelect, boolean knowledgeBase, String orderBy) {
+	private String[] buildQueryStringValuesGetAllTickets(User user, String categorySelect, String stateSelect, String orderBy) {
 		String[] queryValues = new String[4];
 
 		//If the role is just a user, they can only view the tickets they have made
@@ -231,13 +283,6 @@ public class TicketDataAccess extends DataAccessLayer{
 		//Otherwise, use the valids selected
 		else
 			queryValues[2] = categorySelect;
-
-
-		//if not knowledge base find everything, otherwise, find only knowledgebase tickets
-		if(!knowledgeBase)
-			queryValues[3] = "%";
-		else
-			queryValues[3] = "1";
 
 		return queryValues;
 	}
@@ -328,7 +373,7 @@ public class TicketDataAccess extends DataAccessLayer{
 	 * @param comment the comment being added.
 	 * @throws SQLException
 	 */
-	public void addComment(int ticketID, Comment comment) throws SQLException{
+	public void addComment(int ticketID, String commentText, int userID) throws SQLException{
 
 		//The insert statement
 		String insert = "INSERT INTO tbl_Comment (CommentText, CommentDate, UserID, TicketID) VALUES (?, NOW(), ?, ?);";
@@ -339,8 +384,8 @@ public class TicketDataAccess extends DataAccessLayer{
 			statement = dbConnection.prepareStatement(insert);
 
 			//Prepare the insert parameters
-			statement.setString(1, comment.getCommentText());
-			statement.setInt(2, comment.getCreatedBy().getUserID());
+			statement.setString(1, commentText);
+			statement.setInt(2, userID);
 			statement.setInt(3, ticketID);
 
 

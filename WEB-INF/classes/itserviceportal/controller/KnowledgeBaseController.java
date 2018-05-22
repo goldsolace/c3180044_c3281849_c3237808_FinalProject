@@ -113,7 +113,7 @@ public class KnowledgeBaseController extends HttpServlet {
 		{
 			//Calling the Ticket Data Access to retrieve all articles from the database
 			TicketDataAccess ticketDAL = new TicketDataAccess();
-			ArrayList<SupportTicket> knowledgeBase = ticketDAL.getAllTicketsFromDB(user, "all", categorySelect, false, orderBy);
+			ArrayList<SupportTicket> knowledgeBase = ticketDAL.getAllTicketsFromDB(user, "all", categorySelect, true, orderBy);
 			return knowledgeBase;
 		}
 		catch (Exception e)

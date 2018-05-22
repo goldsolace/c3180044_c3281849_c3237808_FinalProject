@@ -57,6 +57,9 @@ public final class SessionListener implements HttpSessionListener, HttpSessionAt
 				HttpSession session = activeUserSessions.get(user.getUserID());
 				NotificationDataAccess notificationDAL = new NotificationDataAccess();
 				List<Notification> notifications = notificationDAL.getNotifications(user.getUserID());
+				for (int i = 0; i < notifications.size(); i++){
+        			System.out.println(notifications.get(i));
+    			}
 				session.setAttribute("notifications", notifications);
 			}
 		} catch(Exception e) {
