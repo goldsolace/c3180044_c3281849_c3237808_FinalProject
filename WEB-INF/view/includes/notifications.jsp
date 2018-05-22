@@ -15,7 +15,7 @@
 			<div id="menu-notif" class="dropdown-menu m-0 p-0 dropdown-menu-left" aria-labelledby="notifications">
 				<%-- Iterate through notifications list --%>
 				<c:forEach var="notification" items="${notifications}">
-					<form class="form-notif form-inline" method="POST" action="Notification">
+					<form class="form-notif form-inline" method="POST" action="Notification?notificationID=${notification.notificationID}">
 						<input name="ticketID" type="hidden" value="${notification.ticketID}">
 						<div class="container-fluid btn-group nopadding">
 							<button class="btn btn-block btn-light text-left word-wrap py-0 text-notif" type="submit">
@@ -25,11 +25,11 @@
 								<br>
 								<small class="text-muted"><customtags:date date="${notification.date}"/></small>
 							</button>
-							<a class="btn btn-dismiss py-0 d-flex align-items-center" href="Notification?action=dismiss&ticketID=${notification.ticketID}"><span class="fas fa-times align-middle"></span></a>
+							<a class="btn btn-dismiss py-0 d-flex align-items-center" href="Notification?action=dismiss&notificationID=${notification.notificationID}"><span class="fas fa-times align-middle"></span></a>
 						</div>
 					</form>
 				</c:forEach>
-
+				<%--
 				<form class="form-notif form-inline" method="POST" action="Notification">
 					<input name="ticketID" type="hidden" value="1">
 					<div class="container-fluid btn-group nopadding">
@@ -71,7 +71,7 @@
 						</button>
 						<a class="btn btn-dismiss py-0 d-flex align-items-center" href="Notification?action='dismiss'&ticketID=${notification.ticketID}"><span class="fas fa-times align-middle"></span></a>
 					</div>
-				</form>
+				</form>--%>
 			</div>
 		</c:when>
 		<c:otherwise>

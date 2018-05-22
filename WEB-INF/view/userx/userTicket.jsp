@@ -100,13 +100,11 @@
 		<c:if test="${supportTicket.state == State.COMPLETED}">
 			<li class="list-group-item text-dark py-3">
 				<div class="text-center">
-					<form method="POST" action="Ticket" class="form-solution">
-						<input type="hidden" name="ticketID" value="${supportTicket.ticketID}">
+					<form method="POST" action="Ticket?ticketID=${supportTicket.ticketID}" class="form-solution">
 						<input type="hidden" name="action" value="acceptSolution">
 						<button class="btn btn-lg btn-success m-1" type="submit">Accept Solution</button>
 					</form>
-					<form method="POST" action="Ticket" class="form-solution">
-						<input type="hidden" name="ticketID" value="${supportTicket.ticketID}">
+					<form method="POST" action="Ticket?ticketID=${supportTicket.ticketID}" class="form-solution">
 						<input type="hidden" name="action" value="rejectSolution">
 						<button class="btn btn-lg btn-danger m-1" type="submit">Reject Solution</button>
 					</form>
@@ -126,7 +124,7 @@
 		<%-- Allow commenting unless resolved --%>
 		<c:if test="${supportTicket.state != State.RESOLVED}">
 			<li class="list-group-item">
-				<form class="my-2 my-lg-0" method="POST" action="Ticket">
+				<form class="my-2 my-lg-0" method="POST" action="Ticket?ticketID=${supportTicket.ticketID}">
 					<div class="form-group">
 						<label class="h5" for="commentText">Comment<span class="mx-1 far fa-comment"></span></label>
 						<textarea name="commentText" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Comment text..." required></textarea>

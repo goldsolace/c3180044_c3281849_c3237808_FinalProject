@@ -370,7 +370,7 @@ public class TicketController extends HttpServlet {
 		ArrayList<Notification> notifications = new ArrayList<Notification>();
 		Notification notification;
 		for (int i = 0; i < 7; i++) {
-			notification = new Notification(2, "startWork", new Date(), user.getUserID(), ticketID);
+			notification = new Notification(i, "startWork", new Date(), user.getUserID(), i);
 			notifications.add(notification);
 		} 
 		session.setAttribute("notifications", notifications);

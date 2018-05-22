@@ -74,7 +74,8 @@ public class NotificationDataAccess extends DataAccessLayer {
 		}
 	}
 
-	public void dismissNotification(int userID, int ticketID) throws SQLException {
+	// TODO =====
+	public void dismissNotification(int userID, int notificationID) throws SQLException {
 
 		// Insert new notification
 		String query = "INSERT INTO tbl_Notifications (NotificationAction, NotificationDate, UserID, TicketID) VALUES (?, ?, ?, ?)";
@@ -85,7 +86,7 @@ public class NotificationDataAccess extends DataAccessLayer {
 			// Insert new notification 
 			statement = dbConnection.prepareStatement(query);
 			statement.setInt(3, userID);
-			statement.setInt(4, ticketID);
+			statement.setInt(4, notificationID);
 			statement.executeUpdate();
 
 			// Keep 5 newest notifications for user

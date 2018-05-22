@@ -102,7 +102,6 @@ public final class SessionListener implements HttpSessionListener, HttpSessionAt
 		if (event.getName().equals("user")) {
 			User user = (User) event.getValue();
 			activeUserSessions.remove(user.getUserID());
-			event.getSession().removeAttribute("notifications");
 		}
 
 	}
