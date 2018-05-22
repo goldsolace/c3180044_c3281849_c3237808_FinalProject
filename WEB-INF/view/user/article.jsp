@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="date" uri="http://localhost:8080/c3180044_c3281849_c3237808_FinalProject/taglib/date" %>
+<%@ taglib prefix="customtags" uri="http://localhost:8080/c3180044_c3281849_c3237808_FinalProject/taglib/customtags" %>
 <%@ page import="itserviceportal.model.beans.*" %>
 
 <c:import url="/WEB-INF/view/includes/header.jsp"/>
@@ -32,7 +32,7 @@
 					<c:out value="${article.resolvedBy.firstName} ${article.resolvedBy.lastName}"/>
 					<span class="mx-1 fas fa-calendar-alt hidden-sm"></span>
 					<%-- Display date it was reported on using custom date format taglib --%>
-					<date:format date="${article.resolvedOn}" />
+					<customtags:date date="${article.resolvedOn}" />
 				</p>
 			</div>
 		</li>

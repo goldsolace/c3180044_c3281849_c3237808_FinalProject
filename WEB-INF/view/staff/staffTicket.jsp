@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="date" uri="http://localhost:8080/c3180044_c3281849_c3237808_FinalProject/taglib/date" %>
+<%@ taglib prefix="customtags" uri="http://localhost:8080/c3180044_c3281849_c3237808_FinalProject/taglib/customtags" %>
 <%@ page import="itserviceportal.model.beans.*" %>
 
 <c:import url="/WEB-INF/view/includes/header.jsp"/>
@@ -56,7 +56,7 @@
 					<c:out value="${supportTicket.reportedBy.firstName} ${supportTicket.reportedBy.lastName}"/>
 					<span class="mx-1 fas fa-calendar-alt"></span>
 					<%-- Display date it was reported on using custom date format taglib --%>
-					<date:format date="${supportTicket.reportedOn}" />
+					<customtags:date date="${supportTicket.reportedOn}" />
 				</p>
 				<c:if test="${not empty supportTicket.resolvedOn}">
 					<p class="mr-2 mb-0">
@@ -66,7 +66,7 @@
 						<c:out value="${supportTicket.resolvedBy.firstName} ${supportTicket.resolvedBy.lastName}"/>
 						<span class="mx-1 fas fa-calendar-alt"></span>
 						<%-- Display date it was reported on using custom date format taglib --%>
-						<date:format date="${supportTicket.resolvedOn}" />
+						<customtags:date date="${supportTicket.resolvedOn}" />
 					</p>
 				</c:if>
 			</div>

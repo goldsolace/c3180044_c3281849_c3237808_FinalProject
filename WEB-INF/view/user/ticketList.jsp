@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="date" uri="http://localhost:8080/c3180044_c3281849_c3237808_FinalProject/taglib/date" %>
+<%@ taglib prefix="customtags" uri="http://localhost:8080/c3180044_c3281849_c3237808_FinalProject/taglib/customtags" %>
 <%@ page import="itserviceportal.model.beans.*" %>
 
 <c:import url="/WEB-INF/view/includes/header.jsp"/>
@@ -91,7 +91,7 @@
 							<%-- Display user's name and date reported --%>
 							<c:out value="${ticket.reportedBy.firstName} ${ticket.reportedBy.lastName}"/>
 							<span class="mx-1 fas fa-calendar-alt"></span>
-							<date:format date="${ticket.reportedOn}" />
+							<customtags:date date="${ticket.reportedOn}" />
 						</p>
 						<%-- Display user's name and date resolved if ticket has a resolvedOn date --%>
 						<c:if test="${not empty ticket.resolvedOn}">
@@ -100,7 +100,7 @@
 								<span class=" fas fa-user-check"></span>
 								<c:out value="${ticket.resolvedBy.firstName} ${ticket.resolvedBy.lastName}"/>
 								<span class="mx-1 fas fa-calendar-alt"></span>
-								<date:format date="${ticket.resolvedOn}" />
+								<customtags:date date="${ticket.resolvedOn}" />
 							</p>
 						</c:if>
 					</div>

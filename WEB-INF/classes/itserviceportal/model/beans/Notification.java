@@ -13,8 +13,10 @@ import java.util.*;
 
 public class Notification implements Serializable {
 
+	public enum Action {STARTWORK, SUBMITSOLUTION, ADDKOWLEDGE, REMOVEKNOWLEDGE, COMMENT}
+
 	private int notificationID;
-	private String text;
+	private Action action;
 	private Date date;
 	private int userID;
 	private int ticketID;
@@ -22,9 +24,9 @@ public class Notification implements Serializable {
 	public Notification() {
 	}
 
-	public Notification(int notificationID, String text, Date date, int userID, int ticketID) {
+	public Notification(int notificationID, Action action, Date date, int userID, int ticketID) {
 		this.notificationID = notificationID;
-		this.text = text;
+		this.action = action;
 		this.date = date;
 		this.userID = userID;
 		this.ticketID = ticketID;
@@ -33,8 +35,8 @@ public class Notification implements Serializable {
 	public int getNotificationID() { return notificationID; }
 	public void setNotificationID(int notificationID) { this.notificationID = notificationID; }
 
-	public String getText() { return text; }
-	public void setText(String text) { this.text = text; }
+	public Action getAction() { return action; }
+	public void setAction(Action action) { this.action = action; }
 
 	public Date getDate() { return date; }
 	public void setDate(Date date) { this.date = date; }

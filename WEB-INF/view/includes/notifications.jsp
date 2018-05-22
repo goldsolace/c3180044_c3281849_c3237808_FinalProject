@@ -1,7 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix ="fn" uri = "http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="customtags" uri="http://localhost:8080/c3180044_c3281849_c3237808_FinalProject/taglib/customtags" %>
 <%@ page import="itserviceportal.model.beans.*" %>
+
 
 <div class="dropdown">
 	<c:choose>

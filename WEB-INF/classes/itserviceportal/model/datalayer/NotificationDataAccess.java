@@ -32,12 +32,12 @@ public class NotificationDataAccess extends DataAccessLayer {
 			while(results.next()) {
 				// Getting the column values
 				int notificationID = results.getInt("NotificationID");
-				String notificationText = results.getString("NotificationText");
+				String notificationAction = results.getString("NotificationAction");
 				Date notificationDate = results.getDate("NotificationDate");
 				int ticketID = results.getInt("TicketID");
 
 				// Create the notification from the values
-				Notification notification = new Notification(notificationID, notificationText, notificationDate, userID, ticketID);
+				Notification notification = new Notification(notificationID, Notification.Action.STARTWORK, notificationDate, userID, ticketID);
 
 				// Add the motification to the list of motifications
 				notifications.add(notification);

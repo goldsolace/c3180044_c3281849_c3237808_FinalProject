@@ -133,8 +133,8 @@
 
 	<jsp-config>
 		<taglib>
-			<taglib-uri>http://localhost:8080/c3180044_c3281849_c3237808_FinalProject/taglib/date</taglib-uri>
-			<taglib-location>/WEB-INF/dateformat.tld</taglib-location>
+			<taglib-uri>http://localhost:8080/c3180044_c3281849_c3237808_FinalProject/taglib/customtags</taglib-uri>
+			<taglib-location>/WEB-INF/customtags.tld</taglib-location>
 		</taglib>
 	</jsp-config>
 </web-app>
