@@ -79,7 +79,7 @@ public class KnowledgeBaseController extends HttpServlet {
 
 		// If no sort criteria send to portal with error
 		if (categorySelect == null || orderSelect == null) {
-			session.setAttribute("errorMessage", "Sorry! We could not sort tickets.");
+			session.setAttribute("errorMessage", "Sorry! We could not sort articles.");
 			response.sendRedirect("ServicePortal");
 			return;
 		}

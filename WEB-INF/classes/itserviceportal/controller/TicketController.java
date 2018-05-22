@@ -86,11 +86,6 @@ public class TicketController extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 
-		Enumeration<String> params = request.getParameterNames(); 
-		while(params.hasMoreElements()){
-			String paramName = params.nextElement();
-		}
-
 		HttpSession session = request.getSession();
 
 		String action = request.getParameter("action");
@@ -158,6 +153,19 @@ public class TicketController extends HttpServlet {
 		{
 			TicketDataAccess ticketDAL = new TicketDataAccess();
 			ticketDAL.updateTicketStateToInProgress(ticketID);
+
+			session.setAttribute("warningMessage", "User has been notified that you've started work on Support Ticket " + ticketID + ".");
+ 
+			// Get the ticket ID
+			int reportedUserID = -1;
+			try {
+				// Notify User
+				reportedUserID = Integer.parseInt(request.getParameter("reportedBy"));
+				NotificationDataAccess notificationDAL = new NotificationDataAccess();
+				notificationDAL.setNotification(action, reportedUserID, ticketID);
+				SessionListener.updateActiveUserNotifications(reportedUserID);
+			} catch (NumberFormatException e) {
+			}
 		}
 		catch (SQLException e)
 		{
@@ -206,6 +214,19 @@ public class TicketController extends HttpServlet {
 		{
 			TicketDataAccess ticketDAL = new TicketDataAccess();
 			ticketDAL.updateTicketStateToComplete(ticketID, resolutionDetails, user.getUserID());
+
+			session.setAttribute("successMessage", "Solution has been successfully submitted and user has been notified.");
+ 
+			// Get the ticket ID
+			int reportedUserID = -1;
+			try {
+				// Notify User
+				reportedUserID = Integer.parseInt(request.getParameter("reportedBy"));
+				NotificationDataAccess notificationDAL = new NotificationDataAccess();
+				notificationDAL.setNotification(action, reportedUserID, ticketID);
+				SessionListener.updateActiveUserNotifications(reportedUserID);
+			} catch (NumberFormatException e) {
+			}
 		}
 		catch (SQLException e)
 		{
@@ -247,11 +268,14 @@ public class TicketController extends HttpServlet {
 		{
 			TicketDataAccess ticketDAL = new TicketDataAccess();
 			ticketDAL.updateTicketStateToAccepted(ticketID);
+
+			session.setAttribute("successMessage", "Support ticket " + ticketID + " has been resolved and closed. We're glad we could help!");
 		}
 		catch (SQLException e)
 		{
 			session.setAttribute("errorMessage", "Sorry! An error occured while trying to update the ticket state. Please try again");
 			response.sendRedirect("Ticket?ticketID=" + ticketID);
+
 		}
 		
 		// Display updated ticket
@@ -289,6 +313,8 @@ public class TicketController extends HttpServlet {
 		{
 			TicketDataAccess ticketDAL = new TicketDataAccess();
 			ticketDAL.updateTicketStateToRejected(ticketID);
+
+			session.setAttribute("infoMessage", "Solution has been rejected and your support ticket has been set back to In Progress.");
 		}
 		catch (SQLException e)
 		{
@@ -330,6 +356,19 @@ public class TicketController extends HttpServlet {
 		{
 			TicketDataAccess ticketDAL = new TicketDataAccess();
 			ticketDAL.AddOrRemoveFromKnowledgeBase(ticketID, true);
+
+			session.setAttribute("successMessage", "Support Ticket has been added to Knowledge Base.");
+ 
+			// Get the ticket ID
+			int reportedUserID = -1;
+			try {
+				// Notify User
+				reportedUserID = Integer.parseInt(request.getParameter("reportedBy"));
+				NotificationDataAccess notificationDAL = new NotificationDataAccess();
+				notificationDAL.setNotification(action, reportedUserID, ticketID);
+				SessionListener.updateActiveUserNotifications(reportedUserID);
+			} catch (NumberFormatException e) {
+			}
 		}
 		catch (SQLException e)
 		{
@@ -372,6 +411,19 @@ public class TicketController extends HttpServlet {
 			String backToList = request.getParameter("redirection");
 			TicketDataAccess ticketDAL = new TicketDataAccess();
 			ticketDAL.AddOrRemoveFromKnowledgeBase(ticketID, false);
+
+			session.setAttribute("successMessage", "Support Ticket has been removed from Knowledge Base.");
+ 
+			// Get the ticket ID
+			int reportedUserID = -1;
+			try {
+				// Notify User
+				reportedUserID = Integer.parseInt(request.getParameter("reportedBy"));
+				NotificationDataAccess notificationDAL = new NotificationDataAccess();
+				notificationDAL.setNotification(action, reportedUserID, ticketID);
+				SessionListener.updateActiveUserNotifications(reportedUserID);
+			} catch (NumberFormatException e) {
+			}
 
 			//If redirection is not null, then we want to go back to the knowledge base list
 			//because a staff member removed a knowledge base article from inside the article and
@@ -418,22 +470,25 @@ public class TicketController extends HttpServlet {
 		}
 			
 		// Add the comment to the ticket
-		try
-		{
-			TicketDataAccess ticketDAL = new TicketDataAccess();
-			ticketDAL.addComment(ticketID, commentText, user.getUserID());
-
-			if (user.getRole() == Role.STAFF) {
-				System.out.println("Create notif");
-				NotificationDataAccess notificationDAL = new NotificationDataAccess();
-				notificationDAL.setNotification(action, user.getUserID(), ticketID);
-				System.out.println("Set notif");
-				SessionListener.updateActiveUserNotifications(user);
+		try {
+ 			TicketDataAccess ticketDAL = new TicketDataAccess();
+ 			ticketDAL.addComment(ticketID, commentText, user.getUserID());
+			session.setAttribute("successMessage", "Comment has been posted.");
+ 
+			// If Staff action then notify user
+ 			if (user.getRole() == Role.STAFF) {
+				// Get the ticket ID
+				int reportedUserID = -1;
+				try {
+					reportedUserID = Integer.parseInt(request.getParameter("reportedBy"));
+					NotificationDataAccess notificationDAL = new NotificationDataAccess();
+					notificationDAL.setNotification(action, reportedUserID, ticketID);
+					SessionListener.updateActiveUserNotifications(reportedUserID);
+					session.setAttribute("successMessage", "Comment has been posted and user has been notified.");
+				} catch (NumberFormatException e) {
+				}
 			}
-			
-		}
-		catch (SQLException e)
-		{
+		} catch (SQLException e) {
 			session.setAttribute("errorMessage", "Sorry! an error occured while trying to add a comment, please try again.");
 			doGet(request, response);
 			return;

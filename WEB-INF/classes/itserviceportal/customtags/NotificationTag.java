@@ -24,7 +24,7 @@ public class NotificationTag extends SimpleTagSupport {
 
 	@Override
 	public void doTag() throws JspException, IOException {
-		if (notification == null) {
+		if (notification == null && (notification.getActionStr() == null || notification.getTicketID() == 0)) {
 			return;
 		}
 

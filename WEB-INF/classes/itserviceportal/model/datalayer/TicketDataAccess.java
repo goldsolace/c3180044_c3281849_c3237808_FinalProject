@@ -196,8 +196,9 @@ public class TicketDataAccess extends DataAccessLayer{
 			results = statement.executeQuery();
 
 			//Get the row and create the ticket object
-			results.next();
-			ticket = supportTicketFactory(results, true);
+			if (results.next()) {
+				ticket = supportTicketFactory(results, true);
+			}
 				
 			closeConnections();
 			return ticket;

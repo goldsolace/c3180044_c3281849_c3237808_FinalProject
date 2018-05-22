@@ -50,6 +50,9 @@ public class Notification implements Serializable {
 
 	// For interfacing with data access layer
 	public String getActionStr() {
+		if (action == null) {
+			return "";
+		} 
 		switch (action) {
 			case STARTWORK : return "startWork";
 			case SUBMITSOLUTION : return "submitSolution";
@@ -60,6 +63,9 @@ public class Notification implements Serializable {
 		}
 	}
 	public void setAction(String action) {
+		if (action == null) {
+			return;
+		} 
 		switch (action) {
 			case "startWork" : this.action = Action.STARTWORK; break;
 			case "submitSolution" : this.action = Action.SUBMITSOLUTION; break;

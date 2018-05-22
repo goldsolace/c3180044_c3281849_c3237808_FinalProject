@@ -16,14 +16,10 @@ c2222222@uon.edu.au
 mysql -h teachdb -u c3180044 -p
 test
 
-mysqldump -- opt -u c3180044 -h teachdb --all-databases -p > C:/Users/Brice/Documents/Curse/test.txt
-
 mysql -h teachdb -u c3237808 -p
 260696
 
 USE c3237808_db;
-
-SHOW FULL TABLES IN c3237808_db WHERE TABLE_TYPE LIKE 'VIEW';
 
 USE c3180044_db;
 
@@ -31,6 +27,11 @@ show databases;
 use [database];
 create database [database];
 select database();
+
+drop database c3180044_db;
+create database c3180044_db;
+
+create database test3;
 
 SELECT * FROM TEST;
 
@@ -40,6 +41,9 @@ SELECT * FROM tbl_User;
 SELECT * FROM tbl_SupportTicket;
 SELECT * FROM tbl_Comment;
 SELECT * FROM tbl_Notification;
+
+SELECT * FROM vw_Comments;
+
 
 DROP TABLE tbl_Comment;
 DROP TABLE tbl_IssueDetails;
@@ -58,14 +62,15 @@ SOURCE C:/Users/Brice/Documents/Curse/test.txt;
 
 DELETE FROM table ORDER BY the field DESC|ASC limit 100
 
-DELETE FROM tbl_Notification;
+DELETE FROM `tbl_Notification`;
 WHERE WHERE userID = 3 AND NotificationID NOT IN (
-  SELECT NotificationID 
-  FROM (
+  SELECT NotificationID FROM (
     SELECT NotificationID 
-    FROM tbl_Notification
+    FROM `tbl_Notification`
     ORDER BY NotificationID DESC
     LIMIT 5 -- keep this many records
-  ) foo
+  )
 );
+
+SELECT * FROM tbl_Notification WHERE userID = 2 ORDER BY NotificationDate ASC
 

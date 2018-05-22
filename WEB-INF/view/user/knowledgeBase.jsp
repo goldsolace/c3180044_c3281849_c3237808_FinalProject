@@ -62,7 +62,7 @@
 							<span class="mx-1 fas fa-user-check"></span>
 							<c:out value="${article.resolvedBy.firstName} ${article.resolvedBy.lastName}"/>
 							<span class="mx-1 fas fa-calendar-alt"></span>
-							<customtags:date date="${ticket.resolvedOn}" />
+							<customtags:date date="${article.resolvedOn}" />
 						</p>
 					</div>
 				</li>

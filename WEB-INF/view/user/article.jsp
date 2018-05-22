@@ -64,6 +64,7 @@
 				<li class="list-group-item text-dark py-3">
 					<div class="text-center">
 						<h2 class="mb-1">Actions</h2>
+						<input type="hidden" name="reportedBy" value="${supportTicket.reportedBy.userID}">
 						<input type="hidden" name="action" value="removeKnowledge">
 						<input type="hidden" name="redirection" value="backToList">
 						<button class="btn btn-lg btn-danger m-1" type="submit">Remove Knowledge</button>

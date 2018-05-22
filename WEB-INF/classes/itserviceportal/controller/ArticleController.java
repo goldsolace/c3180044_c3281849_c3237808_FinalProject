@@ -47,7 +47,7 @@ public class ArticleController extends HttpServlet {
 		SupportTicket article = getArticle(articleID, user);
 
 		if (article == null) {
-			session.setAttribute("errorMessage", "Sorry! The ticket you've requested does not exist.");
+			session.setAttribute("errorMessage", "Sorry! The article you've requested does not exist.");
 			response.sendRedirect("ServicePortal");
 			return;
 		// If no article display error message

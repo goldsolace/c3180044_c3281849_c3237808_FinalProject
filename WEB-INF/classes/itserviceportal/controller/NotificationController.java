@@ -78,6 +78,11 @@ public class NotificationController extends HttpServlet {
 
 		// Send user back to page they requested to dismiss notification from
 		String referer = request.getHeader("referer");
+		if (referer == null) {
+			response.sendRedirect("ServicePortal");
+			return;
+		}
+
 		if(referer.endsWith("/")) {
 			referer = referer.substring(0, referer.length()-1);
 		}
