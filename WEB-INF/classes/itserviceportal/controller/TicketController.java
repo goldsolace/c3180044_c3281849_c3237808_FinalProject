@@ -363,7 +363,7 @@ public class TicketController extends HttpServlet {
 		try
 		{
 			TicketDataAccess ticketDAL = new TicketDataAccess();
-			ticketDAL.addComment(ticketID, comment);
+			ticketDAL.addComment(ticketID, commentText, user.getUserID());
 
 			if (user.getRole() == Role.STAFF) {
 				System.out.println("Create notif");
@@ -372,7 +372,7 @@ public class TicketController extends HttpServlet {
 				System.out.println("Set notif");
 				SessionListener.updateActiveUserNotifications(user);
 			}
-			session.setAttribute("notifications", notifications);
+			
 		}
 		catch (SQLException e)
 		{
