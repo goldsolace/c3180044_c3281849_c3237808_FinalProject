@@ -101,10 +101,12 @@
 			<li class="list-group-item text-dark py-3">
 				<div class="text-center">
 					<form method="POST" action="Ticket?ticketID=${supportTicket.ticketID}" class="form-solution">
+						<input type="hidden" name="reportedBy" value="${supportTicket.reportedBy.userID}">
 						<input type="hidden" name="action" value="acceptSolution">
 						<button class="btn btn-lg btn-success m-1" type="submit">Accept Solution</button>
 					</form>
 					<form method="POST" action="Ticket?ticketID=${supportTicket.ticketID}" class="form-solution">
+						<input type="hidden" name="reportedBy" value="${supportTicket.reportedBy.userID}">
 						<input type="hidden" name="action" value="rejectSolution">
 						<button class="btn btn-lg btn-danger m-1" type="submit">Reject Solution</button>
 					</form>
@@ -129,7 +131,7 @@
 						<label class="h5" for="commentText">Comment<span class="mx-1 far fa-comment"></span></label>
 						<textarea name="commentText" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Comment text..." required></textarea>
 					</div>
-					<input type="hidden" name="ticketID" value="${supportTicket.ticketID}">
+					<input type="hidden" name="reportedBy" value="${supportTicket.reportedBy.userID}">
 					<input type="hidden" name="action" value="comment">
 					<button class="btn btn-success my-2 my-sm-0 m-2 float-right" type="submit">Post</button>
 				</form>

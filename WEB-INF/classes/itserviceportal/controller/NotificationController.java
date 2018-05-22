@@ -54,20 +54,25 @@ public class NotificationController extends HttpServlet {
 				return;
 			}
 
-			// Remove the notification from the session and the database
-			@SuppressWarnings("unchecked")
-			List<Notification> notifications = (ArrayList<Notification>) session.getAttribute("notifications");
-			if (notifications != null && !notifications.isEmpty()) {
-				for(int i=0; i<notifications.size(); i++) {
-					Notification n = notifications.get(i);
-					if (n.getNotificationID() == notificationID) {
-						notifications.remove(i);
-						break;
-					}
-				}
-				session.setAttribute("notifications", notifications);
+			try {
+				// Delete notificaton from database
+				NotificationDataAccess notificationDAL = new NotificationDataAccess();
+				notificationDAL.dismissNotification(user.getUserID(), notificationID);
 
-				// DATA ACCESS dismissNotification(user.getUserID(), notificationID);
+				// Remove the notification from the session and the database
+				@SuppressWarnings("unchecked")
+				List<Notification> notifications = (ArrayList<Notification>) session.getAttribute("notifications");
+				if (notifications != null && !notifications.isEmpty()) {
+					for(int i=0; i<notifications.size(); i++) {
+						Notification n = notifications.get(i);
+						if (n.getNotificationID() == notificationID) {
+							notifications.remove(i);
+							break;
+						}
+					}
+					session.setAttribute("notifications", notifications);
+				}
+			} catch (Exception e) {
 			}
 		}
 
@@ -78,7 +83,6 @@ public class NotificationController extends HttpServlet {
 		}
 		// Get servlet url-mapping and query string only
 		String sendUserBack = referer.substring(referer.lastIndexOf("/", referer.indexOf('?'))+1);
-		System.out.println(sendUserBack);
 		response.sendRedirect(sendUserBack);
 	}
 
@@ -117,26 +121,29 @@ public class NotificationController extends HttpServlet {
 			return;
 		}
 
-		// Remove the notification from the session and the database
-		@SuppressWarnings("unchecked")
-		List<Notification> notifications = (ArrayList<Notification>) session.getAttribute("notifications");
-		if (notifications != null && !notifications.isEmpty()) {
-			for(int i=0; i<notifications.size(); i++) {
-				Notification n = notifications.get(i);
-				if (n.getNotificationID() == notificationID) {
-					notifications.remove(i);
-					break;
-				}
-			}
-			session.setAttribute("notifications", notifications);
+		try {
+			// Delete notificaton from database
+			NotificationDataAccess notificationDAL = new NotificationDataAccess();
+			notificationDAL.dismissNotification(user.getUserID(), notificationID);
 
-			// DATA ACCESS dismissNotification(user.getUserID(), notificationID);
-			
-			// Send to TicketController to display Ticket
-			response.sendRedirect("Ticket?ticketID=" + ticketID);
-			return;
+			// Remove the notification from the session and the database
+			@SuppressWarnings("unchecked")
+			List<Notification> notifications = (ArrayList<Notification>) session.getAttribute("notifications");
+			if (notifications != null && !notifications.isEmpty()) {
+				for(int i=0; i<notifications.size(); i++) {
+					Notification n = notifications.get(i);
+					if (n.getNotificationID() == notificationID) {
+						notifications.remove(i);
+						break;
+					}
+				}
+				session.setAttribute("notifications", notifications);	
+				// Send to TicketController to display Ticket
+				response.sendRedirect("Ticket?ticketID=" + ticketID);
+				return;
+			}
+		} catch (Exception e) {
 		}
-		
 		session.setAttribute("errorMessage", "Sorry! Request is invalid.");
 		response.sendRedirect("ServicePortal");
 	}

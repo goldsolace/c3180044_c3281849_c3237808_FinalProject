@@ -70,7 +70,9 @@ public class LoginController extends HttpServlet{
 				// Set the user object into the session and redirect to the ServicePortal
 				session.setAttribute("user", user);
 				// Get user notifications
-				SessionListener.updateActiveUserNotifications(user);
+				if (user.getRole() == Role.USER) {
+					SessionListener.updateActiveUserNotifications(user.getUserID());
+				}
 				response.sendRedirect("ServicePortal");
 			}
 		}

@@ -109,6 +109,7 @@
 					<h2 class="mb-1">Actions</h2>
 
 					<%-- Decide which actions should be available to staff --%>
+					<input type="hidden" name="reportedBy" value="${supportTicket.reportedBy.userID}">
 					
 					<c:if test="${supportTicket.state == State.NEW}">
 						<input type="hidden" name="action" value="startWork">
@@ -151,6 +152,7 @@
 						<textarea name="commentText" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Comment text..." required></textarea>
 					</div>
 					<input type="hidden" name="action" value="comment">
+					<input type="hidden" name="reportedBy" value="${supportTicket.reportedBy.userID}">
 					<button class="btn btn-success my-2 my-sm-0 m-2 float-right" type="submit">Post</button>
 				</form>
 			</li>

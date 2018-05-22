@@ -360,19 +360,24 @@ public class TicketController extends HttpServlet {
 		}
 			
 		// Add the comment to the ticket
-		try
-		{
+		try {
 			TicketDataAccess ticketDAL = new TicketDataAccess();
 			ticketDAL.addComment(ticketID, commentText, user.getUserID());
+			session.setAttribute("successMessage", "Comment has been posted.");
 
+			// If Staff action then notify user
 			if (user.getRole() == Role.STAFF) {
-				System.out.println("Create notif");
-				NotificationDataAccess notificationDAL = new NotificationDataAccess();
-				notificationDAL.setNotification(action, user.getUserID(), ticketID);
-				System.out.println("Set notif");
-				SessionListener.updateActiveUserNotifications(user);
+				// Get the ticket ID
+				int reportedUserID = -1;
+				try {
+					reportedUserID = Integer.parseInt(request.getParameter("reportedBy"));
+					NotificationDataAccess notificationDAL = new NotificationDataAccess();
+					notificationDAL.setNotification(action, reportedUserID, ticketID);
+					SessionListener.updateActiveUserNotifications(reportedUserID);
+					session.setAttribute("successMessage", "Comment has been posted and user has been notified.");
+				} catch (NumberFormatException e) {
+				}
 			}
-			
 		}
 		catch (SQLException e)
 		{
@@ -380,7 +385,7 @@ public class TicketController extends HttpServlet {
 			doGet(request, response);
 			return;
 		}
-		
+
 		// Display updated ticket
 		doGet(request, response);
 	}
