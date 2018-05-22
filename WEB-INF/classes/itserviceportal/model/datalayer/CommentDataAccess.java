@@ -32,7 +32,7 @@ public class CommentDataAccess extends DataAccessLayer{
 				//Getting the column values from the view
 				int id = results.getInt("CommentID");
 				String text = results.getString("CommentText");
-				Date date = results.getDate("CommentDate");
+				Date date = new Date(results.getTimestamp("CommentDate").getTime());
 				int userID = results.getInt("UserID");
 				String fName = results.getString("FirstName");
 				String lName = results.getString("LastName");

@@ -50,13 +50,17 @@ public final class SessionListener implements HttpSessionListener, HttpSessionAt
 	 * 
 	 * @param userID
 	 */
-	public static void updateActiveUserNotifications(int userID) {
-		if (isUserActive(userID)) {
-			HttpSession session = activeUserSessions.get(userID);
-			// Create DAL
-			// GetNotifications
-			List<Notification> notifications = new ArrayList<Notification>();
-			session.setAttribute("notifications", notifications);
+	public static void updateActiveUserNotifications(User user) {
+		try {
+			if (user.getRole() == Role.USER && isUserActive(user.getUserID())) {
+				System.out.println("update");
+				HttpSession session = activeUserSessions.get(user.getUserID());
+				NotificationDataAccess notificationDAL = new NotificationDataAccess();
+				List<Notification> notifications = notificationDAL.getNotifications(user.getUserID());
+				session.setAttribute("notifications", notifications);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
 		}
 	}
 

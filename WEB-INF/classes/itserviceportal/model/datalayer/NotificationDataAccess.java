@@ -19,7 +19,7 @@ public class NotificationDataAccess extends DataAccessLayer {
 	public ArrayList<Notification> getNotifications(int userID) throws SQLException {
 
 		ArrayList<Notification> notifications = new ArrayList<>();
-		String query = "SELECT * FROM tbl_Notifications WHERE userID = ? ORDER BY NotificationDate ASC";
+		String query = "SELECT * FROM tbl_Notification WHERE userID = ? ORDER BY NotificationDate ASC";
 
 		try {
 			// Getting the DB connection, performing the query and getting the results
@@ -27,13 +27,16 @@ public class NotificationDataAccess extends DataAccessLayer {
 			statement.setInt(1, userID);
 			results = statement.executeQuery();
 
+			System.out.println("get");
+
 			// Iterate results to get list of notifications
 			while(results.next()) {
 				int notificationID = results.getInt("NotificationID");
 				String notificationAction = results.getString("NotificationAction");
-				Date notificationDate = results.getDate("NotificationDate");
+				Date notificationDate = new Date(results.getTimestamp("NotificationDate").getTime());
 				int ticketID = results.getInt("TicketID");
 				Notification notification = new Notification(notificationID, notificationAction, notificationDate, userID, ticketID);
+				System.out.println(notification.getActionStr());
 				notifications.add(notification);
 			}
 			return notifications;
@@ -48,7 +51,7 @@ public class NotificationDataAccess extends DataAccessLayer {
 	public void setNotification(String action, int userID, int ticketID) throws SQLException {
 
 		// Insert new notification
-		String query = "INSERT INTO tbl_Notifications (NotificationAction, NotificationDate, UserID, TicketID) VALUES (?, ?, ?, ?)";
+		String query = "INSERT INTO tbl_Notification (NotificationAction, NotificationDate, UserID, TicketID) VALUES (?, ?, ?, ?)";
 		// Delete any notifations that match userID if userID has more than MAX_NOTIFICATIONS by oldest first
 		String queryLimitNotifications = "DELETE FROM tbl_Notification WHERE userID = ? AND NotificationID NOT IN (SELECT NotificationID FROM (SELECT NotificationID FROM tbl_Notification WHERE userID = ? ORDER BY NotificationDate DESC LIMIT ? ) AS n)";
 		
@@ -78,7 +81,7 @@ public class NotificationDataAccess extends DataAccessLayer {
 	public void dismissNotification(int userID, int notificationID) throws SQLException {
 
 		// Insert new notification
-		String query = "INSERT INTO tbl_Notifications (NotificationAction, NotificationDate, UserID, TicketID) VALUES (?, ?, ?, ?)";
+		String query = "INSERT INTO tbl_Notification (NotificationAction, NotificationDate, UserID, TicketID) VALUES (?, ?, ?, ?)";
 		// Delete any notifations that match userID if userID has more than MAX_NOTIFICATIONS by oldest first
 		String queryLimitNotifications = "DELETE FROM tbl_Notification WHERE userID = ? AND NotificationID NOT IN (SELECT NotificationID FROM (SELECT NotificationID FROM tbl_Notification WHERE userID = ? ORDER BY NotificationDate DESC LIMIT ? ) AS n)";
 		

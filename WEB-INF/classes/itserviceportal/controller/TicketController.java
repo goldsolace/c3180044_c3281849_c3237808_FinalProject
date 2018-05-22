@@ -358,29 +358,31 @@ public class TicketController extends HttpServlet {
 			doGet(request, response);
 			return;
 		}
-
-		//if (user.getRole() == Role.STAFF)
-		// notify user
-		// create notif data access
-		// setNotification(String action, int userID, int ticketID);
-		// if user active in session update user session notifications
-		
-		// temp
-		ArrayList<Notification> notifications = new ArrayList<Notification>();
-		Notification notification;
-		for (int i = 0; i < 7; i++) {
-			notification = new Notification(i, "startWork", new Date(), user.getUserID(), i);
-			notifications.add(notification);
-		} 
-		session.setAttribute("notifications", notifications);
 			
-
-		//Add the comment to the ticket
+		// Add the comment to the ticket
 		try
 		{
 			Comment comment = new Comment(0, commentText, new Date(), user);
 			TicketDataAccess ticketDAL = new TicketDataAccess();
 			ticketDAL.addComment(ticketID, comment);
+
+
+			if (user.getRole() == Role.STAFF) {
+				System.out.println("Create notif");
+				NotificationDataAccess notificationDAL = new NotificationDataAccess();
+				notificationDAL.setNotification(action, user.getUserID(), ticketID);
+				System.out.println("Set notif");
+				SessionListener.updateActiveUserNotifications(user);
+			}
+			
+			// temp
+			ArrayList<Notification> notifications = new ArrayList<Notification>();
+			Notification notification;
+			for (int i = 0; i < 7; i++) {
+				notification = new Notification(i, "startWork", new Date(), user.getUserID(), i);
+				notifications.add(notification);
+			} 
+			session.setAttribute("notifications", notifications);
 		}
 		catch (SQLException e)
 		{

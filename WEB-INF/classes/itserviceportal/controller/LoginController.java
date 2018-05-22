@@ -69,6 +69,8 @@ public class LoginController extends HttpServlet{
 			{
 				// Set the user object into the session and redirect to the ServicePortal
 				session.setAttribute("user", user);
+				// Get user notifications
+				SessionListener.updateActiveUserNotifications(user);
 				response.sendRedirect("ServicePortal");
 			}
 		}
