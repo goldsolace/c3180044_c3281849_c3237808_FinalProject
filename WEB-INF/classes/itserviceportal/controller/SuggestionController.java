@@ -32,6 +32,27 @@ public class SuggestionController extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
 
+		// Check if user is allowed to access Suggestion
+		String referer = request.getHeader("referer");
+		if (referer == null) {
+			response.sendRedirect("ServicePortal");
+			return;
+		} else {
+			// Get servlet name user requested suggestion from
+			if (referer.endsWith("/")) {
+				referer = referer.substring(0, referer.length()-1);
+			}
+			if (referer.indexOf('?') > -1) {
+				referer = referer.substring(referer.lastIndexOf("/", referer.indexOf('?'))+1);
+			} else {
+				referer = referer.substring(referer.lastIndexOf("/")+1);
+			}
+			if (!referer.equals("Report")) {
+				response.sendRedirect("ServicePortal");
+				return;
+			}
+		}
+
 		// Get user
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
@@ -43,6 +64,9 @@ public class SuggestionController extends HttpServlet {
 			List<SupportTicket> suggestedArticles = getSuggestions(term);
 			// Attach suggestions to the request to be forwarded to the jsp
 			request.setAttribute("suggestedArticles", suggestedArticles);
+		} else {
+			response.sendRedirect("ServicePortal");
+			return;
 		}
 
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Jsp.SUGGESTEDARTICLES.url());

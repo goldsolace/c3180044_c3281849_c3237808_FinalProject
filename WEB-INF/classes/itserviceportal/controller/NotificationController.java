@@ -39,7 +39,6 @@ public class NotificationController extends HttpServlet {
 		// Check valid action
 		String action = request.getParameter("action");
 		if (action == null) {
-			session.setAttribute("errorMessage", "Sorry! Request is invalid.");
 			response.sendRedirect("ServicePortal");
 			return;
 		} else if (action.equals("dismiss")) {
@@ -49,7 +48,6 @@ public class NotificationController extends HttpServlet {
 			try {
 				notificationID = Integer.parseInt(request.getParameter("notificationID"));
 			} catch (Exception e) {
-				session.setAttribute("errorMessage", "Sorry! Request is invalid.");
 				response.sendRedirect("ServicePortal");
 				return;
 			}
@@ -83,7 +81,7 @@ public class NotificationController extends HttpServlet {
 			return;
 		}
 
-		if(referer.endsWith("/")) {
+		if (referer.endsWith("/")) {
 			referer = referer.substring(0, referer.length()-1);
 		}
 		// Get servlet url-mapping and query string only

@@ -88,56 +88,57 @@
 			<p><c:out value="${supportTicket.description}"/></p>
 		</li>
 
-		<%-- Resolution or Solution text box and offer staff actions to modify the ticket --%>
-		<form method="POST" action="Ticket?ticketID=${supportTicket.ticketID}">
-			<c:if test="${not empty supportTicket.resolutionDetails}">
-				<li class="list-group-item">
-					<h5 class="mb-1">Resolution Details</h5>
-					<p><c:out value="${supportTicket.resolutionDetails}"/></p>
-				</li>
-			</c:if>
-			<c:if test="${empty supportTicket.resolutionDetails && supportTicket.state == State.INPROGRESS}">
-				<li class="list-group-item">
-					<div class="form-group">
-						<label class="h3" for="solution"><span class="mx-1 far fa-edit"></span>Solution</label>
-						<textarea name="solution" type="text" class="form-control" id="soltuion" rows="3" placeholder="Solution..." required></textarea>
+		<li class="list-group-item nopadding">
+			<%-- Resolution or Solution text box and offer staff actions to modify the ticket --%>
+			<form method="POST" action="Ticket?ticketID=${supportTicket.ticketID}">
+				<c:if test="${not empty supportTicket.resolutionDetails}">
+					<div class="list-group-item">
+						<h5 class="mb-1">Resolution Details</h5>
+						<p><c:out value="${supportTicket.resolutionDetails}"/></p>
 					</div>
-				</li>
-			</c:if>
-			<li class="list-group-item text-dark py-3">
-				<div class="text-center">
-					<h2 class="mb-1">Actions</h2>
+				</c:if>
+				<c:if test="${empty supportTicket.resolutionDetails && supportTicket.state == State.INPROGRESS}">
+					<div class="list-group-item">
+						<div class="form-group">
+							<label class="h3"><span class="mx-1 far fa-edit"></span>Solution</label>
+							<textarea name="solution" class="form-control" id="soltuion" rows="3" placeholder="Solution..." required></textarea>
+						</div>
+					</div>
+				</c:if>
+				<div class="list-group-item text-dark py-3">
+					<div class="text-center">
+						<h2 class="mb-1">Actions</h2>
 
-					<%-- Decide which actions should be available to staff --%>
-					<input type="hidden" name="reportedBy" value="${supportTicket.reportedBy.userID}">
-					
-					<c:if test="${supportTicket.state == State.NEW}">
-						<input type="hidden" name="action" value="startWork">
-						<button class="btn btn-lg btn-progress m-1" type="submit">Start Work</button>
-					</c:if>
+						<%-- Decide which actions should be available to staff --%>
+						<input type="hidden" name="reportedBy" value="${supportTicket.reportedBy.userID}">
+						
+						<c:if test="${supportTicket.state == State.NEW}">
+							<input type="hidden" name="action" value="startWork">
+							<button class="btn btn-lg btn-progress m-1" type="submit">Start Work</button>
+						</c:if>
 
-					<c:if test="${supportTicket.state == State.INPROGRESS}">
-						<input type="hidden" name="action" value="submitSolution">
-						<button class="btn btn-lg btn-primary m-1" type="submit">Submit Solution</button>
-					</c:if>
+						<c:if test="${supportTicket.state == State.INPROGRESS}">
+							<input type="hidden" name="action" value="submitSolution">
+							<button class="btn btn-lg btn-primary m-1" type="submit">Submit Solution</button>
+						</c:if>
 
-					<c:if test="${(supportTicket.state == State.COMPLETED || supportTicket.state == State.RESOLVED) && not supportTicket.knowledgeBase}">
-						<input type="hidden" name="action" value="addKnowledge">
-						<button class="btn btn-lg btn-success m-1" type="submit">Add Knowledge</button>
-					</c:if>
+						<c:if test="${(supportTicket.state == State.COMPLETED || supportTicket.state == State.RESOLVED) && not supportTicket.knowledgeBase}">
+							<input type="hidden" name="action" value="addKnowledge">
+							<button class="btn btn-lg btn-success m-1" type="submit">Add Knowledge</button>
+						</c:if>
 
-					<c:if test="${supportTicket.knowledgeBase}">
-						<input type="hidden" name="action" value="removeKnowledge">
-						<button class="btn btn-lg btn-danger m-1" type="submit">Remove Knowledge</button>
-					</c:if>
+						<c:if test="${supportTicket.knowledgeBase}">
+							<input type="hidden" name="action" value="removeKnowledge">
+							<button class="btn btn-lg btn-danger m-1" type="submit">Remove Knowledge</button>
+						</c:if>
+					</div>
 				</div>
-			</li>
-		</form>
+			</form>
+		</li>
 	</ul>
 
+	<h3 class="text-center m-3">Discussion</h3>
 	<ul class="list-group my-2 mb-5">
-		<h3 class="text-center m-3">Discussion</span></h3>
-
 		<%-- Iterate through comments list --%>
 		<c:forEach var="comment" items="${supportTicket.comments}">
 			<%@ include file="/WEB-INF/view/includes/comment.jsp" %>
@@ -148,7 +149,7 @@
 			<li class="list-group-item">
 				<form class="my-2 my-lg-0" method="POST" action="Ticket?ticketID=${supportTicket.ticketID}">
 					<div class="form-group">
-						<label class="h5" for="commentText">Comment<span class="mx-1 far fa-comment"></span></label>
+						<label class="h5">Comment<span class="mx-1 far fa-comment"></span></label>
 						<textarea name="commentText" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Comment text..." required></textarea>
 					</div>
 					<input type="hidden" name="action" value="comment">

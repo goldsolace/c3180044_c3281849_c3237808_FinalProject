@@ -2,6 +2,13 @@ body {
   background-color: #eee;
 }
 
+iframe {
+  border-top-width: 0px;
+  border-right-width: 0px;
+  border-bottom-width: 0px;
+  border-left-width: 0px;
+}
+
 .page-title {
   text-align: center;
   margin: 0;

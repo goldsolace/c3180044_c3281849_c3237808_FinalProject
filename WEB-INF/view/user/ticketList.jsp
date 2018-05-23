@@ -46,9 +46,9 @@
 		<%-- Iterate through tickets list --%>
 		<c:forEach var="ticket" items="${tickets}">
 		
-			<%-- Link to Ticket Controller passing ticketID as a parameter --%>
-			<a class="nounderline" href="Ticket?ticketID=${ticket.ticketID}">
-				<li class="list-group-item list-group-item-action text-dark py-3">
+			<li class="list-group-item list-group-item-action text-dark py-3">
+				<%-- Link to Ticket Controller passing ticketID as a parameter --%>
+				<a class="nounderline text-dark" href="Ticket?ticketID=${ticket.ticketID}">
 					<div class="d-flex justify-content-between">
 						<%-- Display TicketID --%>
 						<h5>Ticket <c:out value="${ticket.ticketID}"/></h5>
@@ -104,8 +104,8 @@
 							</p>
 						</c:if>
 					</div>
-				</li>
-			</a>
+				</a>
+			</li>
 		</c:forEach>
 	</ul>
 </c:if>

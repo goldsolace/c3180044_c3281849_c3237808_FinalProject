@@ -38,10 +38,10 @@
 
 		<%-- Iterate through knowledgeBase --%>
 		<c:forEach var="article" items="${knowledgeBase}">
-		
-			<%-- Link to Article Controller passing ticketID as a parameter --%>
-			<a class="nounderline" href="Article?articleID=${article.ticketID}">
-				<li class="list-group-item list-group-item-action text-dark py-3">
+			<li class="list-group-item list-group-item-action text-dark py-3">
+				<%-- Link to Article Controller passing ticketID as a parameter --%>
+				<a class="nounderline text-dark" href="Article?articleID=${article.ticketID}">
+				
 					<div class="d-flex justify-content-between float-right">
 						<h5 class="d-flex justify-content-between float-right">
 							<%-- Display category --%>
@@ -65,8 +65,8 @@
 							<customtags:date date="${article.resolvedOn}" />
 						</p>
 					</div>
-				</li>
-			</a>
+				</a>
+			</li>
 		</c:forEach>
 	</ul>
 </c:if>

@@ -115,9 +115,8 @@
 		</c:if>
 	</ul>
 
+	<h3 class="text-center m-3">Discussion</h3>
 	<ul class="list-group my-2 mb-5">
-		<h3 class="text-center m-3">Discussion</span></h3>
-
 		<%-- Iterate through comments list --%>
 		<c:forEach var="comment" items="${supportTicket.comments}">
 			<%@ include file="/WEB-INF/view/includes/comment.jsp" %>
@@ -128,7 +127,7 @@
 			<li class="list-group-item">
 				<form class="my-2 my-lg-0" method="POST" action="Ticket?ticketID=${supportTicket.ticketID}">
 					<div class="form-group">
-						<label class="h5" for="commentText">Comment<span class="mx-1 far fa-comment"></span></label>
+						<label class="h5">Comment<span class="mx-1 far fa-comment"></span></label>
 						<textarea name="commentText" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Comment text..." required></textarea>
 					</div>
 					<input type="hidden" name="reportedBy" value="${supportTicket.reportedBy.userID}">

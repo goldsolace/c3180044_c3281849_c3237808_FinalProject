@@ -74,7 +74,6 @@ public class TicketListController extends HttpServlet {
 		String categorySelect = request.getParameter("categorySelect");
 		String stateSelect = request.getParameter("stateSelect");
 		String orderSelect = request.getParameter("orderSelect");
-		System.out.println(categorySelect);
 
 		// If no sort criteria send to portal with error
 		if (categorySelect == null || stateSelect == null || orderSelect == null) {

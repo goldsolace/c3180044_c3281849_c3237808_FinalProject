@@ -5,7 +5,7 @@
 <%@ taglib prefix="customtags" uri="http://localhost:8080/c3180044_c3281849_c3237808_FinalProject/taglib/customtags" %>
 <%@ page import="itserviceportal.model.beans.*" %>
 
-<c:import url="/WEB-INF/view/includes/headerSimple.jsp"/>
+<c:import url="/WEB-INF/view/includes/headerChild.jsp"/>
 
 <c:if test="${empty suggestedArticles}">
 	<div id="empty"></div>
@@ -22,10 +22,9 @@
 
 		<%-- Iterate through suggestedArticles --%>
 		<c:forEach var="article" items="${suggestedArticles}">
-		
-			<%-- Link to Article Controller passing ticketID as a parameter --%>
-			<a class="nounderline" href="Article?articleID=${article.ticketID}">
-				<li class="list-group-item list-group-item-action text-dark py-3">
+			<li class="list-group-item list-group-item-action text-dark py-3">
+				<%-- Link to Article Controller passing ticketID as a parameter --%>
+				<a class="nounderline text-dark" href="Article?articleID=${article.ticketID}">
 					<div class="d-flex justify-content-between float-right">
 						<h5 class="d-flex justify-content-between float-right">
 							<%-- Display category --%>
@@ -49,8 +48,8 @@
 							<customtags:date date="${article.resolvedOn}" />
 						</p>
 					</div>
-				</li>
-			</a>
+				</a>
+			</li>
 		</c:forEach>
 	</ul>
 </c:if>

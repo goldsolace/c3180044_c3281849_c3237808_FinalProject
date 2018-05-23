@@ -76,6 +76,7 @@ SELECT * FROM tbl_Notification WHERE userID = 2 ORDER BY NotificationDate ASC
 
 SELECT * FROM vw_SupportTickets WHERE ('Title' LIKE '%and%') ORDER BY ResolvedOn DESC;
 SELECT * FROM vw_SupportTickets WHERE Title LIKE '%int%' AND CategoryName LIKE '%' AND isKnowledgeBase = 1 ORDER BY ResolvedOn DESC;
+SELECT * FROM vw_SupportTickets WHERE IsKnowledgeBase = 1 AND (Title LIKE '%slow%' OR Descrip LIKE '%wifi%') ORDER BY ResolvedOn DESC;
 
 ALTER TABLE tbl_SupportTicket ENGINE = MyISAM;
 

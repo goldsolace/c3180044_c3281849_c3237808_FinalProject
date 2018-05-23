@@ -534,12 +534,20 @@ public class TicketDataAccess extends DataAccessLayer{
 		}
 	}
 
-	// Will refine
+	/**
+	 * Method to retrieve knowledge base articles from the database that contain
+	 * words in their titles or descriptions matching words in term.
+	 *
+	 * @param term string containing words to match against
+	 * @throws SQLException
+	 * @return Arraylist of SupportTickets which are articles similar to term
+	 */
 	public ArrayList<SupportTicket> getSuggestedArticles(String term) throws SQLException {
+
 		ArrayList<SupportTicket> ticketsList = new ArrayList<>();
 
-		String queryStart = "SELECT * FROM vw_SupportTickets WHERE";
-		String queryEnd = " AND IsKnowledgeBase = 1 ORDER BY ResolvedOn DESC;";
+		String queryStart = "SELECT * FROM vw_SupportTickets WHERE (";
+		String queryEnd = ") AND IsKnowledgeBase = 1 ORDER BY ResolvedOn DESC;";
 		String querySearch = "";
 
 		// Split term into words
@@ -551,33 +559,27 @@ public class TicketDataAccess extends DataAccessLayer{
 		terms.clear();
 		terms.addAll(removeDuplicates);
 
-		int logicalSize = terms.size();
-		int minLength = 3;
-		// Only search for longer words if title has a lot of words
-		if (logicalSize > 10) {
-			minLength = 6;
-		} else if (logicalSize > 7) {
-			minLength = 5;
-		} else if (logicalSize > 5) {
-			minLength = 4;
-		}
 		// Format words and add insertion positions to query statement
-		for (int i = 0; i < logicalSize;i++) {
+		boolean isFirst = true;
+		ListIterator<String> it = terms.listIterator();
+		while (it.hasNext()) {
+			String word = it.next();
 			// Check if word is worth searching for
-			System.out.println(terms.get(i));
-			if (terms.get(i).length() >= minLength) {
-				terms.set(i, "%" + terms.get(i) +"%");
-				if (i == 0) {
+			if (word.length() >= 3) {
+				it.set("%" + word +"%");
+				if (isFirst) {
 					querySearch += " Title LIKE ? OR Descrip LIKE ?";
+					isFirst ^= true;
 				} else {
 					querySearch += "  OR Title LIKE ? OR Descrip LIKE ?";
 				}
 			} else {
-				terms.remove(i);
+				it.remove();
 			}
 		}
 
 		if (terms.isEmpty()) {
+			// No words worth serching for so don't try query
 			return null;
 		}
 
@@ -585,6 +587,7 @@ public class TicketDataAccess extends DataAccessLayer{
 
 		try {
 			statement = dbConnection.prepareStatement(query);
+			// Insert search terms into statement
 			for (int i=0, j=1; i < terms.size(); i++, j+=2) {
 				statement.setString(j, terms.get(i));
 				statement.setString(j+1, terms.get(i));

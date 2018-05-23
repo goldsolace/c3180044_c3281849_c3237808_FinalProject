@@ -45,7 +45,7 @@ public class Authentication implements Filter {
 		permissions.put("Ticket",USER);
 		permissions.put("KnowledgeBase",USER);
 		permissions.put("Article",USER);
-		permissions.put("Suggestion",USER);
+		permissions.put("Suggestion",USERX);
 		permissions.put("Notification",USERX);
 		permissions.put("Timeout",USER);
 		// JSPs
@@ -58,7 +58,7 @@ public class Authentication implements Filter {
 		permissions.put("staffTicket.jsp",STAFF);
 		permissions.put("knowledgeBase.jsp",USER);
 		permissions.put("article.jsp",USER);
-		permissions.put("suggestedArticle.jsp",USER);
+		permissions.put("suggestedArticle.jsp",USERX);
 		permissions.put("403.jsp",ALL);
 		permissions.put("404.jsp",ALL);
 		permissions.put("500.jsp",ALL);
@@ -83,13 +83,16 @@ public class Authentication implements Filter {
 
 		String uri = httpServletRequest.getRequestURI();
 
-		if(uri.endsWith("/")) {
+		// Get serlvet mapping the user is trying to request
+		if (uri.endsWith("/")) {
 			uri = uri.substring(0, uri.length()-1);
 		}
 		String page = uri.substring(uri.lastIndexOf("/")+1);
 
+		// Get permission of the page
 		String permission = permissions.getOrDefault(page, ALL);
 
+		// Authenticate user against permission of page
 		switch (permission) {
 			case ALL:
 				chain.doFilter(request, response);

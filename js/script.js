@@ -11,7 +11,7 @@ const sessionMaxTime = 15 * 60 * 1000;
 
 const indexPage = "/";
 const loginPage = "/Login";
-const suggestPage = "Suggestion?term=";
+const suggestPage = "//Suggestion?term=";
 
 var frame;
 
@@ -26,6 +26,7 @@ window.onload = function () {
 		window.setTimeout(SessionTimeout, sessionMaxTime+5000);
 	}
 
+	// Change which inputs are shown based on category selected
 	var categorySelect =  document.getElementById('categorySelect');
 	if (categorySelect != null) {
 		SetCategory(categorySelect);
@@ -34,15 +35,18 @@ window.onload = function () {
 		});
 	}
 
+	// Call displayFrame whenever Suggested Articles iFrame is loaded
 	frame = document.getElementById('suggested-articles');
 	if (frame != null) {
 		frame.addEventListener('load', function(e) {
 			displayFrame();
 		});
+		// Start as hidden
 		frame.style.display = "none";
 	}
 }
 
+// Method to change visibility of Category based inputs
 function SetCategory(categorySelect) {
 	switch (categorySelect.value) {
 		case "network":
@@ -79,6 +83,13 @@ function SetCategory(categorySelect) {
 			document.getElementById('hardware').classList.add('d-none');
 			document.getElementById('email').classList.add('d-none');
 			document.getElementById('account').classList.remove('d-none');
+			break;
+		default:
+			document.getElementById('network').classList.add('d-none');
+			document.getElementById('software').classList.add('d-none');
+			document.getElementById('hardware').classList.add('d-none');
+			document.getElementById('email').classList.add('d-none');
+			document.getElementById('account').classList.add('d-none');
 			break;
 	}
 }
@@ -154,27 +165,33 @@ function CreateMessage(type, message) {
 }
 
 
-
 var report = {
-	loadFrame: debounce(
-		function (url, description) {
-			frame = document.getElementById('suggested-articles');
-			frame.src = url + suggestPage + encodeURIComponent(description);
-		}, 500
-	),
+	// Check if iFrame should make a GET request to Suggestion controller
 	suggestArticles: function (url) {
 		var descriptionElement = document.getElementById('title');
 		var description = descriptionElement.value;
+		// Only try displaying Suggestions if title is atleast 3 chars otherwise hide iFrame
 		if (description.length >= 3) {
 			this.loadFrame(url, description);
+		} else {
+			this.hideFrame();
 		}
+	},
+	// Make iFrame send a GET request to Suggestion controlller
+	loadFrame: function (url, description) {
+		frame.src = url + suggestPage + encodeURIComponent(description);
+	},
+	// Hide iFrame from page
+	hideFrame: function (url, description) {
+		frame.style.display = "none";
 	}
 };
 
+// Check if iFrame should be shown or not
 function displayFrame() {
 	frame = document.getElementById('suggested-articles');
 	var frameDoc = (frame.contentDocument) ? frame.contentDocument : frame.contentWindow.document;
-	console.log(frameDoc.getElementById('empty') != null);
+	// Element with Id of empty only placed into html if not suggested articles
 	if (frameDoc.getElementById('empty') != null) {
 		frame.style.display = "none";
 	} else {
@@ -182,6 +199,7 @@ function displayFrame() {
 	}
 };
 
+// Function to limit amount of callsa method can make
 function debounce(func, wait, immediate) {
 	var timeout;
 	return function() {

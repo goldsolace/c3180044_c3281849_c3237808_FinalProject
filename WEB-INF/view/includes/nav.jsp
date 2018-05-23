@@ -10,15 +10,17 @@
 		<div class="container">
 
 			<%-- Display user's name --%>
-			<span class="navbar-brand d-flex flex-row"><strong>
-				<a class="nounderline text-dark" href="ServicePortal">
-					<c:out value="${sessionScope.user.firstName} ${sessionScope.user.lastName}"/></strong>
-				</a>
+			<div class="navbar-brand d-flex flex-row">
+				<strong>
+					<a class="nounderline text-dark" href="ServicePortal">
+						<c:out value="${sessionScope.user.firstName} ${sessionScope.user.lastName}"/>
+					</a>
+				</strong>
 				<%-- Only display for user --%>
 				<c:if test="${user.role == Role.USER}">
 					<jsp:include page="/WEB-INF/view/includes/notifications.jsp"/>
 				</c:if>
-			</span>
+			</div>
 
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse">
 				<span class="navbar-toggler-icon"></span>

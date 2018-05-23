@@ -9,13 +9,14 @@
 <form class="form-report" method="POST" action="Report">
 	<div class="form-group">
 		<label for="title">Title</label>
-		<input name="title" type="test" class="form-control" id="title" placeholder="Title" required onkeyup="report.suggestArticles('${url}');">
-  		<iframe class="container-fluid m-1" frameborder="0" id="suggested-articles"></iframe>
+		<input name="title" maxlength="200" type="text" class="form-control" id="title" placeholder="Title" required onkeyup="report.suggestArticles('${pageContext.request.contextPath}');">
+  		<iframe class="container-fluid m-1" id="suggested-articles"></iframe>
 	</div>
 
 	<div class="form-group">
-		<label for="inputCategory">Category</label>
+		<label>Category</label>
 		<select name="category" id="categorySelect" class="form-control" required>
+			<option value="">Choose</option>
 			<option value="network">Network</option>
 			<option value="software">Software</option>
 			<option value="hardware">Hardware</option>
@@ -31,7 +32,7 @@
 	<c:import url="/WEB-INF/view/includes/account.jsp"/>
 
 	<div class="form-group">
-		<label for="description">Problem Details</label>
+		<label>Problem Details</label>
 		<textarea name="description" class="form-control" id="details" rows="3" placeholder="Details..." required></textarea>
 	</div>
 

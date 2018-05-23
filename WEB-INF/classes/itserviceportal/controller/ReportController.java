@@ -19,15 +19,6 @@ public class ReportController extends HttpServlet{
 
 	// Display the Report Page
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String requestURL = request.getRequestURL().toString();
-		if (requestURL.endsWith("/")) {
-			requestURL = requestURL.substring(0, requestURL.length()-1);
-		}
-		String url = requestURL.substring(0, requestURL.lastIndexOf("/", requestURL.indexOf('?'))+1);
-		if (url.isEmpty()) {
-			url = requestURL.substring(0, requestURL.lastIndexOf("/")+1);
-		}
-		request.setAttribute("url", url);
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Jsp.REPORT.url());
 		dispatcher.forward(request, response);
 	}
