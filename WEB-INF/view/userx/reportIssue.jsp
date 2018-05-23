@@ -9,7 +9,8 @@
 <form class="form-report" method="POST" action="Report">
 	<div class="form-group">
 		<label for="title">Title</label>
-		<input name="title" type="test" class="form-control" id="title" placeholder="Title" required>
+		<input name="title" type="test" class="form-control" id="title" placeholder="Title" required onkeyup="report.suggestArticles('${url}');">
+		<iframe class="container m-1" frameborder="0" id="suggested-articles" onload=""></iframe>
 	</div>
 
 	<div class="form-group">

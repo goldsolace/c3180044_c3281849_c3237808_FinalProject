@@ -11,6 +11,7 @@ const sessionMaxTime = 15 * 60 * 1000;
 
 const indexPage = "/";
 const loginPage = "/Login";
+const suggestPage = "Suggestion?term=";
 
 window.onload = function () {
 	var urlStr = window.location.href;
@@ -141,3 +142,33 @@ function CreateMessage(type, message) {
 	alertButton.innerHTML = "<span aria-hidden='true'>&times;</span>";
 	alertDiv.appendChild(alertButton);
 }
+
+var report = {
+	display: debounce(
+		function (url, description) {
+			var frame = document.getElementById('suggested-articles');
+			console.log(url);
+			frame.src = url + suggestPage + encodeURIComponent(description);
+		}, 250, true 
+	),
+	suggestArticles: function (url) {
+		var descriptionElement = document.getElementById('title');
+		var description = descriptionElement.value;
+		this.display(url, description);
+	}
+};
+
+function debounce(func, wait, immediate) {
+	var timeout;
+	return function() {
+		var context = this, args = arguments;
+		var later = function() {
+			timeout = null;
+			if (!immediate) func.apply(context, args);
+		};
+		var callNow = immediate && !timeout;
+		clearTimeout(timeout);
+		timeout = setTimeout(later, wait);
+		if (callNow) func.apply(context, args);
+	};
+};

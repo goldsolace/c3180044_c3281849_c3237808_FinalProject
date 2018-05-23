@@ -45,6 +45,7 @@ public class Authentication implements Filter {
 		permissions.put("Ticket",USER);
 		permissions.put("KnowledgeBase",USER);
 		permissions.put("Article",USER);
+		permissions.put("Suggestion",USER);
 		permissions.put("Notification",USERX);
 		permissions.put("Timeout",USER);
 		// JSPs
@@ -57,6 +58,7 @@ public class Authentication implements Filter {
 		permissions.put("staffTicket.jsp",STAFF);
 		permissions.put("knowledgeBase.jsp",USER);
 		permissions.put("article.jsp",USER);
+		permissions.put("suggestedArticle.jsp",USER);
 		permissions.put("403.jsp",ALL);
 		permissions.put("404.jsp",ALL);
 		permissions.put("500.jsp",ALL);

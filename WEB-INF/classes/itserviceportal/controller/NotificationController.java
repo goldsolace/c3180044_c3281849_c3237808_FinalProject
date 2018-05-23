@@ -88,6 +88,9 @@ public class NotificationController extends HttpServlet {
 		}
 		// Get servlet url-mapping and query string only
 		String sendUserBack = referer.substring(referer.lastIndexOf("/", referer.indexOf('?'))+1);
+		if (sendUserBack.isEmpty()) {
+			sendUserBack = referer.substring(referer.lastIndexOf("/")+1);
+		}
 		response.sendRedirect(sendUserBack);
 	}
 

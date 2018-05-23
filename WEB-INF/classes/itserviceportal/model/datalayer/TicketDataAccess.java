@@ -534,4 +534,36 @@ public class TicketDataAccess extends DataAccessLayer{
 		}
 	}
 
+	// Will refine
+	public ArrayList<SupportTicket> getSuggestedArticles(User user, String categorySelect, String stateSelect, String orderBy, String term) throws SQLException {
+		ArrayList<SupportTicket> ticketsList = new ArrayList<>();
+
+		String query = "SELECT * FROM vw_SupportTickets WHERE Title LIKE ? OR Descrip LIKE ? AND CategoryName LIKE ? AND IsKnowledgeBase = 1 ORDER BY ResolvedOn DESC;";
+
+		term = "%" + term +"%";
+
+		try {
+			statement = dbConnection.prepareStatement(query);
+			String[] filterValues = buildQueryStringValuesGetAllTickets(user, categorySelect, stateSelect, orderBy);
+			statement.setString(1, term);
+			statement.setString(2, term);
+			statement.setString(3, filterValues[1]);
+			results = statement.executeQuery();
+
+			while (results.next()) {
+				SupportTicket ticket = supportTicketFactory(results, false);
+				if (ticket != null) {
+					ticketsList.add(ticket);
+				}
+			}
+			closeConnections();
+			return ticketsList;
+		} catch(Exception e) {
+			System.out.println("EXCEPTION CAUGHT: TicketDataAccess -- getSuggestedArticles()");
+			e.printStackTrace();
+			closeConnections();
+			return null;
+		}
+	}
+
 }

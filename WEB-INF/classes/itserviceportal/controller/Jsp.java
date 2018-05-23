@@ -19,6 +19,7 @@ public enum Jsp {
 	STAFFTICKET("/WEB-INF/view/staff/staffTicket.jsp"),
 	KNOWLEDGEBASE("/WEB-INF/view/user/knowledgeBase.jsp"),
 	ARTICLE("/WEB-INF/view/user/article.jsp"),
+	SUGGESTEDARTICLES("/WEB-INF/view/user/suggestedArticles.jsp"),
 	FORBIDDEN("/WEB-INF/view/error403.jsp"),
 	NOTFOUND("/WEB-INF/view/error404.jsp"),
 	SERVERERROR("/WEB-INF/view/error500.jsp"),
