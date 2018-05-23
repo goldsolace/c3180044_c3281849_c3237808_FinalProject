@@ -535,19 +535,60 @@ public class TicketDataAccess extends DataAccessLayer{
 	}
 
 	// Will refine
-	public ArrayList<SupportTicket> getSuggestedArticles(User user, String categorySelect, String stateSelect, String orderBy, String term) throws SQLException {
+	public ArrayList<SupportTicket> getSuggestedArticles(String term) throws SQLException {
 		ArrayList<SupportTicket> ticketsList = new ArrayList<>();
 
-		String query = "SELECT * FROM vw_SupportTickets WHERE Title LIKE ? OR Descrip LIKE ? AND CategoryName LIKE ? AND IsKnowledgeBase = 1 ORDER BY ResolvedOn DESC;";
+		String queryStart = "SELECT * FROM vw_SupportTickets WHERE";
+		String queryEnd = " AND IsKnowledgeBase = 1 ORDER BY ResolvedOn DESC;";
+		String querySearch = "";
 
-		term = "%" + term +"%";
+		// Split term into words
+		ArrayList<String> terms = new ArrayList<String>(Arrays.asList(term.split(" ")));
+
+		// Remove duplicates
+		Set<String> removeDuplicates = new HashSet<>();
+		removeDuplicates.addAll(terms);
+		terms.clear();
+		terms.addAll(removeDuplicates);
+
+		int logicalSize = terms.size();
+		int minLength = 3;
+		// Only search for longer words if title has a lot of words
+		if (logicalSize > 10) {
+			minLength = 6;
+		} else if (logicalSize > 7) {
+			minLength = 5;
+		} else if (logicalSize > 5) {
+			minLength = 4;
+		}
+		// Format words and add insertion positions to query statement
+		for (int i = 0; i < logicalSize;i++) {
+			// Check if word is worth searching for
+			System.out.println(terms.get(i));
+			if (terms.get(i).length() >= minLength) {
+				terms.set(i, "%" + terms.get(i) +"%");
+				if (i == 0) {
+					querySearch += " Title LIKE ? OR Descrip LIKE ?";
+				} else {
+					querySearch += "  OR Title LIKE ? OR Descrip LIKE ?";
+				}
+			} else {
+				terms.remove(i);
+			}
+		}
+
+		if (terms.isEmpty()) {
+			return null;
+		}
+
+		String query = queryStart + querySearch + queryEnd;
 
 		try {
 			statement = dbConnection.prepareStatement(query);
-			String[] filterValues = buildQueryStringValuesGetAllTickets(user, categorySelect, stateSelect, orderBy);
-			statement.setString(1, term);
-			statement.setString(2, term);
-			statement.setString(3, filterValues[1]);
+			for (int i=0, j=1; i < terms.size(); i++, j+=2) {
+				statement.setString(j, terms.get(i));
+				statement.setString(j+1, terms.get(i));
+			}
 			results = statement.executeQuery();
 
 			while (results.next()) {

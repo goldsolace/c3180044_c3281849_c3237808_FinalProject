@@ -7,34 +7,18 @@
 
 <c:import url="/WEB-INF/view/includes/headerSimple.jsp"/>
 
-<div class="my-2">
-	<h5 class="text-center"><strong>Suggested Articles</strong></h5>
-</div>
-<%--
-<form class="form-sort" method="POST" action="KnowledgeBase">
-	<div class="input-group">
-		<%-- Sets options to selected if they were used to sort the tickets 
-		<select name="categorySelect" class="custom-select">
-			<option value="all" <c:if test="${param['categorySelect'] == 'all'}">selected</c:if>>All Categories</option>
-			<option value="network" <c:if test="${param['categorySelect'] == 'network'}">selected</c:if>>Network</option>
-			<option value="software" <c:if test="${param['categorySelect'] == 'software'}">selected</c:if>>Software</option>
-			<option value="hardware" <c:if test="${param['categorySelect'] == 'hardware'}">selected</c:if>>Hardware</option>
-			<option value="account" <c:if test="${param['categorySelect'] == 'account'}">selected</c:if>>Account</option>
-			<option value="email" <c:if test="${param['categorySelect'] == 'email'}">selected</c:if>>Email</option>
-		</select>
-		<select name="orderSelect" class="custom-select">
-			<option value="newest" <c:if test="${param['orderSelect'] == 'newest'}">selected</c:if>>Newest Resolved</option>
-			<option value="oldest" <c:if test="${param['orderSelect'] == 'oldest'}">selected</c:if>>Oldest Resolved</option>
-		</select>
-		<div class="input-group-append">
-			<button class="btn btn-outline-info" type="submit">Sort</button>
-		</div>
-	</div>
-</form>--%>
+<c:if test="${empty suggestedArticles}">
+	<div id="empty"></div>
+</c:if>
 
-<%-- Only display if their are tickets --%>
+<%-- Only display if their are articles --%>
 <c:if test="${not empty suggestedArticles}">
-	<ul class="list-group my-2 mb-5">
+
+	<div class="my-2">
+		<h6 class="text-left">Suggested Articles</h6>
+	</div>
+
+	<ul class="list-group my-2 mb-5 ">
 
 		<%-- Iterate through suggestedArticles --%>
 		<c:forEach var="article" items="${suggestedArticles}">

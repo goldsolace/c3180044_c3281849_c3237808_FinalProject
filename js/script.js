@@ -13,6 +13,8 @@ const indexPage = "/";
 const loginPage = "/Login";
 const suggestPage = "Suggestion?term=";
 
+var frame;
+
 window.onload = function () {
 	var urlStr = window.location.href;
 	var urlPattern = urlStr.substring(urlStr.lastIndexOf("/"));
@@ -30,6 +32,14 @@ window.onload = function () {
 		categorySelect.addEventListener('change', function(e) {
 			SetCategory(categorySelect);
 		});
+	}
+
+	frame = document.getElementById('suggested-articles');
+	if (frame != null) {
+		frame.addEventListener('load', function(e) {
+			displayFrame();
+		});
+		frame.style.display = "none";
 	}
 }
 
@@ -143,18 +153,32 @@ function CreateMessage(type, message) {
 	alertDiv.appendChild(alertButton);
 }
 
+
+
 var report = {
-	display: debounce(
+	loadFrame: debounce(
 		function (url, description) {
-			var frame = document.getElementById('suggested-articles');
-			console.log(url);
+			frame = document.getElementById('suggested-articles');
 			frame.src = url + suggestPage + encodeURIComponent(description);
-		}, 250, true 
+		}, 500
 	),
 	suggestArticles: function (url) {
 		var descriptionElement = document.getElementById('title');
 		var description = descriptionElement.value;
-		this.display(url, description);
+		if (description.length >= 3) {
+			this.loadFrame(url, description);
+		}
+	}
+};
+
+function displayFrame() {
+	frame = document.getElementById('suggested-articles');
+	var frameDoc = (frame.contentDocument) ? frame.contentDocument : frame.contentWindow.document;
+	console.log(frameDoc.getElementById('empty') != null);
+	if (frameDoc.getElementById('empty') != null) {
+		frame.style.display = "none";
+	} else {
+		frame.style.display = "initial";
 	}
 };
 

@@ -36,11 +36,11 @@ public class SuggestionController extends HttpServlet {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 
-		// Get search tearm
+		// Get search term
 		String term = request.getParameter("term");
 		if (term != null && !term.isEmpty()) {
 			// Get List of all suggested articles
-			List<SupportTicket> suggestedArticles = getSuggestions(user, "all", "newest", term);
+			List<SupportTicket> suggestedArticles = getSuggestions(term);
 			// Attach suggestions to the request to be forwarded to the jsp
 			request.setAttribute("suggestedArticles", suggestedArticles);
 		}
@@ -99,16 +99,13 @@ public class SuggestionController extends HttpServlet {
 	/**
 	 * Get List of all similar Articles(Support Tickets) in the knowledge base
 	 */
-	public ArrayList<SupportTicket> getSuggestions(User user, String categorySelect, String orderBy, String term) {
-		try
-		{
-			//Calling the Ticket Data Access to retrieve all articles from the database
+	public ArrayList<SupportTicket> getSuggestions(String term) {
+		try {
+			//Calling the Ticket Data Access to retrieve suggestions from the database
 			TicketDataAccess ticketDAL = new TicketDataAccess();
-			ArrayList<SupportTicket> knowledgeBase = ticketDAL.getSuggestedArticles(user, "all", categorySelect, orderBy, term);
-			return knowledgeBase;
-		}
-		catch (Exception e)
-		{
+			ArrayList<SupportTicket> suggestions = ticketDAL.getSuggestedArticles(term);
+			return suggestions;
+		} catch (Exception e) {
 			return null;
 		}
 	}

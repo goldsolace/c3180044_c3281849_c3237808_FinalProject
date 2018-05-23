@@ -15,5 +15,5 @@
 	<link href="${context}/css/style.css" rel="stylesheet">
 </head>
 <body>
-	<div class="container">
+	<div class="container-fluid">
 	
