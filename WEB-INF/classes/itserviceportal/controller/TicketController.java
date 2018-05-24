@@ -471,8 +471,8 @@ public class TicketController extends HttpServlet {
 			
 		// Add the comment to the ticket
 		try {
- 			TicketDataAccess ticketDAL = new TicketDataAccess();
- 			ticketDAL.addComment(ticketID, commentText, user.getUserID());
+ 			CommentDataAccess commentDAL = new CommentDataAccess();
+ 			commentDAL.addComment(ticketID, commentText, user.getUserID());
 			session.setAttribute("successMessage", "Comment has been posted.");
  
 			// If Staff action then notify user

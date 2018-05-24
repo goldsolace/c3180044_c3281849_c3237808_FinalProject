@@ -1,21 +1,51 @@
 package itserviceportal.model.datalayer;
-
 import itserviceportal.model.beans.*;
 import java.io.*;
 import java.util.*;
 import javax.sql.*;
 import java.util.Date;
-
 import java.sql.*;
 import javax.naming.InitialContext;
 
+
+
+/**
+ * TicketDataAccess.java
+ * The database access class which adds, updates, gets list and gets single support tickets inside the database
+ * 
+ * Inherits from: DataAccessLayer.java
+ *
+ * @author Brice Purton, Jonathan Williams, Wajdi Yournes
+ * @version 1.0
+ * @since 19-05-2018
+ */
+
+
 public class TicketDataAccess extends DataAccessLayer{
 
+	/**
+	 * Class constructor, calling the Superclass DataAccessLayer to initalise the database =
+	 * connection, prepared statement and result set objects.
+	 */
 	public TicketDataAccess() {
 		super();
 	}
 
-	public void newTicket(User users, String category, String title, String description, Map<String, String> issueDetails) throws SQLException {
+
+
+
+	/**
+	* This method adds a new SupportTicket to the database
+	* 
+	* @param user The user object who is creating Support Ticket
+	* @param category The category of the support ticket (Network, Email etc etc)
+	* @param title The title of the support ticket
+	* @param description The description of the support ticket
+	* @param issueDetails The Map object of questions and response for the support ticket, 
+	*           			 outlining the issues / problems which need fixing.
+	* @throws SQLException
+	*/
+	public void newTicket(User user, String category, String title, String description, Map<String, String> issueDetails) throws SQLException {
 		
 		//String Query
 		String query = "INSERT INTO tbl_SupportTicket (Title, Descrip, ReportedOn, CreatedByUserID, CategoryID) VALUES (?, ?, ?, ?, ?)";
@@ -29,7 +59,7 @@ public class TicketDataAccess extends DataAccessLayer{
 			statement.setString(1, title);
 			statement.setString(2, description);
 			statement.setTimestamp(3, new Timestamp(new Date().getTime()));
-			statement.setInt(4, users.getUserID());
+			statement.setInt(4, user.getUserID());
 			statement.setInt(5, getCategoryID(category));
 			
 			//Execute Statement, adding ticket to DB
@@ -41,11 +71,13 @@ public class TicketDataAccess extends DataAccessLayer{
 			query = "SELECT LAST_INSERT_ID()";
 			ResultSet rs = statement.executeQuery(query);
 
+			//Getting the ticketID from the result
 			rs.next();
 			int ticketID = rs.getInt("LAST_INSERT_ID()");
 			closeConnections();
 			
-			//Add IssueDetails for ticket to DB
+			//Add IssueDetails for ticket to DB using the ticketID retrieved by last insert
+			//Calling the IssueDetailDataAccess to handle the processing of the insert.
 			IssueDetailDataAccess issueDetailDAL = new IssueDetailDataAccess();
 			issueDetailDAL.newIssueDetails(ticketID, issueDetails);
 		}
@@ -60,6 +92,8 @@ public class TicketDataAccess extends DataAccessLayer{
 
 
 
+
+
 	/**
 	 * Gets all the tickets from the database matching the passed in filter parameters
 	 *
@@ -69,7 +103,8 @@ public class TicketDataAccess extends DataAccessLayer{
 	 * @param knowledgeBase value outlining to get all tickets or only knowledge base (true = knowledge base only, false = all tickets)
 	 * @param orderBy the order by filter selected (newest or oldest)
 	 * @throws SQLException
-	 * @return ArrayList<SupportTicket>
+	 * @return ArrayList<SupportTicket> if execution successful
+	 * @return null if exception is caught.
 	 */
 	public ArrayList<SupportTicket> getAllTicketsFromDB(User user, String categorySelect, String stateSelect, boolean isKnowledgeBase, String orderBy) throws SQLException {
 		
@@ -78,7 +113,7 @@ public class TicketDataAccess extends DataAccessLayer{
 		
 		String query;
 
-		//Getting all knowledge base articles
+		//Getting all knowledge base articles, do not need to filter by userID or TicketState
 		if(isKnowledgeBase)
 		{
 			if(orderBy.equals("newest"))
@@ -87,7 +122,7 @@ public class TicketDataAccess extends DataAccessLayer{
 				query = "SELECT * FROM vw_SupportTickets WHERE CategoryName LIKE ? AND IsKnowledgeBase = 1 ORDER BY ReportedOn ASC;";
 		}
 
-		//Otherwise, getting all the tickets by the userID.
+		//Otherwise, getting all the tickets by the userID
 		else
 		{
 			if(orderBy.equals("newest"))
@@ -126,9 +161,11 @@ public class TicketDataAccess extends DataAccessLayer{
 			//Execute the query and get the results
 			results = statement.executeQuery();
 
-			//Loop through the results set
+			//Loop through the results set and create Support Tickets using the ticket factory method and add to list
 			while (results.next())
 			{
+				//Passing in false to the ticket factory so the ticket factory won't load comments or issue details
+				//as this is only a list of support tickets, that information is not needed and speeds up execution
 				SupportTicket ticket = supportTicketFactory(results, false);
 				if(ticket != null)
 					ticketsList.add(ticket);
@@ -145,14 +182,14 @@ public class TicketDataAccess extends DataAccessLayer{
 	}
 
 
+
+
 	/**
-	 * Gets all the tickets from the database matching the passed in filter parameters
+	 * Gets a ticket from the database matching the specified ticketID
 	 *
-	 * @param user the user getting the list of tickets
-	 * @param categorySelect the category filter select (All, Network, Hardware etc)
-	 * @param stateSelect The state filter selected (Completed, New etc)
-	 * @param knowledgeBase value outlining to get all tickets or only knowledge base (true = knowledge base only, false = all tickets)
-	 * @param orderBy the order by filter selected (newest or oldest)
+	 * @param id The SupportTicketID accessing
+	 * @param user the user getting the ticket
+	 * @param isKnowledgeBase value outlining if the ticket being accessed is a knowledge base article
 	 * @throws SQLException
 	 * @return SupportTicket object if successful, NULL if exception occured
 	 */
@@ -167,7 +204,7 @@ public class TicketDataAccess extends DataAccessLayer{
 			query = "SELECT * FROM vw_SupportTickets WHERE TicketID = ? AND IsKnowledgeBase = 1;";
 		}
 
-		//Otherwise, a user is viewing a ticket
+		//Otherwise, a user is viewing a normal support ticket
 		else
 		{
 			//If the user is a staff, they can view all tickets, otherwise, a user can only view their own tickets
@@ -184,18 +221,19 @@ public class TicketDataAccess extends DataAccessLayer{
 			statement = dbConnection.prepareStatement(query);
 
 			//Prepare the query parameters
+			//Setting the TicketID
 			statement.setInt(1, id);
 
 			//If the user getting the ticket by ID is a USER, set the extra parameter
 			if(!isKnowledgeBase && user.getRole() == Role.USER)
-			{
 				statement.setInt(2, user.getUserID());
-			}
 				
 			//Execute the query and get the results
 			results = statement.executeQuery();
 
-			//Get the row and create the ticket object
+			//Get the row and create the ticket object with the factory method
+			//Passing in true to the factory method to indicate that all comments and issue details
+			//will be retrieved.
 			if (results.next()) {
 				ticket = supportTicketFactory(results, true);
 			}
@@ -212,8 +250,13 @@ public class TicketDataAccess extends DataAccessLayer{
 	}
 
 
+
+
+
+
 	/**
-	 * Creates a user object from the result set data.
+	 * Helper method for the SupportTicketFactory.
+	 * Creates a User object from the result, represents the user who created the support ticket
 	 *
 	 * @param results the result set obtained from the database
 	 * @return User
@@ -230,8 +273,13 @@ public class TicketDataAccess extends DataAccessLayer{
 	}
 
 
+
+
+
+
 	/**
-	 * Creates a user object from the result set data.
+	 * Helper method for the SupportTicketFactory.
+	 * Creates a User object from the result, represents the user who resolved the support ticket
 	 *
 	 * @param results the result set obtained from the database
 	 * @return User
@@ -248,8 +296,13 @@ public class TicketDataAccess extends DataAccessLayer{
 	}
 
 
+
+
+
 	/**
-	 * Makes the query string values which will be passed into the select statement in order to perform filtering.
+	 * Helper method for getAllTicketsFromDB
+	 * Makes the query string values which will be passed into the 
+	 * select statement in order to perform filtering.
 	 *
 	 * @param user the user getting the list of tickets
 	 * @param categorySelect the category filter select (All, Network, Hardware etc)
@@ -265,12 +318,12 @@ public class TicketDataAccess extends DataAccessLayer{
 		if(user.getRole() == Role.USER)
 			queryValues[0] = Integer.toString(user.getUserID());
 
-		//Otherwise, the user is staff member so display everything
+		//Otherwise, the user is staff member so display everything using a wildcard
 		else
 			queryValues[0] = "%";
 
 
-		//If the state selected is all, use a wildcard to find everything
+		//If the state selected is all, use a wildcard to find everything, otherwise, use the value passed in
 		if(stateSelect.equals("all"))
 			queryValues[1] = "%";
 		else
@@ -289,10 +342,17 @@ public class TicketDataAccess extends DataAccessLayer{
 	}
 
 
+
+
+
 	/**
+	 * Helper Factory Method for getAllTicketsFromDB() and getTicketByIDFromDB()
 	 * Creates a SupportTicket object from the result set passed in.
 	 *
-	 * @param results the results set obtained from the database
+	 * @param results the results set obtained from the database which contains the Support Ticket information
+	 * @param getCommentsAndIssueDetails a value outlining if the factory method should create the SupportTicket object
+	 * 									 with all comments and issue details, or just load support ticket information 
+	 * 									 to speed up processing time. 
 	 * @return SupportTicket if created successfully, NULL if exception occured
 	 */
 	private SupportTicket supportTicketFactory(ResultSet results, boolean getCommentsAndIssueDetails) {
@@ -355,6 +415,15 @@ public class TicketDataAccess extends DataAccessLayer{
 		}
 	}
 	
+
+
+
+	/**
+	 * Method which gets the category ID
+	 *
+	 * @param category the category searching for. 
+	 * @return int The ID of the category in the database
+	 */
 	public int getCategoryID(String category) {
 		switch (category) { 
 			case "network": return 1;
@@ -367,41 +436,16 @@ public class TicketDataAccess extends DataAccessLayer{
 	}
 
 
+
+
+
 	/**
-	 * Adds a comment to the Support Ticket
+	 * Updates the ticket state to inprogress.
+	 * When the Staff click "Start Work", the ticket state is updated to in progress
 	 *
-	 * @param ticketID the ticket the comment is being added to.
-	 * @param comment the comment being added.
+	 * @param ticketID the ticket which is being updated
 	 * @throws SQLException
 	 */
-	public void addComment(int ticketID, String commentText, int userID) throws SQLException{
-
-		//The insert statement
-		String insert = "INSERT INTO tbl_Comment (CommentText, CommentDate, UserID, TicketID) VALUES (?, NOW(), ?, ?);";
-
-		try
-		{
-			//Getting the DB connection, performing the query and getting the results
-			statement = dbConnection.prepareStatement(insert);
-
-			//Prepare the insert parameters
-			statement.setString(1, commentText);
-			statement.setInt(2, userID);
-			statement.setInt(3, ticketID);
-
-
-			//Execute the insert
-			statement.execute();
-				
-			closeConnections();
-		}
-		catch(Exception e)
-		{
-			System.out.println("EXCEPTION CAUGHT: TicketDataAccess -- addComment()");
-			closeConnections();
-		}
-	}
-
 	public void updateTicketStateToInProgress(int ticketID) throws SQLException {
 
 		//Setting the update statement
@@ -409,16 +453,14 @@ public class TicketDataAccess extends DataAccessLayer{
 
 		try
 		{
-			//Getting the DB connection, and perparing the insert statement
+			//Getting the DB connection, and perparing the update statement
 			statement = dbConnection.prepareStatement(update);
 
 			//Prepare the update parameter
 			statement.setInt(1, ticketID);
 
-
-			//Execute the insert
+			//Execute the update and close all open connections
 			statement.execute();
-				
 			closeConnections();
 		}
 		catch(Exception e)
@@ -428,9 +470,22 @@ public class TicketDataAccess extends DataAccessLayer{
 		}
 	}
 
+
+
+
+	/**
+	 * Updates the ticket state to completed.
+	 * When the Staff click "Submit Solution", the ticket state is updated to completed
+	 *
+	 * @param ticketID the ticket which is being updated
+	 * @param resolutionDetail The solution text submitted by the Staff member.
+	 * @param resolvedByUserID The ID of the staff member who submitted the solution
+	 * @throws SQLException
+	 */
 	public void updateTicketStateToComplete(int ticketID, String resolutionDetails, int resolvedByUserID) throws SQLException {
 
 		//Setting the update statement
+		//Inserting resolution details, when the solution was provided and who provided the solution
 		String update = "UPDATE tbl_SupportTicket SET TicketState = 'completed', ResolutionDetails = ?, ResolvedOn = NOW(), ResolvedByUserID = ? WHERE TicketID = ? AND TicketState = 'in progress';";
 
 		try
@@ -457,6 +512,16 @@ public class TicketDataAccess extends DataAccessLayer{
 		}
 	}
 
+
+
+
+	/**
+	 * Updates the ticket state to accepted.
+	 * When the user clicks "Accept Solution", the ticket state is updated to resolved
+	 *
+	 * @param ticketID the ticket which is being updated
+	 * @throws SQLException
+	 */
 	public void updateTicketStateToAccepted(int ticketID) throws SQLException {
 
 		//Setting the update statement
@@ -464,7 +529,7 @@ public class TicketDataAccess extends DataAccessLayer{
 
 		try
 		{
-			//Getting the DB connection, and perparing the insert statement
+			//Getting the DB connection, and perparing the update statement
 			statement = dbConnection.prepareStatement(update);
 
 			//Prepare the update parameter
@@ -477,14 +542,27 @@ public class TicketDataAccess extends DataAccessLayer{
 		}
 		catch(Exception e)
 		{
-			System.out.println("EXCEPTION CAUGHT: TicketDataAccess -- updateTicketStateToComplete()");
+			System.out.println("EXCEPTION CAUGHT: TicketDataAccess -- updateTicketStateToAccepted()");
 			closeConnections();
 		}
 	}
 
+
+
+
+
+	/**
+	 * Updates the ticket state to rejected.
+	 * When the user clicks "Reject Solution", the ticket state is updated back to inprogress
+	 * and resolution details, resolvedOn, resolvedByID and knowledgebase are cleared from the ticket.
+	 *
+	 * @param ticketID the ticket which is being updated
+	 * @throws SQLException
+	 */
 	public void updateTicketStateToRejected(int ticketID) throws SQLException {
 
 		//Setting the update statement
+		//Removing from knowledge base because only tickets which are in state completed or resolved can be in the knowledge base
 		String update = "UPDATE tbl_SupportTicket SET TicketState = 'in progress', ResolvedOn = NULL, ResolvedByUserID = NULL, ResolutionDetails = NULL, IsKnowledgeBase = 0 WHERE TicketID = ? AND TicketState = 'completed';";
 
 		try
@@ -508,6 +586,17 @@ public class TicketDataAccess extends DataAccessLayer{
 	}
 
 
+
+
+
+	/**
+	 * Adds or removes a ticket from the knowledge base.
+	 *
+	 * @param ticketID the ticket which is being updated
+	 * @param doAddToKnowledgeBase a value outlining if adding to knowledge base or removing from knowledge base
+	 * 							   (true = add to knowledge base, false = remove from knowledge base)
+	 * @throws SQLException
+	 */
 	public void AddOrRemoveFromKnowledgeBase(int ticketID, boolean doAddToKnowledgeBase) throws SQLException {
 
 		//Setting the update statement
@@ -522,9 +611,8 @@ public class TicketDataAccess extends DataAccessLayer{
 			statement.setBoolean(1, doAddToKnowledgeBase);
 			statement.setInt(2, ticketID);
 
-			//Execute the insert
+			//Execute the update and close all open connections
 			statement.execute();
-				
 			closeConnections();
 		}
 		catch(Exception e)
@@ -533,6 +621,11 @@ public class TicketDataAccess extends DataAccessLayer{
 			closeConnections();
 		}
 	}
+
+
+
+
+
 
 	/**
 	 * Method to retrieve knowledge base articles from the database that contain
