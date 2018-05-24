@@ -27,10 +27,10 @@ public class NotificationDataAccess extends DataAccessLayer {
 	private final static int MAX_NOTIFICATIONS = 5; //The max number of notifications to display at one time
 
 
- /**
-   * Class constructor, calling the Superclass DataAccessLayer to initalise the database =
-   * connection, prepared statement and result set objects.
-   */
+	/**
+	 * Class constructor, calling the Superclass DataAccessLayer to initalise the database =
+	 * connection, prepared statement and result set objects.
+	 */
 	public NotificationDataAccess() {
 		super();
 	}
@@ -38,13 +38,13 @@ public class NotificationDataAccess extends DataAccessLayer {
 
 
 
-  /**
-   * This method gets all notifications for a specific user.
-   * 
-   * @param userID The userID of the user to get the notifications for
-   * @return ArrayList<Notification> if execution successfull
-   * @throws SQLException
-   */
+	/**
+	 * This method gets all notifications for a specific user.
+	 * 
+	 * @param userID The userID of the user to get the notifications for
+	 * @return ArrayList<Notification> if execution successfull
+	 * @throws SQLException
+	 */
 	public ArrayList<Notification> getNotifications(int userID) throws SQLException {
 
 		//The list where notifications will be stored
@@ -87,19 +87,19 @@ public class NotificationDataAccess extends DataAccessLayer {
 
 
 
-  /**
-   * This method adds a new notification into the database. 
-   * 
-   * @param action the action performed / the description of the notification, outlining what has been completed / updated
-   * @param userID The userID which the notifiction is for.
-   * @param ticketID the ticketID of the SupportTicket which has been modified.
-   * @throws SQLException
-   */
+	/**
+	 * This method adds a new notification into the database. 
+	 * 
+	 * @param action the action performed / the description of the notification, outlining what has been completed / updated
+	 * @param userID The userID which the notifiction is for.
+	 * @param ticketID the ticketID of the SupportTicket which has been modified.
+	 * @throws SQLException
+	 */
 	public void setNotification(String action, int userID, int ticketID) throws SQLException {
 
 		// Insert new notification
 		String query = "INSERT INTO tbl_Notification (NotificationAction, NotificationDate, UserID, TicketID) VALUES (?, NOW(), ?, ?)";
-		// Delete any notifations that match userID if userID has more than MAX_NOTIFICATIONS by oldest first
+		// Delete any notifations that match userID if userID has more than MAX_NOTIFICATIONS by newest first
 		String queryLimitNotifications = "DELETE FROM tbl_Notification WHERE userID = ? AND NotificationID NOT IN (SELECT NotificationID FROM (SELECT NotificationID FROM tbl_Notification WHERE userID = ? ORDER BY NotificationDate DESC LIMIT ? ) AS n)";
 		
 		try {
@@ -126,13 +126,13 @@ public class NotificationDataAccess extends DataAccessLayer {
 
 
 
-  /**
-   * This deletes notifications from the database once they have been read by the user.
-   * 
-   * @param userID The userID which the notification is assigned to.
-   * @param notificationID the ID of the notification which is being deleted.
-   * @throws SQLException
-   */
+	/**
+	 * This deletes notifications from the database once they have been read by the user.
+	 * 
+	 * @param userID The userID which the notification is assigned to.
+	 * @param notificationID the ID of the notification which is being deleted.
+	 * @throws SQLException
+	 */
 	public void dismissNotification(int userID, int notificationID) throws SQLException {
 
 		// Delete notification
