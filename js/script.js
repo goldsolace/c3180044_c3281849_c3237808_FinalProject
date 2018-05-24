@@ -48,20 +48,24 @@ window.onload = function () {
 
 // Method to validate Email and Password Login
 function validateLogin() {
+	if (document.getElementById("displayMessage") != null) {
+		RemoveMessage("email");
+		RemoveMessage("password");
+	}
 	
 	var email = document.getElementById('email');
 	var pass = document.getElementById('password');
-	
+
 	// Regex to check email format
-	if (/^[cC][0-9]{7}@uon.edu.au$/.test(email) == false)
+	if (!/^[cC][0-9]{7}@uon.edu.au$/.test(email.value))
 	{
-		alert('Email Error');
+		DisplayMessage("Please use your university email.", "email");
 		return false;
 	}
 	// Check if pass matches email or if it contains User ID
-	else if (pass == email || pass == email.substring(0,8))
+	else if (pass.value == email.value || pass.value == email.value.substring(0,8))
 	{
-		alert('Password Error');
+		DisplayMessage("Password can't contain student number.", "password");
 		return false;
 	}
 	// Continue with form
@@ -150,8 +154,8 @@ function SessionTimeout() {
 function CreateMessage(type, message) {
 	// Choose alert class color
 	switch (type) {
-		case "error":
-			type = "alert-error";
+		case "danger":
+			type = "alert-danger";
 			break;
 		case "warning":
 			type = "alert-warning";
@@ -189,32 +193,34 @@ function CreateMessage(type, message) {
 	alertDiv.appendChild(alertButton);
 }
 
-function DisplayMessage(message, placeAfterId) {
-	var containerDiv = document.createElement("div");
-	containerDiv.setAttribute('class',"container pt-2");
-	
-	// Add message after placeAfterId
-	var placeAfterElement = document.getElementById(placeAfterId);
-	alertDiv.id = "displayMessage";
-	placeAfterElement.parentNode.insertBefore(containerDiv, placeAfterElement.nextSibling);
+// Method to display error messages on login page
+function DisplayMessage(message, inputId) {
+	if (document.getElementById("displayMessage") == null) {
+		// Add message after placeAfterId
+		var input = document.getElementById(inputId);
+		input.setAttribute('data-toggle',"tooltip");
+		input.setAttribute('data-html',"true");
+		input.setAttribute('data-placement',"bottom");
+		input.setAttribute('title',"<span class='mx-1 fas fa-exclamation-triangle'></span> "+message+"");
 
-	var alertDiv = document.createElement("div");
-	alertDiv.setAttribute('class',"alert alert-error alert-dismissible fade show text-center");
-	alertDiv.setAttribute('role',"alert");
-	alertDiv.innerHTML = message;
-	containerDiv.appendChild(alertDiv);
+		var containerDiv = document.createElement("div");
+		containerDiv.id = "displayMessage";
+		input.parentNode.insertBefore(containerDiv, input.nextSibling);
 
-	var alertButton = document.createElement("button");
-	alertButton.setAttribute('type',"button");
-	alertButton.setAttribute('class',"close");
-	alertButton.setAttribute('data-dismiss',"alert");
-	alertButton.setAttribute('aria-label',"Close");
-	alertButton.innerHTML = "<span aria-hidden='true'>&times;</span>";
-	alertDiv.appendChild(alertButton);
+		$("#"+inputId).tooltip('show');
+		input.addEventListener('keydown', function(e) {
+			this.removeEventListener('keydown', arguments.callee);
+			RemoveMessage(this.id);
+		})
+	}
+}
 
-	placeAfterElement.addEventListener('keyup', function(e) {
-		placeAfterElement.removeChild(containerDiv);
-	})
+function RemoveMessage(inputId) {
+	var message = document.getElementById("displayMessage");
+	if (message != null) {
+		message.parentNode.removeChild(message);
+		$("#"+inputId).tooltip('dispose');
+	}
 }
 
 

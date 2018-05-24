@@ -7,6 +7,7 @@
 		</div>
 		<%-- Import Javascript --%>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 		<script src="${context}/js/bootstrap.min.js"></script>
 		<script src="${context}/js/script.js"></script>
 	</body>
