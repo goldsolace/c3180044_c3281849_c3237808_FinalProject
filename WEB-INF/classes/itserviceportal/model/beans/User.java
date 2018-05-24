@@ -1,13 +1,21 @@
 package itserviceportal.model.beans;
 import java.lang.*;
 
+/**
+ * User bean
+ *
+ * @author Brice Purton, Jonothan Williams, Wajdi Yournes
+ * @version 1.0
+ * @since 19-05-2018
+ */
+
 public class User {
-    private int userID;
-    private String email;
-    private String firstName;
-    private String lastName;
-    private String contactNumber;
-    private Role role;
+    private int userID;             //The ID of the user
+    private String email;           //The University email of the user
+    private String firstName;       //The first name of the user              
+    private String lastName;        //The last name of the user
+    private String contactNumber;   //The phone number of the user
+    private Role role;              //The role of the user (USER or STAFF)
 
 
     public User() {
@@ -19,6 +27,18 @@ public class User {
         role = Role.USER;
     }
 
+
+
+    /**
+	 * Overloaded Constructor
+	 *
+	 * @param id The ID of the user
+	 * @param email The University email of the user
+	 * @param fName The first name of the user 
+	 * @param lName The last name of the user
+     * @param num The phone number of the user
+     * @param userRole The role of the user (USER or STAFF) as a String
+	 */
     public User(int id, String email, String fName, String lName, String num, String userRole) {
         userID = id;
         this.email = email;
@@ -28,52 +48,51 @@ public class User {
         setRole(userRole);
     }
 
-    //GETTERS
-    public int getUserID() {
-        return userID;
-    }
+    /**
+     * userID GETTER and SETTER
+     */
+    public int getUserID() { return userID; }
+    public void setUserID(int userID) { this.userID = userID; }
 
-    public String getEmail() {
-        return email;
-    }
 
-    public String getFirstName() {
-        return firstName;
-    }
 
-    public String getLastName() {
-        return lastName;
-    }
+    /**
+     * userID GETTER and SETTER
+     */
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 
-    public String getContactNumber() {
-        return contactNumber;
-    }
 
-    public Role getRole() {
-        return role;
-    }
 
-    //SETTERS
-    public void setUserID(int userID) {
-        this.userID = userID;
-    }
+    /**
+     * firstName GETTER and SETTER
+     */
+    public String getFirstName() { return firstName; }
+    public void setFirstName(String firstName) { this.firstName = firstName; }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+    /**
+     * lastName GETTER and SETTER
+     */
+    public String getLastName() { return lastName; }
+    public void setLastName(String lastName) { this.lastName = lastName; }
 
-    public void setContactNumber(String contactNumber) {
-        this.contactNumber = contactNumber;
-    }
 
+
+    /**
+     * contactNumber GETTER and SETTER
+     */
+    public String getContactNumber() { return contactNumber; }
+    public void setContactNumber(String contactNumber) { this.contactNumber = contactNumber; }
+
+
+
+    /**
+     * role GETTER and SETTERS
+     */
+    public Role getRole() { return role; }
+    public void setRole(Role role) { this.role = role; }
     public void setRole(String role) {
         if(role.equalsIgnoreCase("staff"))
         {
