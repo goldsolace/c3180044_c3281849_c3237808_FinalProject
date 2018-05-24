@@ -580,7 +580,7 @@ public class TicketDataAccess extends DataAccessLayer{
 		}
 		catch(Exception e)
 		{
-			System.out.println("EXCEPTION CAUGHT: TicketDataAccess -- updateTicketStateToComplete()");
+			System.out.println("EXCEPTION CAUGHT: TicketDataAccess -- updateTicketStateToRejected()");
 			closeConnections();
 		}
 	}
@@ -617,7 +617,7 @@ public class TicketDataAccess extends DataAccessLayer{
 		}
 		catch(Exception e)
 		{
-			System.out.println("EXCEPTION CAUGHT: TicketDataAccess -- updateTicketStateToComplete()");
+			System.out.println("EXCEPTION CAUGHT: TicketDataAccess -- AddOrRemoveFromKnowledgeBase()");
 			closeConnections();
 		}
 	}
