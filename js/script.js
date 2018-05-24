@@ -46,6 +46,31 @@ window.onload = function () {
 	}
 }
 
+// Method to validate Email and Password Login
+function validateLogin() {
+	
+	var email = document.getElementById('email');
+	var pass = document.getElementById('password');
+	
+	// Regex to check email format
+	if (/^[cC][0-9]{7}@uon.edu.au$/.test(email) == false)
+	{
+		alert('Email Error');
+		return false;
+	}
+	// Check if pass matches email or if it contains User ID
+	else if (pass == email || pass == email.substring(0,8))
+	{
+		alert('Password Error');
+		return false;
+	}
+	// Continue with form
+	else
+	{
+		return true;
+	}
+}
+
 // Method to change visibility of Category based inputs
 function SetCategory(categorySelect) {
 	switch (categorySelect.value) {
