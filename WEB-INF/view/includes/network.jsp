@@ -3,11 +3,11 @@
 <div id="network" class="d-none">
 	<div class="form-group">
 		<label>Device?</label>
-		<input name="networkDevice" type="text" class="form-control" placeholder="Chromebook, iPhone 6, Dell Inspiron, etc">
+		<input name="networkDevice" maxlength="255" type="text" class="form-control" placeholder="Chromebook, iPhone 6, Dell Inspiron, etc">
 	</div>
 	<div class="form-group">
 		<label>Location?</label>
-		<input name="networkLocation" type="text" class="form-control" placeholder="GP Building, MCTH100, EAG01, etc">
+		<input name="networkLocation" maxlength="255" type="text" class="form-control" placeholder="GP Building, MCTH100, EAG01, etc">
 	</div>
 	<div class="form-group">
 		<label>Browser?</label>
@@ -24,7 +24,7 @@
 	</div>
 	<div class="form-group">
 		<label>Website you're trying to connect to?</label>
-		<input name="networkWebsite" type="text" class="form-control" placeholder="google.com, newcastle.edu.au, etc">
+		<input name="networkWebsite" maxlength="255" type="url" class="form-control" placeholder="google.com, newcastle.edu.au, etc">
 	</div>
 
 	<div class="form-group">

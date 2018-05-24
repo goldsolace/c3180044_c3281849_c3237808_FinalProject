@@ -8,13 +8,14 @@
 
 <form class="form-report" method="POST" action="Report">
 	<div class="form-group">
-		<label for="title">Title</label>
-		<input name="title" maxlength="200" type="text" class="form-control" id="title" placeholder="Title" required onkeyup="report.suggestArticles('${pageContext.request.contextPath}');">
+		<label for="title">Title*</label>
+		<%-- Load suggested articles into iFrame when user types into title --%>
+		<input name="title" minlength="3" maxlength="200" type="text" class="form-control" id="title" placeholder="Title" required onkeyup="report.suggestArticles('${pageContext.request.contextPath}');">
   		<iframe class="container-fluid m-1" id="suggested-articles"></iframe>
 	</div>
 
 	<div class="form-group">
-		<label>Category</label>
+		<label>Category*</label>
 		<select name="category" id="categorySelect" class="form-control" required>
 			<option value="">Choose</option>
 			<option value="network">Network</option>
@@ -25,6 +26,7 @@
 		</select>
 	</div>
 
+	<%-- Get category based input fields --%>
 	<c:import url="/WEB-INF/view/includes/network.jsp"/>
 	<c:import url="/WEB-INF/view/includes/software.jsp"/>
 	<c:import url="/WEB-INF/view/includes/hardware.jsp"/>
@@ -32,7 +34,7 @@
 	<c:import url="/WEB-INF/view/includes/account.jsp"/>
 
 	<div class="form-group">
-		<label>Problem Details</label>
+		<label>Problem Details*</label>
 		<textarea name="description" class="form-control" id="details" rows="3" placeholder="Details..." required></textarea>
 	</div>
 

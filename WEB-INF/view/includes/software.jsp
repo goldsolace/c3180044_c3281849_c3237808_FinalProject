@@ -3,15 +3,15 @@
 <div id="software" class="d-none">
 	<div class="form-group">
 		<label>Device?</label>
-		<input name="softwareDevice" type="text" class="form-control" placeholder="Chromebook, iPhone 6, Dell Inspiron, etc">
+		<input name="softwareDevice" maxlength="255" type="text" class="form-control" placeholder="Chromebook, iPhone 6, Dell Inspiron, etc">
 	</div>
 	<div class="form-group">
 		<label>Software I'm trying to use?</label>
-		<input name="softwareSoftware" type="text" class="form-control" placeholder="MS Word, Adobe Acrobat, etc">
+		<input name="softwareSoftware" maxlength="255" type="text" class="form-control" placeholder="MS Word, Adobe Acrobat, etc">
 	</div>
 	<div class="form-group">
 		<label>Software version I'm trying to use?</label>
-		<input name="softwareVersion" type="text" class="form-control" placeholder="2016, CC, etc">
+		<input name="softwareVersion" maxlength="255" type="text" class="form-control" placeholder="2016, CC, etc">
 	</div>
 	<div class="form-group">
 		<label>Can you install the software?</label>

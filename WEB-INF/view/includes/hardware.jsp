@@ -3,11 +3,11 @@
 <div id="hardware" class="d-none">
 	<div class="form-group">
 		<label>Device you're trying to use?</label>
-		<input name="hardwareDevice" type="text" class="form-control" placeholder="Printer, iMac, etc">
+		<input name="hardwareDevice" maxlength="255" type="text" class="form-control" placeholder="Printer, iMac, etc">
 	</div>
 	<div class="form-group">
 		<label >Location?</label>
-		<input name="hardwareLocation" type="text" class="form-control" placeholder="GP Building, MCTH100, EAG01, etc">
+		<input name="hardwareLocation" maxlength="255" type="text" class="form-control" placeholder="GP Building, MCTH100, EAG01, etc">
 	</div>
 	<div class="form-group">
 		<label>Can you access the device with your account login?</label>
@@ -50,6 +50,6 @@
 	</div>
 	<div class="form-group">
 		<label>Error message if displayed?</label>
-		<input name="error" type="text" class="form-control" placeholder="e.g. 0xc05d1281">
+		<input name="hardwareError" maxlength="255" type="text" class="form-control" placeholder="e.g. 0xc05d1281">
 	</div>
 </div>
