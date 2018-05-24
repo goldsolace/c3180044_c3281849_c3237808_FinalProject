@@ -101,7 +101,7 @@
 					<div class="list-group-item">
 						<div class="form-group">
 							<label class="h3"><span class="mx-1 far fa-edit"></span>Solution</label>
-							<textarea name="solution" class="form-control" id="soltuion" rows="3" placeholder="Solution..." required></textarea>
+							<textarea minlength="3" maxlength="20000" name="solution" class="form-control" id="soltuion" rows="3" placeholder="Solution..." required></textarea>
 						</div>
 					</div>
 				</c:if>
@@ -150,7 +150,7 @@
 				<form class="my-2 my-lg-0" method="POST" action="Ticket?ticketID=${supportTicket.ticketID}">
 					<div class="form-group">
 						<label class="h5">Comment<span class="mx-1 far fa-comment"></span></label>
-						<textarea name="commentText" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Comment text..." required></textarea>
+						<textarea minlength="3" maxlength="20000" name="commentText" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Comment text..." required></textarea>
 					</div>
 					<input type="hidden" name="action" value="comment">
 					<input type="hidden" name="reportedBy" value="${supportTicket.reportedBy.userID}">

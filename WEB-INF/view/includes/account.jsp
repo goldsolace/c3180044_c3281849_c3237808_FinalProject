@@ -29,7 +29,7 @@
 	</div>
 	<div class="form-group">
 		<label>University system you're trying to access?</label>
-		<input name="accountSystem" type="text" class="form-control" placeholder="e.g. NuMail, Myhub, etc">
+		<input maxlength="255" name="accountSystem" type="text" class="form-control" placeholder="e.g. NuMail, Myhub, etc">
 	</div>
 	<div class="form-group">
 		<label>Have you tried resetting your password?</label>
@@ -46,6 +46,6 @@
 	</div>
 	<div class="form-group">
 		<label>Error message if displayed?</label>
-		<input name="accountError" type="text" class="form-control" placeholder="e.g. Your username is not recognised Error: 3001">
+		<input maxlength="255" name="accountError" type="text" class="form-control" placeholder="e.g. Your username is not recognised Error: 3001">
 	</div>
 </div>

@@ -164,6 +164,35 @@ function CreateMessage(type, message) {
 	alertDiv.appendChild(alertButton);
 }
 
+function DisplayMessage(message, placeAfterId) {
+	var containerDiv = document.createElement("div");
+	containerDiv.setAttribute('class',"container pt-2");
+	
+	// Add message after placeAfterId
+	var placeAfterElement = document.getElementById(placeAfterId);
+	alertDiv.id = "displayMessage";
+	placeAfterElement.parentNode.insertBefore(containerDiv, placeAfterElement.nextSibling);
+
+	var alertDiv = document.createElement("div");
+	alertDiv.setAttribute('class',"alert alert-error alert-dismissible fade show text-center");
+	alertDiv.setAttribute('role',"alert");
+	alertDiv.innerHTML = message;
+	containerDiv.appendChild(alertDiv);
+
+	var alertButton = document.createElement("button");
+	alertButton.setAttribute('type',"button");
+	alertButton.setAttribute('class',"close");
+	alertButton.setAttribute('data-dismiss',"alert");
+	alertButton.setAttribute('aria-label',"Close");
+	alertButton.innerHTML = "<span aria-hidden='true'>&times;</span>";
+	alertDiv.appendChild(alertButton);
+
+	placeAfterElement.addEventListener('keyup', function(e) {
+		placeAfterElement.removeChild(containerDiv);
+	})
+}
+
+
 
 var report = {
 	// Check if iFrame should make a GET request to Suggestion controller
