@@ -1,17 +1,20 @@
-/**
- * CreateDBScript.sql
- *
- * Creates all the database tables required by the application and inserts dummy data
- * for testing / marking purposes.
- *
- * @author Brice Purton, Jonathan Williams, Wajdi Yournes
- * @version 1.0
- * @since 19-05-2018
- */
+ # CreateDBScript.sql
+ #
+ # Creates all the database tables required by the application and inserts dummy data
+ # for testing / marking purposes.
+ #
+ # @author Brice Purton, Jonathan Williams, Wajdi Yournes
+ # @version 1.0
+ # @since 19-05-2018
+ 
+
+# Dropping the database and creating again to remove all data. 
+DROP DATABASE c3237808_db;
+CREATE DATABASE c3237808_db;
+USE c3237808_db;
 
 
-
--- Creating the Users table
+# Creating the Users table
 CREATE TABLE tbl_User (
     UserID INT NOT NULL AUTO_INCREMENT,
     Email CHAR(19) NOT NULL,
@@ -24,7 +27,7 @@ CREATE TABLE tbl_User (
 );
 
 
--- Creating the Category Table
+# Creating the Category Table
 CREATE TABLE tbl_Category (
     CategoryID INT NOT NULL AUTO_INCREMENT,
     CatName VARCHAR(8) NOT NULL,
@@ -32,7 +35,7 @@ CREATE TABLE tbl_Category (
 );
 
 
--- Creating the Support Ticket Table
+# Creating the Support Ticket Table
 CREATE TABLE tbl_SupportTicket (
     TicketID INT NOT NULL AUTO_INCREMENT,
     Title VARCHAR(200) NOT NULL,
@@ -53,7 +56,7 @@ CREATE TABLE tbl_SupportTicket (
 );
 
 
--- Creating the Comment Table
+# Creating the Comment Table
 CREATE TABLE tbl_Comment (
     CommentID INT NOT NULL AUTO_INCREMENT,
     CommentText VARCHAR(20000) NOT NULL,
@@ -67,7 +70,7 @@ CREATE TABLE tbl_Comment (
 );
 
 
--- Creating the IssueDetails Table
+# Creating the IssueDetails Table
 CREATE TABLE tbl_IssueDetails (
     IssueDetailsID INT NOT NULL AUTO_INCREMENT,
     QuestionText VARCHAR(255) NOT NULL,
@@ -79,7 +82,7 @@ CREATE TABLE tbl_IssueDetails (
 );
 
 
--- Creating the Notification Table
+# Creating the Notification Table
 CREATE TABLE tbl_Notification (
     NotificationID INT NOT NULL AUTO_INCREMENT,
     NotificationAction VARCHAR(20) NOT NULL,
@@ -93,7 +96,7 @@ CREATE TABLE tbl_Notification (
 );
 
 
--- Creating Database View For Support Tickets
+# Creating Database View For Support Tickets
 CREATE VIEW vw_SupportTickets AS
 SELECT	t.TicketID, t.Title, t.Descrip, t.TicketState, t.ReportedOn, t.ResolvedOn, t.IsKnowledgeBase, t.ResolutionDetails, t.CategoryID, cat.CatName AS CategoryName, createdBy.UserID AS CreatedByUserID, createdBy.Email AS CreatedByEmail, createdBy.FirstName AS CreatedByFName, createdBy.LastName AS CreatedByLName, createdBy.ContactNum AS CreatedByContactNum, createdBy.UserRole AS CreatedByRole, resolvedBy.UserID AS ResolvedByUserID, resolvedBy.Email AS ResolvedByEmail, resolvedBy.FirstName AS ResolvedByFName, resolvedBy.LastName AS ResolvedByLName, resolvedBy.ContactNum AS ResolvedByContactNum, resolvedBy.UserRole AS ResolvedByRole
 FROM tbl_SupportTicket t
@@ -102,23 +105,23 @@ INNER JOIN tbl_User createdBy ON (t.CreatedByUserID = createdBy.UserID)
 LEFT JOIN tbl_User resolvedBy ON (t.ResolvedByUserID = resolvedBy.UserID);
 
 
--- Creating Database View for Comments
+# Creating Database View for Comments
 CREATE VIEW vw_Comments
 AS
 SELECT c.*, u.FirstName, u.LastName, u.Email, u.ContactNum, u.UserRole
 FROM tbl_Comment c
 INNER JOIN tbl_User u ON (c.UserID = u.UserID);
 
--- END: CREATE DATABASE TABLES
-----------------------------------------------------------------
-----------------------------------------------------------------
+# END: CREATE DATABASE TABLES
+# ----------------------------------------------------------------
+# ----------------------------------------------------------------
 
 
--- BEGIN: INSERT DUMMY TEST DATA
-----------------------------------------------------------------
-----------------------------------------------------------------
+# BEGIN: INSERT DUMMY TEST DATA
+# ----------------------------------------------------------------
+# ----------------------------------------------------------------
 
--- Inserting Values Into the Users Table
+# Inserting Values Into the Users Table
 INSERT INTO tbl_User (Email, UserPassword, FirstName, LastName, ContactNum, UserRole) 
 VALUES ('c3237808@uon.edu.au', 'test1234', 'Jono', 'Williams', '0412345678', 'Staff');
 INSERT INTO tbl_User (Email, UserPassword, FirstName, LastName, ContactNum, UserRole)
@@ -132,7 +135,7 @@ VALUES ('c1111111@uon.edu.au', 'test1234', 'Tom', 'Scott', '0412345678', 'User')
 INSERT INTO tbl_User (Email, UserPassword, FirstName, LastName, ContactNum, UserRole)
 VALUES ('c2222222@uon.edu.au', 'test1234', 'Joe', 'Blogs', '0478945612', 'User');
 
--- Inserting Values into the Category table
+# Inserting Values into the Category table
 INSERT INTO tbl_Category (CatName) VALUES ('Network');
 INSERT INTO tbl_Category (CatName) VALUES ('Software');
 INSERT INTO tbl_Category (CatName) VALUES ('Hardware');
@@ -140,7 +143,9 @@ INSERT INTO tbl_Category (CatName) VALUES ('Email');
 INSERT INTO tbl_Category (CatName) VALUES ('Account');
 
 
--- Inserting into tickets tables
+
+
+# Inserting into tickets tables
 INSERT INTO tbl_SupportTicket (Title, Descrip, TicketState, ReportedOn, ResolvedOn, IsKnowledgeBase, ResolutionDetails, CreatedByUserID, ResolvedByUserID, CategoryID)
 VALUES ('No internet connection', 'Having trouble connecting to google.', 'new', '2018-05-01', NULL, 0, NULL, 6, NULL, 1);
 
@@ -151,7 +156,7 @@ INSERT INTO tbl_SupportTicket (Title, Descrip, TicketState, ReportedOn, Resolved
 VALUES ('Computer very slow', 'Computer in group study room is very slow', 'in progress', '2018-05-16', NULL, 0, NULL, 4, NULL, 3);
 
 INSERT INTO tbl_SupportTicket (Title, Descrip, TicketState, ReportedOn, ResolvedOn, IsKnowledgeBase, ResolutionDetails, CreatedByUserID, ResolvedByUserID, CategoryID)
-VALUES ('Can not send a email', 'email is failing', 'completed', '2018-05-10', '2018-05-18', 0, 'Reset incomming and outgoing mail settings.', 6, 1, 4);
+VALUES ('Can not send a email', 'email is failing', 'completed', '2018-05-10', '2018-05-18', 0, 'Reset incoming and outgoing mail settings.', 6, 1, 4);
 
 INSERT INTO tbl_SupportTicket (Title, Descrip, TicketState, ReportedOn, ResolvedOn, IsKnowledgeBase, ResolutionDetails, CreatedByUserID, ResolvedByUserID, CategoryID)
 VALUES ('My account has been locked.', 'Cannot access my account or login.', 'resolved', '2018-04-20', '2018-04-26', 1, 'Reactivated account in active directory.', 5, 2, 5);
@@ -165,7 +170,9 @@ VALUES ('Can''t connect to wifi', 'My phone cannot connect to the wifi on campus
 INSERT INTO tbl_SupportTicket (Title, Descrip, TicketState, ReportedOn, ResolvedOn, IsKnowledgeBase, ResolutionDetails, CreatedByUserID, ResolvedByUserID, CategoryID)
 VALUES ('Can''t Print', 'I can''t print using a printer in the Auchmuty library', 'in progress', NOW(), NULL, 0, NULL, 5, NULL, 3);
 
--- Inserting into comments table
+
+
+# Inserting into comments table
 INSERT INTO tbl_Comment (CommentText, UserID, TicketID, CommentDate)
 VALUES ('Still wont open.', 6, 2, '2018-05-15');
 INSERT INTO tbl_Comment (CommentText, UserID, TicketID, CommentDate)
@@ -196,8 +203,10 @@ INSERT INTO tbl_Comment (CommentText, UserID, TicketID, CommentDate)
 VALUES ('Thanks!', 4, 6, '2018-03-23');
 
 
---Inserting into the issue details table
---Ticket 1 issue details: Network Problem
+
+
+# Inserting into the issue details table
+# Ticket 1 issue details: Network Problem
 INSERT INTO tbl_IssueDetails (QuestionText, ResponseText, TicketID)
 VALUES ("Device", "Uni computer", 1);
 INSERT INTO tbl_IssueDetails (QuestionText, ResponseText, TicketID)
@@ -217,7 +226,7 @@ VALUES ("Can you access the website on another device?", "Yes", 1);
 
 
 
---Ticket 2 issue details: Software problem
+# Ticket 2 issue details: Software problem
 INSERT INTO tbl_IssueDetails (QuestionText, ResponseText, TicketID)
 VALUES ("Device?", "Uni computer", 2);
 INSERT INTO tbl_IssueDetails (QuestionText, ResponseText, TicketID)
@@ -230,7 +239,7 @@ INSERT INTO tbl_IssueDetails (QuestionText, ResponseText, TicketID)
 VALUES ("Have you tried running the software on another device?", "No", 2);
 
 
---Ticket 3 issue details: Hardware problem
+# Ticket 3 issue details: Hardware problem
 INSERT INTO tbl_IssueDetails (QuestionText, ResponseText, TicketID)
 VALUES ("Device you're trying to use?", "Uni computer", 3);
 INSERT INTO tbl_IssueDetails (QuestionText, ResponseText, TicketID)
@@ -243,7 +252,7 @@ INSERT INTO tbl_IssueDetails (QuestionText, ResponseText, TicketID)
 VALUES ("Does the device power on?", "Yes", 3);
 
 
---Ticket 4 issue details: Email problem
+# Ticket 4 issue details: Email problem
 INSERT INTO tbl_IssueDetails (QuestionText, ResponseText, TicketID)
 VALUES ("Have you setup your email?", "Yes", 4);
 INSERT INTO tbl_IssueDetails (QuestionText, ResponseText, TicketID)
@@ -256,7 +265,7 @@ INSERT INTO tbl_IssueDetails (QuestionText, ResponseText, TicketID)
 VALUES ("Have you confirmed your internet connection?", "Yes", 4);
 
 
---Ticket 5 issue details: Account problem
+# Ticket 5 issue details: Account problem
 INSERT INTO tbl_IssueDetails (QuestionText, ResponseText, TicketID)
 VALUES ("Have you activated your account?", "Yes", 5);
 INSERT INTO tbl_IssueDetails (QuestionText, ResponseText, TicketID)
@@ -268,7 +277,7 @@ VALUES ("Error message if displayed?", "Your account has been locked. Please con
 
 
 
---Ticket 6 issue details: Network Problem
+# Ticket 6 issue details: Network Problem
 INSERT INTO tbl_IssueDetails (QuestionText, ResponseText, TicketID)
 VALUES ("Device", "Dell XPS15 personal laptop", 6);
 INSERT INTO tbl_IssueDetails (QuestionText, ResponseText, TicketID)
@@ -287,7 +296,7 @@ INSERT INTO tbl_IssueDetails (QuestionText, ResponseText, TicketID)
 VALUES ("Can you access the website on another device?", "Yes", 6);
 
 
---Ticket 7 issue details: Network Problem
+# Ticket 7 issue details: Network Problem
 INSERT INTO tbl_IssueDetails (QuestionText, ResponseText, TicketID)
 VALUES ("Device", "Google Pixel 2", 7);
 INSERT INTO tbl_IssueDetails (QuestionText, ResponseText, TicketID)
@@ -306,7 +315,7 @@ INSERT INTO tbl_IssueDetails (QuestionText, ResponseText, TicketID)
 VALUES ("Can you access the website on another device?", "Yes", 7);
 
 
---Ticket 8 issue details: Hardware problem
+# Ticket 8 issue details: Hardware problem
 INSERT INTO tbl_IssueDetails (QuestionText, ResponseText, TicketID)
 VALUES ("Device you're trying to use?", "Uni printer", 8);
 INSERT INTO tbl_IssueDetails (QuestionText, ResponseText, TicketID)
@@ -319,7 +328,7 @@ INSERT INTO tbl_IssueDetails (QuestionText, ResponseText, TicketID)
 VALUES ("Error message if displayed?", "ERROR lolXD1235 - Document failed to print due to internal failure.", 8);
 
 
-
+# Inserting into the notifications table for demo notifications
 INSERT INTO tbl_Notification (NotificationAction, NotificationDate, UserID, TicketID)
 VALUES ('startWork', NOW(), 5, 8);
 
@@ -342,6 +351,6 @@ INSERT INTO tbl_Notification (NotificationAction, NotificationDate, UserID, Tick
 VALUES ('startWork', '2018-04-23', 5, 5);
 
 
--- END: INSERT DUMMY TEST DATA
-----------------------------------------------------------------
-----------------------------------------------------------------
+# END: INSERT DUMMY TEST DATA
+# ----------------------------------------------------------------
+# ----------------------------------------------------------------
