@@ -33,6 +33,9 @@ public class CommentDataAccess extends DataAccessLayer{
 
 
 
+	public CommentDataAccess(Connection connection) {
+		super(connection);
+	}
 
 
   /**
@@ -44,7 +47,7 @@ public class CommentDataAccess extends DataAccessLayer{
    * @return null if exception occurs
    * @throws SQLException
    */
-	public ArrayList<Comment> getAllCommentsForTicket(int ticketID) throws SQLException {
+	public ArrayList<Comment> getAllCommentsForTicket(int ticketID, boolean doCloseConnection) throws SQLException {
 
 		//The arraylist which will store all the comments for the support ticket
 		ArrayList<Comment> comments = new ArrayList<>();
@@ -54,8 +57,11 @@ public class CommentDataAccess extends DataAccessLayer{
 
 		try
 		{
+			if(connection == null)
+				connection = getConnection();
+
 			//Preparing the statement and executing the query to get the list of comments
-			statement = dbConnection.prepareStatement(query);
+			statement = connection.prepareStatement(query);
 			statement.setString(1, Integer.toString(ticketID));
 			results = statement.executeQuery();
 
@@ -83,8 +89,14 @@ public class CommentDataAccess extends DataAccessLayer{
 				comments.add(comment);
 			}
 
-			//Processing is complete, close the connections
-			closeConnections();
+			//Processing is complete
+			if(doCloseConnection)
+				closeConnections();
+			else
+			{
+				closeStatement();
+				closeResults();
+			}
 			return comments;
 		}
 
@@ -116,8 +128,11 @@ public class CommentDataAccess extends DataAccessLayer{
 
 		try
 		{
+			if(connection == null)
+				connection = getConnection();
+
 			//Getting the DB connection, performing the query and getting the results
-			statement = dbConnection.prepareStatement(insert);
+			statement = connection.prepareStatement(insert);
 
 			//Prepare the insert parameters
 			statement.setString(1, commentText);

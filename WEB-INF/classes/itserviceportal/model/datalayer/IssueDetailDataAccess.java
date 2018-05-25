@@ -35,6 +35,15 @@ public class IssueDetailDataAccess extends DataAccessLayer{
 
 
 
+	/**
+	 * Overloaded constructor
+	 */
+	public IssueDetailDataAccess(Connection connection) {
+		super(connection);
+	}
+
+
+
 
   /**
    * This method inserts new issue details for a support ticket into the database.
@@ -43,14 +52,18 @@ public class IssueDetailDataAccess extends DataAccessLayer{
    * @param issues A Map object which contains key value pairs of (question, response to question)
    * @throws SQLException
    */
-	public void newIssueDetails(int id, Map<String, String> issues) throws SQLException {
+	public void newIssueDetails(int id, Map<String, String> issues, boolean doCloseConnection) throws SQLException {
 
 		//Prepare Query
 		String query = "INSERT INTO tbl_IssueDetails (QuestionText, ResponseText, TicketID) VALUES (?, ?, ?)";
 		
-		try {
+		try 
+		{
+			if(connection == null)
+				connection = getConnection();
+
 			//Prepare Statement
-			statement = dbConnection.prepareStatement(query);
+			statement = connection.prepareStatement(query);
 
 			//Cycle through hashmap, and add the question and question response to the database.
 			for (Map.Entry<String, String> entry : issues.entrySet()) {
@@ -59,7 +72,11 @@ public class IssueDetailDataAccess extends DataAccessLayer{
 				statement.setInt(3, id);
 				statement.executeUpdate();
 			}
-			closeConnections();
+
+			if(doCloseConnection)
+				closeConnections();
+			else
+				closeStatement();
 		
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -78,7 +95,7 @@ public class IssueDetailDataAccess extends DataAccessLayer{
    * @param ticketID The ticketID of the support ticket which you are getting the issue details for.
    * @throws SQLException
    */
-	public ArrayList<IssueDetail> getAllIssueDetailsForTicket(int ticketID) throws SQLException {
+	public ArrayList<IssueDetail> getAllIssueDetailsForTicket(int ticketID, boolean doCloseConnection) throws SQLException {
 
 		//Creating the array list which the issue details will be stored
 		ArrayList<IssueDetail> issueDetails = new ArrayList<>();
@@ -86,9 +103,13 @@ public class IssueDetailDataAccess extends DataAccessLayer{
 		//The SELECT query which will get all the issue details from the specific SupportTicket
 		String query = "SELECT * FROM tbl_IssueDetails WHERE TicketID = ?";
 
-		try {
+		try 
+		{
+			if(connection == null)
+				connection = getConnection();
+
 			//Getting the DB connection, performing the query and getting the results
-			statement = dbConnection.prepareStatement(query);
+			statement = connection.prepareStatement(query);
 			statement.setString(1, Integer.toString(ticketID));
 			results = statement.executeQuery();
 
@@ -106,8 +127,14 @@ public class IssueDetailDataAccess extends DataAccessLayer{
 				issueDetails.add(issueDetail);
 			}
 
-			//Data processing complete, close all DB connections and return the list of IssueDetails
-			closeConnections();
+			//Data processing complete, return the list of IssueDetails
+			if(doCloseConnection)
+				closeConnections();
+			else
+			{
+				closeStatement();
+				closeResults();
+			}
 			return issueDetails;
 
 		//An exception occures while accessing the DB or processing the data, print the error and close any open connections

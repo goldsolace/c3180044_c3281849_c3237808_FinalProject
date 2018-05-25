@@ -35,6 +35,11 @@ public class NotificationDataAccess extends DataAccessLayer {
 	}
 
 
+	public NotificationDataAccess (Connection connection) {
+		super(connection);
+	}
+
+
 	/**
 	 * This method gets all notifications for a specific user.
 	 * 
@@ -51,8 +56,12 @@ public class NotificationDataAccess extends DataAccessLayer {
 		String query = "SELECT * FROM tbl_Notification WHERE userID = ? ORDER BY NotificationDate DESC";
 
 		try {
+
+			if(connection == null)
+				connection = getConnection();
+
 			// Getting the DB connection, performing the query and getting the results
-			statement = dbConnection.prepareStatement(query);
+			statement = connection.prepareStatement(query);
 			statement.setInt(1, userID);
 			results = statement.executeQuery();
 
@@ -93,15 +102,20 @@ public class NotificationDataAccess extends DataAccessLayer {
 		String queryLimitNotifications = "DELETE FROM tbl_Notification WHERE userID = ? AND NotificationID NOT IN (SELECT NotificationID FROM (SELECT NotificationID FROM tbl_Notification WHERE userID = ? ORDER BY NotificationDate DESC LIMIT ? ) AS n)";
 		
 		try {
+
+			if(connection == null)
+				connection = getConnection();
+
+
 			// Insert new notification 
-			statement = dbConnection.prepareStatement(query);
+			statement = connection.prepareStatement(query);
 			statement.setString(1, action);
 			statement.setInt(2, userID);
 			statement.setInt(3, ticketID);
 			statement.executeUpdate();
 
 			// Keep 5 newest notifications for user
-			statement = dbConnection.prepareStatement(queryLimitNotifications);
+			statement = connection.prepareStatement(queryLimitNotifications);
 			statement.setInt(1, userID);
 			statement.setInt(2, userID);
 			statement.setInt(3, MAX_NOTIFICATIONS);
@@ -127,7 +141,12 @@ public class NotificationDataAccess extends DataAccessLayer {
 		String query = "DELETE FROM tbl_Notification WHERE userID = ? AND  NotificationID = ?";
 		
 		try {
-			statement = dbConnection.prepareStatement(query);
+
+			if(connection == null)
+				connection = getConnection();
+
+
+			statement = connection.prepareStatement(query);
 			statement.setInt(1, userID);
 			statement.setInt(2, notificationID);
 			statement.executeUpdate();

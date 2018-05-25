@@ -480,34 +480,38 @@ public class TicketController extends HttpServlet {
 			return;
 		}
 
-		// Get the ticket ID
+		// Get the support ticket
+		TicketDataAccess ticketDAL = new TicketDataAccess();
+		SupportTicket supportTicket = null;
 		int ticketID = -1;
 		try {
 			ticketID = Integer.parseInt(request.getParameter("ticketID"));
-		} catch (NumberFormatException e) {
+			supportTicket = ticketDAL.getTicketByIDFromDB(ticketID, user, true);
+		} catch (Exception e) {
 			session.setAttribute("errorMessage", "Sorry! The ticket does not exist.");
 			response.sendRedirect("ServicePortal");
 			return;
 		}
 
-		SupportTicket supportTicket = getTicket(ticketID, user);
+		
+		
 		// Support ticket will be null if user can't view that ticket
 		if (supportTicket == null) {
 			session.setAttribute("errorMessage", "Sorry! Request is invalid.");
 			response.sendRedirect("ServicePortal");
 			return;
 		// Only remove knowledgeBase articles
-		} else if (supportTicket.isKnowledgeBase()) {
-			session.setAttribute("errorMessage", "Sorry! Request is invalid.");
+		} else if (!supportTicket.isKnowledgeBase()) {
+			session.setAttribute("errorMessage", "Sorry! Request is invalid, not a knowledge base article.");
 			response.sendRedirect("ServicePortal");
 			return;
 		}
 
-		//Add the ticket to the knowledge base by setting IsKnowledgeBase = 0
+		//remove the ticket to the knowledge base by setting IsKnowledgeBase = 0
 		try
 		{
 			String backToList = request.getParameter("redirection");
-			TicketDataAccess ticketDAL = new TicketDataAccess();
+			ticketDAL = new TicketDataAccess();
 			ticketDAL.AddOrRemoveFromKnowledgeBase(ticketID, false);
 
 			session.setAttribute("successMessage", "Support Ticket has been removed from Knowledge Base.");
@@ -606,7 +610,7 @@ public class TicketController extends HttpServlet {
 		}
 		
 		// Display updated ticket
-		response.sendRedirect("Ticket?ticketID="+ticketID);
+		doGet(request, response);
 	}
 }
 

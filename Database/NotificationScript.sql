@@ -16,25 +16,25 @@ CREATE TABLE tbl_Notification (
 -- Insert into Notification Table
 
 INSERT INTO tbl_Notification (NotificationAction, NotificationDate, UserID, TicketID)
-VALUES ('startWork', NOW(), 3, 9);
+VALUES ('startWork', NOW(), 5, 8);
 
 INSERT INTO tbl_Notification (NotificationAction, NotificationDate, UserID, TicketID)
-VALUES ('submitSolution', NOW(), 3, 9);
+VALUES ('submitSolution', '2018-04-26', 6, 4);
 
 INSERT INTO tbl_Notification (NotificationAction, NotificationDate, UserID, TicketID)
-VALUES ('addKnowledge', NOW(), 3, 9);
+VALUES ('addKnowledge', NOW(), 5, 5);
 
 INSERT INTO tbl_Notification (NotificationAction, NotificationDate, UserID, TicketID)
-VALUES ('removeKnowledge', NOW(), 3, 9);
+VALUES ('removeKnowledge', '2018-05-18', 4, 6);
 
 INSERT INTO tbl_Notification (NotificationAction, NotificationDate, UserID, TicketID)
-VALUES ('comment', NOW(), 3, 9);
+VALUES ('comment', '2018-05-18', 4, 3);
 
 INSERT INTO tbl_Notification (NotificationAction, NotificationDate, UserID, TicketID)
-VALUES ('comment', NOW(), 3, 9);
+VALUES ('comment', '2018-04-22', 5, 5);
 
 INSERT INTO tbl_Notification (NotificationAction, NotificationDate, UserID, TicketID)
-VALUES ('startWork', NOW(), 3, 9);
+VALUES ('startWork', '2018-04-23', 5, 5);
 
 DROP TABLE tbl_Notification;
 
