@@ -263,6 +263,15 @@ public class TicketController extends HttpServlet {
 			return;
 		}
 
+		// Check if user is allowed to comment on that ticket
+		SupportTicket supportTicket = getTicket(ticketID, user);
+		// Support ticket will be null if user can't view that ticket
+		if (supportTicket == null) {
+			session.setAttribute("errorMessage", "Sorry! Request is invalid.");
+			response.sendRedirect("ServicePortal");
+			return;
+		}
+
 		//Update the ticket to resolved status
 		try
 		{
@@ -313,6 +322,15 @@ public class TicketController extends HttpServlet {
 			ticketID = Integer.parseInt(request.getParameter("ticketID"));
 		} catch (NumberFormatException e) {
 			session.setAttribute("errorMessage", "Sorry! The ticket does not exist.");
+			response.sendRedirect("ServicePortal");
+			return;
+		}
+
+		// Check if user is allowed to comment on that ticket
+		SupportTicket supportTicket = getTicket(ticketID, user);
+		// Support ticket will be null if user can't view that ticket
+		if (supportTicket == null) {
+			session.setAttribute("errorMessage", "Sorry! Request is invalid.");
 			response.sendRedirect("ServicePortal");
 			return;
 		}
@@ -477,7 +495,16 @@ public class TicketController extends HttpServlet {
 		try {
 			ticketID = Integer.parseInt(request.getParameter("ticketID"));
 		} catch (NumberFormatException e) {
-			session.setAttribute("errorMessage", "Sorry! The ticket does not exist.");
+			session.setAttribute("errorMessage", "Sorry! Request is invalid.");
+			response.sendRedirect("ServicePortal");
+			return;
+		}
+
+		// Check if user is allowed to comment on that ticket
+		SupportTicket supportTicket = getTicket(ticketID, user);
+		// Support ticket will be null if user can't view that ticket
+		if (supportTicket == null) {
+			session.setAttribute("errorMessage", "Sorry! The ticket you've requested does not exist.");
 			response.sendRedirect("ServicePortal");
 			return;
 		}
