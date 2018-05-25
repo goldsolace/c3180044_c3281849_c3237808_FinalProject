@@ -87,7 +87,6 @@ public class TicketDataAccess extends DataAccessLayer{
 			System.out.println("EXCEPTION CAUGHT: TicketDataAccess -- newTicket");
 			closeConnections();
 		}
-			
 	}
 
 

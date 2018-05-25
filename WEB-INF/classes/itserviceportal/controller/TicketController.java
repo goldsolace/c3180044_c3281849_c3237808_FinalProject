@@ -606,7 +606,7 @@ public class TicketController extends HttpServlet {
 		}
 		
 		// Display updated ticket
-		doGet(request, response);
+		response.sendRedirect("Ticket?ticketID="+ticketID);
 	}
 }
 
