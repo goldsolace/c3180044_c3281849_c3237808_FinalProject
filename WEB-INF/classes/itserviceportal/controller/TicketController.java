@@ -149,6 +149,18 @@ public class TicketController extends HttpServlet {
 			return;
 		}
 
+		SupportTicket supportTicket = getTicket(ticketID, user);
+		// Support ticket will be null if user can't view that ticket
+		if (supportTicket == null) {
+			session.setAttribute("errorMessage", "Sorry! Request is invalid.");
+			response.sendRedirect("ServicePortal");
+			return;
+		// Only start work if ticket is in progress
+		} else if (supportTicket.getState() != State.NEW) {
+			session.setAttribute("errorMessage", "Sorry! Request is invalid.");
+			response.sendRedirect("ServicePortal");
+		}
+
 		try
 		{
 			TicketDataAccess ticketDAL = new TicketDataAccess();
@@ -200,6 +212,18 @@ public class TicketController extends HttpServlet {
 			session.setAttribute("errorMessage", "Sorry! The ticket does not exist.");
 			response.sendRedirect("ServicePortal");
 			return;
+		}
+
+		SupportTicket supportTicket = getTicket(ticketID, user);
+		// Support ticket will be null if user can't view that ticket
+		if (supportTicket == null) {
+			session.setAttribute("errorMessage", "Sorry! Request is invalid.");
+			response.sendRedirect("ServicePortal");
+			return;
+		// Only submit solution if ticket is in progress
+		} else if (supportTicket.getState() != State.INPROGRESS) {
+			session.setAttribute("errorMessage", "Sorry! Request is invalid.");
+			response.sendRedirect("ServicePortal");
 		}
 
 		String resolutionDetails = request.getParameter("solution");
@@ -263,13 +287,16 @@ public class TicketController extends HttpServlet {
 			return;
 		}
 
-		// Check if user is allowed to comment on that ticket
 		SupportTicket supportTicket = getTicket(ticketID, user);
 		// Support ticket will be null if user can't view that ticket
 		if (supportTicket == null) {
 			session.setAttribute("errorMessage", "Sorry! Request is invalid.");
 			response.sendRedirect("ServicePortal");
 			return;
+		// Only accept solution if ticket is completed
+		} else if (supportTicket.getState() != State.COMPLETED) {
+			session.setAttribute("errorMessage", "Sorry! Request is invalid.");
+			response.sendRedirect("ServicePortal");
 		}
 
 		//Update the ticket to resolved status
@@ -326,13 +353,16 @@ public class TicketController extends HttpServlet {
 			return;
 		}
 
-		// Check if user is allowed to comment on that ticket
 		SupportTicket supportTicket = getTicket(ticketID, user);
 		// Support ticket will be null if user can't view that ticket
 		if (supportTicket == null) {
 			session.setAttribute("errorMessage", "Sorry! Request is invalid.");
 			response.sendRedirect("ServicePortal");
 			return;
+		// Only reject solution if ticket is completed
+		} else if (supportTicket.getState() != State.COMPLETED) {
+			session.setAttribute("errorMessage", "Sorry! Request is invalid.");
+			response.sendRedirect("ServicePortal");
 		}
 
 		//Update the ticket to in progress status. When user rejects solution status reverts back to inprogress
@@ -389,6 +419,18 @@ public class TicketController extends HttpServlet {
 			return;
 		}
 
+		SupportTicket supportTicket = getTicket(ticketID, user);
+		// Support ticket will be null if user can't view that ticket
+		if (supportTicket == null) {
+			session.setAttribute("errorMessage", "Sorry! Request is invalid.");
+			response.sendRedirect("ServicePortal");
+			return;
+		// Only add completed or resolved non-knowledge base tickets
+		} else if ((supportTicket.getState() != State.COMPLETED || supportTicket.getState() != State.RESOLVED) && supportTicket.isKnowledgeBase()) {
+			session.setAttribute("errorMessage", "Sorry! Request is invalid.");
+			response.sendRedirect("ServicePortal");
+		}
+
 		//Add the ticket to the knowledge base by setting IsKnowledgeBase = 1
 		try
 		{
@@ -441,6 +483,18 @@ public class TicketController extends HttpServlet {
 			session.setAttribute("errorMessage", "Sorry! The ticket does not exist.");
 			response.sendRedirect("ServicePortal");
 			return;
+		}
+
+		SupportTicket supportTicket = getTicket(ticketID, user);
+		// Support ticket will be null if user can't view that ticket
+		if (supportTicket == null) {
+			session.setAttribute("errorMessage", "Sorry! Request is invalid.");
+			response.sendRedirect("ServicePortal");
+			return;
+		// Only remove knowledgeBase articles
+		} else if (supportTicket.isKnowledgeBase()) {
+			session.setAttribute("errorMessage", "Sorry! Request is invalid.");
+			response.sendRedirect("ServicePortal");
 		}
 
 		//Add the ticket to the knowledge base by setting IsKnowledgeBase = 0
@@ -500,13 +554,16 @@ public class TicketController extends HttpServlet {
 			return;
 		}
 
-		// Check if user is allowed to comment on that ticket
 		SupportTicket supportTicket = getTicket(ticketID, user);
-		// Support ticket will be null if user can't view that ticket
+		// Support ticket will be null if user can't comment on ticket
 		if (supportTicket == null) {
-			session.setAttribute("errorMessage", "Sorry! The ticket you've requested does not exist.");
+			session.setAttribute("errorMessage", "Sorry! Request is invalid.");
 			response.sendRedirect("ServicePortal");
 			return;
+		// Can't comment on resolved tickets
+		} else if (supportTicket.getState() == State.RESOLVED) {
+			session.setAttribute("errorMessage", "Sorry! Request is invalid.");
+			response.sendRedirect("ServicePortal");
 		}
 
 		String commentText = request.getParameter("commentText");
