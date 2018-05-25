@@ -34,6 +34,8 @@ public class NotificationTag extends SimpleTagSupport {
 			case "submitSolution" : notifStr += "Solution submitted to <strong>Support Ticket " + notification.getTicketID() + "</strong>."; break;
 			case "addKnowledge" : notifStr += "<strong>Support Ticket " + notification.getTicketID() + "</strong> has been added to the knowledge base."; break;
 			case "removeKnowledge" : notifStr += "<strong>Support Ticket " + notification.getTicketID() + "</strong> has been removed to the knowledge base."; break;
+			case "acceptSolution" : notifStr += "Solution for <strong>Support Ticket " + notification.getTicketID() + "</strong> has been accepted."; break;
+			case "rejectSolution" : notifStr += "Solution for <strong>Support Ticket " + notification.getTicketID() + "</strong> has been rejected."; break;
 			case "comment" : notifStr += "<strong>Support Ticket " + notification.getTicketID() + "</strong> has been commented on."; break;
 			default : return;
 		}

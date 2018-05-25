@@ -46,7 +46,7 @@ public class Authentication implements Filter {
 		permissions.put("KnowledgeBase",USER);
 		permissions.put("Article",USER);
 		permissions.put("Suggestion",USERX);
-		permissions.put("Notification",USERX);
+		permissions.put("Notification",USER);
 		permissions.put("Timeout",USER);
 		// JSPs
 		permissions.put("login.jsp",ALL);

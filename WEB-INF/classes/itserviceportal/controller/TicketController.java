@@ -269,7 +269,17 @@ public class TicketController extends HttpServlet {
 			TicketDataAccess ticketDAL = new TicketDataAccess();
 			ticketDAL.updateTicketStateToAccepted(ticketID);
 
-			session.setAttribute("successMessage", "Support ticket " + ticketID + " has been resolved and closed. We're glad we could help!");
+			session.setAttribute("successMessage", "Support Ticket " + ticketID + " has been resolved and closed. We're glad we could help!");
+
+			// Send notification to staff user
+			int resolvedUserID = -1;
+			try {
+				resolvedUserID = Integer.parseInt(request.getParameter("resolvedBy"));
+				NotificationDataAccess notificationDAL = new NotificationDataAccess();
+				notificationDAL.setNotification(action, resolvedUserID, ticketID);
+				SessionListener.updateActiveUserNotifications(resolvedUserID);
+			} catch (NumberFormatException e) {
+			}
 		}
 		catch (SQLException e)
 		{
@@ -313,8 +323,18 @@ public class TicketController extends HttpServlet {
 		{
 			TicketDataAccess ticketDAL = new TicketDataAccess();
 			ticketDAL.updateTicketStateToRejected(ticketID);
+			session.setAttribute("infoMessage", "Solution has been rejected.");
 
-			session.setAttribute("infoMessage", "Solution has been rejected and your support ticket has been set back to In Progress.");
+			// Send notification to staff user
+			int resolvedUserID = -1;
+			try {
+				resolvedUserID = Integer.parseInt(request.getParameter("resolvedBy"));
+				NotificationDataAccess notificationDAL = new NotificationDataAccess();
+				notificationDAL.setNotification(action, resolvedUserID, ticketID);
+				SessionListener.updateActiveUserNotifications(resolvedUserID);
+				session.setAttribute("infoMessage", "Solution has been rejected and staff has been notified.");
+			} catch (NumberFormatException e) {
+			}
 		}
 		catch (SQLException e)
 		{

@@ -17,7 +17,7 @@ public class Notification implements Serializable {
 	 * Enum class which outlines the possible actions which trigger a notification.
 	 */
 	public enum Action {
-		STARTWORK, SUBMITSOLUTION, ADDKOWLEDGE, REMOVEKNOWLEDGE, COMMENT
+		STARTWORK, SUBMITSOLUTION, ACCEPTSOLUTION, REJECTSOLUTION, ADDKOWLEDGE, REMOVEKNOWLEDGE, COMMENT
 	}
 
 	private int notificationID;	//The ID of the notification
@@ -97,6 +97,8 @@ public class Notification implements Serializable {
 			case STARTWORK : return "startWork";
 			case SUBMITSOLUTION : return "submitSolution";
 			case ADDKOWLEDGE : return "addKnowledge";
+			case ACCEPTSOLUTION : return "acceptSolution";
+			case REJECTSOLUTION : return "rejectSolution";
 			case REMOVEKNOWLEDGE : return "removeKnowledge";
 			case COMMENT : return "comment";
 			default : return "";
@@ -118,6 +120,8 @@ public class Notification implements Serializable {
 			case "submitSolution" : this.action = Action.SUBMITSOLUTION; break;
 			case "addKnowledge" : this.action = Action.ADDKOWLEDGE; break;
 			case "removeKnowledge" : this.action = Action.REMOVEKNOWLEDGE; break;
+			case "acceptSolution" : this.action = Action.ACCEPTSOLUTION; break;
+			case "rejectSolution" : this.action = Action.REJECTSOLUTION; break;
 			case "comment" : this.action = Action.COMMENT; break;
 			default : return;
 		}

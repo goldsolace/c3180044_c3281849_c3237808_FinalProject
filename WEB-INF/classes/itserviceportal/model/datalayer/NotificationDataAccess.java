@@ -11,8 +11,8 @@ import javax.naming.InitialContext;
 /**
  * NotificationDataAccess.java
  * The database access class which gets a users notifications and adds new notifications to users.
- * Notifications occur when an action is performed on a support ticket and the user who owns the support
- * ticket will be notified about the changes / action.
+ * Notifications occur when an action is performed on a support ticket that a user has reported
+ * or staff has worked on notifiying them about the changes / action.
  * 
  * Inherits from: DataAccessLayer.java
  *
@@ -26,7 +26,6 @@ public class NotificationDataAccess extends DataAccessLayer {
 
 	private final static int MAX_NOTIFICATIONS = 5; //The max number of notifications to display at one time
 
-
 	/**
 	 * Class constructor, calling the Superclass DataAccessLayer to initalise the database =
 	 * connection, prepared statement and result set objects.
@@ -34,8 +33,6 @@ public class NotificationDataAccess extends DataAccessLayer {
 	public NotificationDataAccess() {
 		super();
 	}
-
-
 
 
 	/**
@@ -47,12 +44,11 @@ public class NotificationDataAccess extends DataAccessLayer {
 	 */
 	public ArrayList<Notification> getNotifications(int userID) throws SQLException {
 
-		//The list where notifications will be stored
+		// The list where notifications will be stored
 		ArrayList<Notification> notifications = new ArrayList<>();
 
-		//The query which gets all the notifications from a specific user
+		// The query which gets all the notifications from a specific user
 		String query = "SELECT * FROM tbl_Notification WHERE userID = ? ORDER BY NotificationDate DESC";
-
 
 		try {
 			// Getting the DB connection, performing the query and getting the results
@@ -70,21 +66,15 @@ public class NotificationDataAccess extends DataAccessLayer {
 				notifications.add(notification);
 			}
 
-			//return the notifications list if processing successful
+			// Return the notifications list if processing successful
 			return notifications;
-
-		//An exception occured, print the error and return null
 		} catch(Exception e) {
 			e.printStackTrace();
 			return null;
-
-		//Finally, close all open database connections
 		} finally {
 			closeConnections();	
 		}
 	}
-
-
 
 
 	/**
@@ -122,8 +112,6 @@ public class NotificationDataAccess extends DataAccessLayer {
 			closeConnections();
 		}
 	}
-
-
 
 
 	/**

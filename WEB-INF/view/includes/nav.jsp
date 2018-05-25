@@ -16,10 +16,7 @@
 						<c:out value="${sessionScope.user.firstName} ${sessionScope.user.lastName}"/>
 					</a>
 				</strong>
-				<%-- Only display for user --%>
-				<c:if test="${user.role == Role.USER}">
-					<jsp:include page="/WEB-INF/view/includes/notifications.jsp"/>
-				</c:if>
+				<jsp:include page="/WEB-INF/view/includes/notifications.jsp"/>
 			</div>
 
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse">

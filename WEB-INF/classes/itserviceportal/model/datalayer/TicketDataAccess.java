@@ -624,9 +624,6 @@ public class TicketDataAccess extends DataAccessLayer{
 
 
 
-
-
-
 	/**
 	 * Method to retrieve knowledge base articles from the database that contain
 	 * words in their titles or descriptions matching words in term.
@@ -696,10 +693,9 @@ public class TicketDataAccess extends DataAccessLayer{
 			closeConnections();
 			return ticketsList;
 		} catch(Exception e) {
-			System.out.println("EXCEPTION CAUGHT: TicketDataAccess -- getSuggestedArticles()");
-			e.printStackTrace();
+			throw e;
+		} finally {
 			closeConnections();
-			return null;
 		}
 	}
 

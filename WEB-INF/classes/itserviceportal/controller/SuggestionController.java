@@ -130,6 +130,7 @@ public class SuggestionController extends HttpServlet {
 			ArrayList<SupportTicket> suggestions = ticketDAL.getSuggestedArticles(term);
 			return suggestions;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return null;
 		}
 	}

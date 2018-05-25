@@ -53,24 +53,9 @@ public class NotificationController extends HttpServlet {
 			}
 
 			try {
-				// Delete notificaton from database
-				NotificationDataAccess notificationDAL = new NotificationDataAccess();
-				notificationDAL.dismissNotification(user.getUserID(), notificationID);
-
-				// Remove the notification from the session and the database
-				@SuppressWarnings("unchecked")
-				List<Notification> notifications = (ArrayList<Notification>) session.getAttribute("notifications");
-				if (notifications != null && !notifications.isEmpty()) {
-					for(int i=0; i<notifications.size(); i++) {
-						Notification n = notifications.get(i);
-						if (n.getNotificationID() == notificationID) {
-							notifications.remove(i);
-							break;
-						}
-					}
-					session.setAttribute("notifications", notifications);
-				}
+				dismissNotification(user, notificationID, session);
 			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 
@@ -93,7 +78,8 @@ public class NotificationController extends HttpServlet {
 	}
 
 	/**
-	 * This method controls the main flow of the game by deciding what to do based on input of the user.
+	 * This method handles when a user clicks to view a notification.
+	 * It dismisses the notification then redirects them to the updated support ticket.
 	 *
 	 * @param request a http servlet request 
 	 * @param response a http servlet response
@@ -128,30 +114,47 @@ public class NotificationController extends HttpServlet {
 		}
 
 		try {
+			dismissNotification(user, notificationID, session);
+			// Send to TicketController to display Support Ticket
+			response.sendRedirect("Ticket?ticketID=" + ticketID);
+			return;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		session.setAttribute("errorMessage", "Sorry! Request is invalid.");
+		response.sendRedirect("ServicePortal");
+	}
+
+	/**
+	 * Removes a notification from both the database and session
+	 *
+	 * @param request a http servlet request 
+	 * @param response a http servlet response
+	 * @throws ServletException
+	 * @throws IOException
+	 */ 
+	public void dismissNotification(User user, int notificationID, HttpSession session) {
+		try {
 			// Delete notificaton from database
 			NotificationDataAccess notificationDAL = new NotificationDataAccess();
 			notificationDAL.dismissNotification(user.getUserID(), notificationID);
 
-			// Remove the notification from the session and the database
+			// Remove the notification from the session
 			@SuppressWarnings("unchecked")
 			List<Notification> notifications = (ArrayList<Notification>) session.getAttribute("notifications");
 			if (notifications != null && !notifications.isEmpty()) {
-				for(int i=0; i<notifications.size(); i++) {
+				for (int i=0; i<notifications.size(); i++) {
 					Notification n = notifications.get(i);
 					if (n.getNotificationID() == notificationID) {
 						notifications.remove(i);
 						break;
 					}
 				}
-				session.setAttribute("notifications", notifications);	
-				// Send to TicketController to display Ticket
-				response.sendRedirect("Ticket?ticketID=" + ticketID);
-				return;
+				session.setAttribute("notifications", notifications);
 			}
-		} catch (Exception e) {
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-		session.setAttribute("errorMessage", "Sorry! Request is invalid.");
-		response.sendRedirect("ServicePortal");
 	}
 }
 

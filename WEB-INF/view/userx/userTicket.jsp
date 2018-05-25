@@ -102,11 +102,13 @@
 				<div class="text-center">
 					<form method="POST" action="Ticket?ticketID=${supportTicket.ticketID}" class="form-solution">
 						<input type="hidden" name="reportedBy" value="${supportTicket.reportedBy.userID}">
+						<input type="hidden" name="resolvedBy" value="${supportTicket.resolvedBy.userID}">
 						<input type="hidden" name="action" value="acceptSolution">
 						<button class="btn btn-lg btn-success m-1" type="submit">Accept Solution</button>
 					</form>
 					<form method="POST" action="Ticket?ticketID=${supportTicket.ticketID}" class="form-solution">
 						<input type="hidden" name="reportedBy" value="${supportTicket.reportedBy.userID}">
+						<input type="hidden" name="resolvedBy" value="${supportTicket.resolvedBy.userID}">
 						<input type="hidden" name="action" value="rejectSolution">
 						<button class="btn btn-lg btn-danger m-1" type="submit">Reject Solution</button>
 					</form>

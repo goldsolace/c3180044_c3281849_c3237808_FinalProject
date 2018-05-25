@@ -154,6 +154,7 @@
 					</div>
 					<input type="hidden" name="action" value="comment">
 					<input type="hidden" name="reportedBy" value="${supportTicket.reportedBy.userID}">
+					<input type="hidden" name="reportedBy" value="${supportTicket.resolvedBy.userID}">
 					<button class="btn btn-success my-2 my-sm-0 m-2 float-right" type="submit">Post</button>
 				</form>
 			</li>
