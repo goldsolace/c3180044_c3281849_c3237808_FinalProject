@@ -159,6 +159,7 @@ public class TicketController extends HttpServlet {
 		} else if (supportTicket.getState() != State.NEW) {
 			session.setAttribute("errorMessage", "Sorry! Request is invalid.");
 			response.sendRedirect("ServicePortal");
+			return;
 		}
 
 		try
@@ -224,6 +225,7 @@ public class TicketController extends HttpServlet {
 		} else if (supportTicket.getState() != State.INPROGRESS) {
 			session.setAttribute("errorMessage", "Sorry! Request is invalid.");
 			response.sendRedirect("ServicePortal");
+			return;
 		}
 
 		String resolutionDetails = request.getParameter("solution");
@@ -297,6 +299,7 @@ public class TicketController extends HttpServlet {
 		} else if (supportTicket.getState() != State.COMPLETED) {
 			session.setAttribute("errorMessage", "Sorry! Request is invalid.");
 			response.sendRedirect("ServicePortal");
+			return;
 		}
 
 		//Update the ticket to resolved status
@@ -363,6 +366,7 @@ public class TicketController extends HttpServlet {
 		} else if (supportTicket.getState() != State.COMPLETED) {
 			session.setAttribute("errorMessage", "Sorry! Request is invalid.");
 			response.sendRedirect("ServicePortal");
+			return;
 		}
 
 		//Update the ticket to in progress status. When user rejects solution status reverts back to inprogress
@@ -429,6 +433,7 @@ public class TicketController extends HttpServlet {
 		} else if ((supportTicket.getState() != State.COMPLETED || supportTicket.getState() != State.RESOLVED) && supportTicket.isKnowledgeBase()) {
 			session.setAttribute("errorMessage", "Sorry! Request is invalid.");
 			response.sendRedirect("ServicePortal");
+			return;
 		}
 
 		//Add the ticket to the knowledge base by setting IsKnowledgeBase = 1
@@ -495,6 +500,7 @@ public class TicketController extends HttpServlet {
 		} else if (supportTicket.isKnowledgeBase()) {
 			session.setAttribute("errorMessage", "Sorry! Request is invalid.");
 			response.sendRedirect("ServicePortal");
+			return;
 		}
 
 		//Add the ticket to the knowledge base by setting IsKnowledgeBase = 0
@@ -564,6 +570,7 @@ public class TicketController extends HttpServlet {
 		} else if (supportTicket.getState() == State.RESOLVED) {
 			session.setAttribute("errorMessage", "Sorry! Request is invalid.");
 			response.sendRedirect("ServicePortal");
+			return;
 		}
 
 		String commentText = request.getParameter("commentText");
