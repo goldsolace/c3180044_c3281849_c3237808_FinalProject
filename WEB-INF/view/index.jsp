@@ -8,7 +8,7 @@
 		<label for="email" class="sr-only">Email address</label>
 		<input type="email" id="email" name="email" class="form-control" placeholder="Email address" minlength="19" maxlength="19" required autofocus>
 		<label for="password" class="sr-only">Password</label>
-		<input type="password" id="password" name="password" class="form-control" placeholder="Password" minlength="4" required>
+		<input type="password" id="password" name="password" class="form-control" placeholder="Password" minlength="8" required>
 		<button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
 	</form>
 </div>
