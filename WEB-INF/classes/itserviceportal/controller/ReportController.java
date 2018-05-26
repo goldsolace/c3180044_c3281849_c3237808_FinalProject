@@ -63,13 +63,18 @@ public class ReportController extends HttpServlet{
 		try {
 			TicketDataAccess ticketDAL = new TicketDataAccess();
 			ticketDAL.newTicket(user, category, title, description, issueDetails);
+			//Successful form
+			session.setAttribute("successMessage", "Your issue has been reported!");
+			response.sendRedirect("ServicePortal");
+			return;
 		} catch (Exception e) {
 			System.out.println("EXCEPTION CAUGHT: ReportController -- newTicket");
+			session.setAttribute("errorMessage", "Sorry, an error occured while trying to submit your ticket. Please try again.");
+			response.sendRedirect("Report");
+			return;
 		}
 		
-		//Successful form
-		session.setAttribute("successMessage", "Your issue has been reported!");
-		response.sendRedirect("ServicePortal");
+		
 	}
 
 	/**

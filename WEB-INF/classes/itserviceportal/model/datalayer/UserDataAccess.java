@@ -32,6 +32,11 @@ public class UserDataAccess extends DataAccessLayer{
 
 
 
+    public UserDataAccess(Connection connection) {
+        super(connection);
+    }
+
+
 
     /**
      * This method finds a user with the login credientals passed in and returns the user object if exists
@@ -46,8 +51,11 @@ public class UserDataAccess extends DataAccessLayer{
         User user = null;
         try 
         {
+            if(connection == null)
+                connection = getConnection();
+
             //Getting the DB connection, performing the query and getting the results
-            statement = dbConnection.prepareStatement(query);
+            statement = connection.prepareStatement(query);
             statement.setString(1, username);
             statement.setString(2, password);
             results = statement.executeQuery();

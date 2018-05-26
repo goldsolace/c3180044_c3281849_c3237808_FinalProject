@@ -33,6 +33,12 @@ public class TicketDataAccess extends DataAccessLayer{
 
 
 
+	public TicketDataAccess(Connection connection) {
+		super(connection);
+	}
+
+
+
 
 	/**
 	* This method adds a new SupportTicket to the database
@@ -52,8 +58,11 @@ public class TicketDataAccess extends DataAccessLayer{
 		
 		try 
 		{
+			if(connection == null)
+				connection = getConnection();
+
 			//Prepare Statement
-			statement = dbConnection.prepareStatement(query);
+			statement = connection.prepareStatement(query);
 			
 			//Set Statement
 			statement.setString(1, title);
@@ -67,19 +76,20 @@ public class TicketDataAccess extends DataAccessLayer{
 			statement.close();
 			
 			//Creating statement to retrieve ticketID
-			Statement statement = dbConnection.createStatement();
+			Statement statement = connection.createStatement();
 			query = "SELECT LAST_INSERT_ID()";
-			ResultSet rs = statement.executeQuery(query);
+			results = statement.executeQuery(query);
 
 			//Getting the ticketID from the result
-			rs.next();
-			int ticketID = rs.getInt("LAST_INSERT_ID()");
-			closeConnections();
+			results.next();
+			int ticketID = results.getInt("LAST_INSERT_ID()");
 			
 			//Add IssueDetails for ticket to DB using the ticketID retrieved by last insert
 			//Calling the IssueDetailDataAccess to handle the processing of the insert.
-			IssueDetailDataAccess issueDetailDAL = new IssueDetailDataAccess();
-			issueDetailDAL.newIssueDetails(ticketID, issueDetails);
+			IssueDetailDataAccess issueDetailDAL = new IssueDetailDataAccess(connection);
+			issueDetailDAL.newIssueDetails(ticketID, issueDetails, true);
+
+			closeConnections();
 		}
 		catch(Exception e)
 		{
@@ -87,6 +97,7 @@ public class TicketDataAccess extends DataAccessLayer{
 			System.out.println("EXCEPTION CAUGHT: TicketDataAccess -- newTicket");
 			closeConnections();
 		}
+			
 	}
 
 
@@ -134,8 +145,11 @@ public class TicketDataAccess extends DataAccessLayer{
 
 		try
 		{
+			if(connection == null)
+				connection = getConnection();
+
 			//Getting the DB connection, performing the query and getting the results
-			statement = dbConnection.prepareStatement(query);
+			statement = connection.prepareStatement(query);
 
 			//If the user requesting is a staff member, a wildcard will be returned to allow the access of all tickets,
 			//otherwise, the user will only be able to view tickets created by his id
@@ -216,8 +230,11 @@ public class TicketDataAccess extends DataAccessLayer{
 
 		try
 		{
+			if(connection == null)
+				connection = getConnection();
+
 			//Getting the DB connection, performing the query and getting the results
-			statement = dbConnection.prepareStatement(query);
+			statement = connection.prepareStatement(query);
 
 			//Prepare the query parameters
 			//Setting the TicketID
@@ -394,12 +411,12 @@ public class TicketDataAccess extends DataAccessLayer{
 			if(getCommentsAndIssueDetails)
 			{
 				//Calling the comments data access to get all the comments for this ticket
-				IssueDetailDataAccess issueDetailDAL = new IssueDetailDataAccess();
-				issueDetails = issueDetailDAL.getAllIssueDetailsForTicket(id);
+				IssueDetailDataAccess issueDetailDAL = new IssueDetailDataAccess(connection);
+				issueDetails = issueDetailDAL.getAllIssueDetailsForTicket(id, false);
 
 				//Calling the comments data access to get all the comments for this ticket
-				CommentDataAccess commentDAL = new CommentDataAccess();
-				comments = commentDAL.getAllCommentsForTicket(id);
+				CommentDataAccess commentDAL = new CommentDataAccess(connection);
+				comments = commentDAL.getAllCommentsForTicket(id, false);
 			}
 
 			//Creating the support ticket from the values retrieved from the query
@@ -452,8 +469,11 @@ public class TicketDataAccess extends DataAccessLayer{
 
 		try
 		{
+			if(connection == null)
+				connection = getConnection();
+
 			//Getting the DB connection, and perparing the update statement
-			statement = dbConnection.prepareStatement(update);
+			statement = connection.prepareStatement(update);
 
 			//Prepare the update parameter
 			statement.setInt(1, ticketID);
@@ -489,8 +509,11 @@ public class TicketDataAccess extends DataAccessLayer{
 
 		try
 		{
+			if(connection == null)
+				connection = getConnection();
+
 			//Getting the DB connection, and perparing the insert statement
-			statement = dbConnection.prepareStatement(update);
+			statement = connection.prepareStatement(update);
 
 			//Prepare the update parameter
 			statement.setString(1, resolutionDetails);
@@ -528,8 +551,11 @@ public class TicketDataAccess extends DataAccessLayer{
 
 		try
 		{
+			if(connection == null)
+				connection = getConnection();
+
 			//Getting the DB connection, and perparing the update statement
-			statement = dbConnection.prepareStatement(update);
+			statement = connection.prepareStatement(update);
 
 			//Prepare the update parameter
 			statement.setInt(1, ticketID);
@@ -566,8 +592,11 @@ public class TicketDataAccess extends DataAccessLayer{
 
 		try
 		{
+			if(connection == null)
+				connection = getConnection();
+
 			//Getting the DB connection, and perparing the insert statement
-			statement = dbConnection.prepareStatement(update);
+			statement = connection.prepareStatement(update);
 
 			//Prepare the update parameter
 			statement.setInt(1, ticketID);
@@ -603,8 +632,11 @@ public class TicketDataAccess extends DataAccessLayer{
 
 		try
 		{
+			if(connection == null)
+				connection = getConnection();
+			
 			//Getting the DB connection, and perparing the insert statement
-			statement = dbConnection.prepareStatement(update);
+			statement = connection.prepareStatement(update);
 
 			//Prepare the update parameter
 			statement.setBoolean(1, doAddToKnowledgeBase);
@@ -675,7 +707,10 @@ public class TicketDataAccess extends DataAccessLayer{
 		String query = queryStart + querySearch + queryEnd;
 
 		try {
-			statement = dbConnection.prepareStatement(query);
+			if(connection == null)
+				connection = getConnection();
+			
+			statement = connection.prepareStatement(query);
 			// Insert search terms into statement
 			for (int i=0, j=1; i < terms.size(); i++, j+=2) {
 				statement.setString(j, terms.get(i));
@@ -689,7 +724,6 @@ public class TicketDataAccess extends DataAccessLayer{
 					ticketsList.add(ticket);
 				}
 			}
-			closeConnections();
 			return ticketsList;
 		} catch(Exception e) {
 			throw e;
