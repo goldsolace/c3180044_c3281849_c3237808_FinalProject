@@ -36,6 +36,7 @@ create database c3180044_db;
 mysqldump -h teachdb -u c3237808 -p c3237808_db > db_backup.sql;
 mysqldump -u c3237808 -p c3237808_db > wantedsqlfile.sql;
 
+source db_backup.sql;
 
 create database test3;
 
