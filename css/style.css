@@ -7,6 +7,23 @@ iframe {
   border-right-width: 0px;
   border-bottom-width: 0px;
   border-left-width: 0px;
+  overflow:auto;
+}
+
+::-webkit-scrollbar {
+  width: 10px !important;
+}
+
+::-webkit-scrollbar-track {
+  background: #c9c9c9 !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #31b1f6 !important; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #0f8fd4 !important; 
 }
 
 .page-title {

@@ -59,7 +59,7 @@ function validateLogin() {
 	// Regex to check email format
 	if (!/^[cC][0-9]{7}@uon.edu.au$/.test(email.value))
 	{
-		DisplayMessage("Please use your university email.", "email");
+		DisplayMessage("Please use your university email. (cXXXXXXX@uon.edu.au)", "email");
 		return false;
 	}
 	// Check if pass matches email or if it contains User ID

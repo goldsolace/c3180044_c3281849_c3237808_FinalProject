@@ -139,19 +139,8 @@ public class NotificationController extends HttpServlet {
 			NotificationDataAccess notificationDAL = new NotificationDataAccess();
 			notificationDAL.dismissNotification(user.getUserID(), notificationID);
 
-			// Remove the notification from the session
-			@SuppressWarnings("unchecked")
-			List<Notification> notifications = (ArrayList<Notification>) session.getAttribute("notifications");
-			if (notifications != null && !notifications.isEmpty()) {
-				for (int i=0; i<notifications.size(); i++) {
-					Notification n = notifications.get(i);
-					if (n.getNotificationID() == notificationID) {
-						notifications.remove(i);
-						break;
-					}
-				}
-				session.setAttribute("notifications", notifications);
-			}
+			// Remove the notification from any active sessions the user has
+			SessionListener.updateActiveUserNotifications(user.getUserID());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

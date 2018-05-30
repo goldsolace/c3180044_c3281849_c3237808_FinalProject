@@ -59,19 +59,38 @@
 			<p><c:out value="${article.resolutionDetails}"/></p>
 		</li>
 
+		<%-- Only display to staff --%>
 		<c:if test="${user.role == Role.STAFF}">
 			<li class="list-group-item nopadding">
 				<form class="my-2 my-lg-0" method="POST" action="Ticket?ticketID=${article.ticketID}">
-					<div class="list-group-item text-dark py-3">
-						<div class="text-center">
-							<h2 class="mb-1">Actions</h2>
-							<input type="hidden" name="reportedBy" value="${supportTicket.reportedBy.userID}">
-							<input type="hidden" name="action" value="removeKnowledge">
-							<input type="hidden" name="redirection" value="backToList">
-							<button class="btn btn-lg btn-danger m-1" type="submit">Remove Knowledge</button>
-						</div>
+					<div class="text-center">
+						<h2 class="mb-1">Actions</h2>
+						<input type="hidden" name="reportedBy" value="${supportTicket.reportedBy.userID}">
+						<input type="hidden" name="action" value="removeKnowledge">
+						<input type="hidden" name="redirection" value="backToList">
+						<button class="btn btn-lg btn-danger m-1" type="submit">Remove Knowledge</button>
 					</div>
 				</form>
+			</li>
+		</c:if>
+
+		<c:if test="${supportTicket.state == State.COMPLETED}">
+			<li class="list-group-item text-dark py-3">
+				<div class="text-center">
+					<h2 class="mb-1">Actions</h2>
+					<form method="POST" action="Ticket?ticketID=${supportTicket.ticketID}">
+						<input type="hidden" name="reportedBy" value="${supportTicket.reportedBy.userID}">
+						<input type="hidden" name="resolvedBy" value="${supportTicket.resolvedBy.userID}">
+						<input type="hidden" name="action" value="acceptSolution">
+						<button class="btn btn-lg btn-success m-1" type="submit">Accept Solution</button>
+					</form>
+					<form method="POST" action="Ticket?ticketID=${supportTicket.ticketID}" class="form-solution">
+						<input type="hidden" name="reportedBy" value="${supportTicket.reportedBy.userID}">
+						<input type="hidden" name="resolvedBy" value="${supportTicket.resolvedBy.userID}">
+						<input type="hidden" name="action" value="rejectSolution">
+						<button class="btn btn-lg btn-danger m-1" type="submit">Reject Solution</button>
+					</form>
+				</div>
 			</li>
 		</c:if>
 	</ul>

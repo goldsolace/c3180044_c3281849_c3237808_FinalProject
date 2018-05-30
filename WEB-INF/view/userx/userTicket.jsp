@@ -100,6 +100,7 @@
 		<c:if test="${supportTicket.state == State.COMPLETED}">
 			<li class="list-group-item text-dark py-3">
 				<div class="text-center">
+					<h2 class="mb-1">Actions</h2>
 					<form method="POST" action="Ticket?ticketID=${supportTicket.ticketID}" class="form-solution">
 						<input type="hidden" name="reportedBy" value="${supportTicket.reportedBy.userID}">
 						<input type="hidden" name="resolvedBy" value="${supportTicket.resolvedBy.userID}">
