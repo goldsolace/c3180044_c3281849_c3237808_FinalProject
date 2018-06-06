@@ -1,4 +1,12 @@
-// Modifed from https://codepen.io/ns_bob/pen/BoMqqR
+/**
+ * particles.js
+ * Modifed from https://codepen.io/ns_bob/pen/BoMqqR
+ *
+ * @author Brice Purton
+ * @version 1.0
+ * @since 06-06-2018
+ */
+
 
 var canvas
 var width;

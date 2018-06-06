@@ -45,7 +45,6 @@ public class TicketController extends HttpServlet {
 		// The URL did not contain a valid int value. Display error
 		catch (NumberFormatException e)
 		{
-			System.out.println("EXCEPTION CAUGHT: TicketController -- NumberFormatException thrown while trying to parse ticketid");
 			session.setAttribute("errorMessage", "Sorry! The ticket you've requested does not exist.");
 			response.sendRedirect("ServicePortal");
 			return;
@@ -54,15 +53,12 @@ public class TicketController extends HttpServlet {
 		// Get the support ticket by id
 		SupportTicket supportTicket = getTicket(ticketID, user);
 
+		// If no ticket display error message
 		if (supportTicket == null) {
 			session.setAttribute("errorMessage", "Sorry! The ticket you've requested does not exist.");
 			response.sendRedirect("ServicePortal");
 			return;
-		// If no ticket display error message
-		} else if (supportTicket.getTitle() == null) {
-			session.setAttribute("errorMessage", "Sorry! We could not display that ticket");
 		}
-
 		request.setAttribute("supportTicket", supportTicket);
 
 		// Send user to the correct jsp based on role
@@ -76,7 +72,7 @@ public class TicketController extends HttpServlet {
 	}
 
 	/**
-	 * This method controls the main flow of the game by deciding what to do based on input of the user.
+	 * Modify a support ticket based on user action and input
 	 *
 	 * @param request a http servlet request 
 	 * @param response a http servlet response
@@ -87,7 +83,7 @@ public class TicketController extends HttpServlet {
 		throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
-
+		// Get the action performed by user
 		String action = request.getParameter("action");
 		if (action == null) {
 			session.setAttribute("errorMessage", "Sorry! Request is invalid");
@@ -95,7 +91,7 @@ public class TicketController extends HttpServlet {
 			return;
 		}
 
-		//Fill hashmap with issue details
+		// Choose which method to execute based on user action
 		switch (action) {
 			case "startWork": StartWork(action, request, response); break;
 			case "submitSolution": SubmitSolution(action, request, response); break;
@@ -112,13 +108,17 @@ public class TicketController extends HttpServlet {
 	}
 
 	/**
-	 * Get Support Ticket
-	 */
+	 * Retrieve a support ticket from the database
+	 *
+	 * @param ticketID integer
+	 * @param user User
+	 * @return SupportTicket or null if ticket doesn't exist
+	 */ 
 	public SupportTicket getTicket(int ticketID, User user) {
 		try {
 			// Calling the Ticket Data Access to retrieve the ticket from the database
-			TicketDataAccess ticketDAL = new TicketDataAccess();
-			SupportTicket supportTicket = ticketDAL.getTicketByIDFromDB(ticketID, user, false);
+			TicketDataAccess ticketDAO = new TicketDataAccess();
+			SupportTicket supportTicket = ticketDAO.getTicketByIDFromDB(ticketID, user, false);
 			return supportTicket;
 		} catch (Exception e) {
 			return null;
@@ -126,13 +126,20 @@ public class TicketController extends HttpServlet {
 	}
 
 	/**
-	 * Start Work
-	 */
+	 * Start Work Action limited to Staff role sets a ticket to in progress
+	 *
+	 * @param action string
+	 * @param request a http servlet request 
+	 * @param response a http servlet response
+	 * @throws ServletException
+	 * @throws IOException
+	 */ 
 	public void StartWork(String action, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Get user
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 
+		// Check user role
 		if (user.getRole() != Role.STAFF) {
 			session.setAttribute("errorMessage", "Sorry! Request is invalid");
 			response.sendRedirect("ServicePortal");
@@ -155,7 +162,7 @@ public class TicketController extends HttpServlet {
 			session.setAttribute("errorMessage", "Sorry! Request is invalid.");
 			response.sendRedirect("ServicePortal");
 			return;
-		// Only start work if ticket is in progress
+		// Only start work if ticket is new
 		} else if (supportTicket.getState() != State.NEW) {
 			session.setAttribute("errorMessage", "Sorry! Request is invalid.");
 			response.sendRedirect("ServicePortal");
@@ -164,26 +171,26 @@ public class TicketController extends HttpServlet {
 
 		try
 		{
-			TicketDataAccess ticketDAL = new TicketDataAccess();
-			ticketDAL.updateTicketStateToInProgress(ticketID);
-
-			session.setAttribute("warningMessage", "User has been notified that you've started work on Support Ticket " + ticketID + ".");
+			// Set ticket state to in progress
+			TicketDataAccess ticketDAO = new TicketDataAccess();
+			ticketDAO.updateTicketStateToInProgress(ticketID);
+			session.setAttribute("progressMessage", "You've started work on Support Ticket " + ticketID + ".");
  
 			// Get the ticket ID
 			int reportedUserID = -1;
 			try {
 				// Notify User
 				reportedUserID = Integer.parseInt(request.getParameter("reportedBy"));
-				NotificationDataAccess notificationDAL = new NotificationDataAccess();
-				notificationDAL.setNotification(action, reportedUserID, ticketID);
+				NotificationDataAccess notificationDAO = new NotificationDataAccess();
+				notificationDAO.setNotification(action, reportedUserID, ticketID);
 				SessionListener.updateActiveUserNotifications(reportedUserID);
+				session.setAttribute("progressMessage", "User has been notified that you've started work on Support Ticket " + ticketID + ".");
 			} catch (NumberFormatException e) {
 			}
 		}
 		catch (SQLException e)
 		{
-			session.setAttribute("errorMessage", "Sorry! An error occured while trying to update the ticket state. Please try again");
-			response.sendRedirect("Ticket?ticketID=" + ticketID);
+			session.setAttribute("errorMessage", "Sorry! An error occured while trying to start work on Support Ticket " + ticketID + ".");
 		}
 		
 		// Display updated ticket
@@ -191,8 +198,14 @@ public class TicketController extends HttpServlet {
 	}
 
 	/**
-	 * Submit Solution
-	 */
+	 * Submit Solution Action limited to Staff role adds a solution to a support ticket and sets it to completed
+	 * 
+	 * @param action string
+	 * @param request a http servlet request 
+	 * @param response a http servlet response
+	 * @throws ServletException
+	 * @throws IOException
+	 */ 
 	public void SubmitSolution(String action, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Get user
 		HttpSession session = request.getSession();
@@ -228,36 +241,37 @@ public class TicketController extends HttpServlet {
 			return;
 		}
 
+		// Get submitted solution
 		String resolutionDetails = request.getParameter("solution");
-		if (resolutionDetails == null || resolutionDetails.isEmpty()) {
-			session.setAttribute("errorMessage", "Sorry! Solution can't be empty");
+		if (resolutionDetails == null || resolutionDetails.length() < 3 || resolutionDetails.length() > 20000) {
+			session.setAttribute("errorMessage", "Sorry! Solution must be between 3-20000 characters.");
 			doGet(request, response);
 			return;
 		}
 
-		//Update the ticket to completed status
+		// Update the ticket to completed status adding the resolution and staff user to the ticket
 		try
 		{
-			TicketDataAccess ticketDAL = new TicketDataAccess();
-			ticketDAL.updateTicketStateToComplete(ticketID, resolutionDetails, user.getUserID());
+			TicketDataAccess ticketDAO = new TicketDataAccess();
+			ticketDAO.updateTicketStateToComplete(ticketID, resolutionDetails, user.getUserID());
 
-			session.setAttribute("successMessage", "Solution has been successfully submitted and user has been notified.");
+			session.setAttribute("primaryMessage", "Solution has been successfully submitted.");
  
 			// Get the ticket ID
 			int reportedUserID = -1;
 			try {
 				// Notify User
 				reportedUserID = Integer.parseInt(request.getParameter("reportedBy"));
-				NotificationDataAccess notificationDAL = new NotificationDataAccess();
-				notificationDAL.setNotification(action, reportedUserID, ticketID);
+				NotificationDataAccess notificationDAO = new NotificationDataAccess();
+				notificationDAO.setNotification(action, reportedUserID, ticketID);
 				SessionListener.updateActiveUserNotifications(reportedUserID);
+				session.setAttribute("primaryMessage", "Solution has been successfully submitted and user has been notified.");
 			} catch (NumberFormatException e) {
 			}
 		}
 		catch (SQLException e)
 		{
 			session.setAttribute("errorMessage", "Sorry! An error occured while trying to update the ticket state. Please try again");
-			response.sendRedirect("Ticket?ticketID=" + ticketID);
 		}
 		
 		// Display updated ticket
@@ -265,8 +279,14 @@ public class TicketController extends HttpServlet {
 	}
 
 	/**
-	 * Accept Solution
-	 */
+	 * Accept Solution Action limited to User role accepts a solution to a support ticket and sets it to resolved
+	 * 
+	 * @param action string
+	 * @param request a http servlet request 
+	 * @param response a http servlet response
+	 * @throws ServletException
+	 * @throws IOException
+	 */ 
 	public void AcceptSolution(String action, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Get user
 		HttpSession session = request.getSession();
@@ -302,11 +322,11 @@ public class TicketController extends HttpServlet {
 			return;
 		}
 
-		//Update the ticket to resolved status
+		// Update the ticket to resolved status
 		try
 		{
-			TicketDataAccess ticketDAL = new TicketDataAccess();
-			ticketDAL.updateTicketStateToAccepted(ticketID);
+			TicketDataAccess ticketDAO = new TicketDataAccess();
+			ticketDAO.updateTicketStateToAccepted(ticketID);
 
 			session.setAttribute("successMessage", "Support Ticket " + ticketID + " has been resolved and closed. We're glad we could help!");
 
@@ -314,8 +334,8 @@ public class TicketController extends HttpServlet {
 			int resolvedUserID = -1;
 			try {
 				resolvedUserID = Integer.parseInt(request.getParameter("resolvedBy"));
-				NotificationDataAccess notificationDAL = new NotificationDataAccess();
-				notificationDAL.setNotification(action, resolvedUserID, ticketID);
+				NotificationDataAccess notificationDAO = new NotificationDataAccess();
+				notificationDAO.setNotification(action, resolvedUserID, ticketID);
 				SessionListener.updateActiveUserNotifications(resolvedUserID);
 			} catch (NumberFormatException e) {
 			}
@@ -323,8 +343,6 @@ public class TicketController extends HttpServlet {
 		catch (SQLException e)
 		{
 			session.setAttribute("errorMessage", "Sorry! An error occured while trying to update the ticket state. Please try again");
-			response.sendRedirect("Ticket?ticketID=" + ticketID);
-
 		}
 		
 		// Display updated ticket
@@ -332,8 +350,14 @@ public class TicketController extends HttpServlet {
 	}
 
 	/**
-	 * Reject Solution
-	 */
+	 * Reject Solution Action limited to User role rejects a solution to a support ticket and sets it to in progress
+	 * 
+	 * @param action string
+	 * @param request a http servlet request 
+	 * @param response a http servlet response
+	 * @throws ServletException
+	 * @throws IOException
+	 */ 
 	public void RejectSolution(String action, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Get user
 		HttpSession session = request.getSession();
@@ -369,29 +393,29 @@ public class TicketController extends HttpServlet {
 			return;
 		}
 
-		//Update the ticket to in progress status. When user rejects solution status reverts back to inprogress
-		//And all resolution details such as ResolvedOn, ResolvedByUserID and ResolutionDetails are set back to NULL
+		// Update the ticket to in progress status. When user rejects solution state is set to inprogress,
+		// all resolution details such as ResolvedOn, ResolvedByUserID and ResolutionDetails are set back to NULL
+		// and knowledgeBase is set to false
 		try
 		{
-			TicketDataAccess ticketDAL = new TicketDataAccess();
-			ticketDAL.updateTicketStateToRejected(ticketID);
-			session.setAttribute("infoMessage", "Solution has been rejected.");
+			TicketDataAccess ticketDAO = new TicketDataAccess();
+			ticketDAO.updateTicketStateToRejected(ticketID);
+			session.setAttribute("progressMessage", "Solution has been rejected.");
 
 			// Send notification to staff user
 			int resolvedUserID = -1;
 			try {
 				resolvedUserID = Integer.parseInt(request.getParameter("resolvedBy"));
-				NotificationDataAccess notificationDAL = new NotificationDataAccess();
-				notificationDAL.setNotification(action, resolvedUserID, ticketID);
+				NotificationDataAccess notificationDAO = new NotificationDataAccess();
+				notificationDAO.setNotification(action, resolvedUserID, ticketID);
 				SessionListener.updateActiveUserNotifications(resolvedUserID);
-				session.setAttribute("infoMessage", "Solution has been rejected and staff has been notified.");
+				session.setAttribute("progressMessage", "Solution has been rejected and staff has been notified.");
 			} catch (NumberFormatException e) {
 			}
 		}
 		catch (SQLException e)
 		{
 			session.setAttribute("errorMessage", "Sorry! An error occured while trying to update the ticket state. Please try again");
-			response.sendRedirect("Ticket?ticketID=" + ticketID);
 		}
 		
 		// Display updated ticket
@@ -399,8 +423,14 @@ public class TicketController extends HttpServlet {
 	}
 
 	/**
-	 * Add Knowledge
-	 */
+	 * Add Knowledge Action limited to Staff role adds a support ticket to the knowledge base
+	 * 
+	 * @param action string
+	 * @param request a http servlet request 
+	 * @param response a http servlet response
+	 * @throws ServletException
+	 * @throws IOException
+	 */ 
 	public void AddKnowledge(String action, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Get user
 		HttpSession session = request.getSession();
@@ -430,17 +460,17 @@ public class TicketController extends HttpServlet {
 			response.sendRedirect("ServicePortal");
 			return;
 		// Only add completed or resolved non-knowledge base tickets
-		} else if ((supportTicket.getState() != State.COMPLETED || supportTicket.getState() != State.RESOLVED) && supportTicket.isKnowledgeBase()) {
+		} else if (supportTicket.getState() == State.NEW || supportTicket.getState() == State.INPROGRESS || supportTicket.isKnowledgeBase()) {
 			session.setAttribute("errorMessage", "Sorry! Request is invalid.");
 			response.sendRedirect("ServicePortal");
 			return;
 		}
 
-		//Add the ticket to the knowledge base by setting IsKnowledgeBase = 1
+		// Add the ticket to the knowledge base
 		try
 		{
-			TicketDataAccess ticketDAL = new TicketDataAccess();
-			ticketDAL.AddOrRemoveFromKnowledgeBase(ticketID, true);
+			TicketDataAccess ticketDAO = new TicketDataAccess();
+			ticketDAO.AddOrRemoveFromKnowledgeBase(ticketID, true);
 
 			session.setAttribute("successMessage", "Support Ticket has been added to Knowledge Base.");
  
@@ -449,16 +479,16 @@ public class TicketController extends HttpServlet {
 			try {
 				// Notify User
 				reportedUserID = Integer.parseInt(request.getParameter("reportedBy"));
-				NotificationDataAccess notificationDAL = new NotificationDataAccess();
-				notificationDAL.setNotification(action, reportedUserID, ticketID);
+				NotificationDataAccess notificationDAO = new NotificationDataAccess();
+				notificationDAO.setNotification(action, reportedUserID, ticketID);
 				SessionListener.updateActiveUserNotifications(reportedUserID);
+				session.setAttribute("successMessage", "Support Ticket has been added to Knowledge Base and user has been notified.");
 			} catch (NumberFormatException e) {
 			}
 		}
 		catch (SQLException e)
 		{
 			session.setAttribute("errorMessage", "Sorry! An error occured while trying to update the ticket state. Please try again");
-			response.sendRedirect("Ticket?ticketID=" + ticketID);
 		}
 		
 		// Display updated ticket
@@ -466,8 +496,14 @@ public class TicketController extends HttpServlet {
 	}
 
 	/**
-	 * Remove Knowledge
-	 */
+	 * Remove Knowledge Action limited to Staff role removes a support ticket from the knowledge base
+	 * 
+	 * @param action string
+	 * @param request a http servlet request 
+	 * @param response a http servlet response
+	 * @throws ServletException
+	 * @throws IOException
+	 */ 
 	public void RemoveKnowledge(String action, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Get user
 		HttpSession session = request.getSession();
@@ -481,20 +517,18 @@ public class TicketController extends HttpServlet {
 		}
 
 		// Get the support ticket
-		TicketDataAccess ticketDAL = new TicketDataAccess();
+		TicketDataAccess ticketDAO = new TicketDataAccess();
 		SupportTicket supportTicket = null;
 		int ticketID = -1;
 		try {
 			ticketID = Integer.parseInt(request.getParameter("ticketID"));
-			supportTicket = ticketDAL.getTicketByIDFromDB(ticketID, user, true);
+			supportTicket = ticketDAO.getTicketByIDFromDB(ticketID, user, true);
 		} catch (Exception e) {
 			session.setAttribute("errorMessage", "Sorry! The ticket does not exist.");
 			response.sendRedirect("ServicePortal");
 			return;
 		}
 
-		
-		
 		// Support ticket will be null if user can't view that ticket
 		if (supportTicket == null) {
 			session.setAttribute("errorMessage", "Sorry! Request is invalid.");
@@ -507,12 +541,12 @@ public class TicketController extends HttpServlet {
 			return;
 		}
 
-		//remove the ticket to the knowledge base by setting IsKnowledgeBase = 0
+		// Remove the ticket from the knowledge base
 		try
 		{
-			String backToList = request.getParameter("redirection");
-			ticketDAL = new TicketDataAccess();
-			ticketDAL.AddOrRemoveFromKnowledgeBase(ticketID, false);
+			String redirection = request.getParameter("redirection");
+			ticketDAO = new TicketDataAccess();
+			ticketDAO.AddOrRemoveFromKnowledgeBase(ticketID, false);
 
 			session.setAttribute("successMessage", "Support Ticket has been removed from Knowledge Base.");
  
@@ -521,17 +555,16 @@ public class TicketController extends HttpServlet {
 			try {
 				// Notify User
 				reportedUserID = Integer.parseInt(request.getParameter("reportedBy"));
-				NotificationDataAccess notificationDAL = new NotificationDataAccess();
-				notificationDAL.setNotification(action, reportedUserID, ticketID);
+				NotificationDataAccess notificationDAO = new NotificationDataAccess();
+				notificationDAO.setNotification(action, reportedUserID, ticketID);
 				SessionListener.updateActiveUserNotifications(reportedUserID);
+				session.setAttribute("successMessage", "Support Ticket has been removed from Knowledge Base and user has been notified.");
 			} catch (NumberFormatException e) {
 			}
 
-			//If redirection is not null, then we want to go back to the knowledge base list
-			//because a staff member removed a knowledge base article from inside the article and
-			//not the ticket list
-			if(backToList != null)
-			{
+			// If redirection is not null, then we want to go back to the KnowledgeBase
+			// because a staff member removed a knowledge base article from the article page
+			if (redirection != null) {
 				response.sendRedirect("KnowledgeBase");
 				return;
 			}
@@ -539,7 +572,6 @@ public class TicketController extends HttpServlet {
 		catch (SQLException e)
 		{
 			session.setAttribute("errorMessage", "Sorry! An error occured while trying to update the ticket state. Please try again");
-			response.sendRedirect("Ticket?ticketID=" + ticketID);
 		}
 		
 		// Display updated ticket
@@ -547,8 +579,14 @@ public class TicketController extends HttpServlet {
 	}
 
 	/**
-	 * Comment
-	 */
+	 * Comment Action adds a comment to a support ticket
+	 * 
+	 * @param action string
+	 * @param request a http servlet request 
+	 * @param response a http servlet response
+	 * @throws ServletException
+	 * @throws IOException
+	 */ 
 	public void Comment(String action, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Get user
 		HttpSession session = request.getSession();
@@ -578,16 +616,16 @@ public class TicketController extends HttpServlet {
 		}
 
 		String commentText = request.getParameter("commentText");
-		if (commentText == null || commentText.isEmpty()) {
-			session.setAttribute("errorMessage", "Sorry! Comment can't be empty");
+		if (commentText == null || commentText.length() < 3 || commentText.length() > 20000) {
+			session.setAttribute("errorMessage", "Sorry! Comment must be between 3-20000 characters.");
 			doGet(request, response);
 			return;
 		}
 			
 		// Add the comment to the ticket
 		try {
- 			CommentDataAccess commentDAL = new CommentDataAccess();
- 			commentDAL.addComment(ticketID, commentText, user.getUserID());
+ 			CommentDataAccess commentDAO = new CommentDataAccess();
+ 			commentDAO.addComment(ticketID, commentText, user.getUserID());
 			session.setAttribute("successMessage", "Comment has been posted.");
  
 			// If Staff action then notify user
@@ -596,8 +634,8 @@ public class TicketController extends HttpServlet {
 				int reportedUserID = -1;
 				try {
 					reportedUserID = Integer.parseInt(request.getParameter("reportedBy"));
-					NotificationDataAccess notificationDAL = new NotificationDataAccess();
-					notificationDAL.setNotification(action, reportedUserID, ticketID);
+					NotificationDataAccess notificationDAO = new NotificationDataAccess();
+					notificationDAO.setNotification(action, reportedUserID, ticketID);
 					SessionListener.updateActiveUserNotifications(reportedUserID);
 					session.setAttribute("successMessage", "Comment has been posted and user has been notified.");
 				} catch (NumberFormatException e) {
@@ -605,8 +643,6 @@ public class TicketController extends HttpServlet {
 			}
 		} catch (SQLException e) {
 			session.setAttribute("errorMessage", "Sorry! an error occured while trying to add a comment, please try again.");
-			doGet(request, response);
-			return;
 		}
 		
 		// Display updated ticket

@@ -141,6 +141,7 @@
 	<ul class="list-group my-2 mb-5">
 		<%-- Iterate through comments list --%>
 		<c:forEach var="comment" items="${supportTicket.comments}">
+			<%-- Use Include directive for comment jsp so it can use the jstl c:forEach variable --%>
 			<%@ include file="/WEB-INF/view/includes/comment.jsp" %>
 		</c:forEach>
 

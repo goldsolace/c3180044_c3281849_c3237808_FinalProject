@@ -136,8 +136,8 @@ public class NotificationController extends HttpServlet {
 	public void dismissNotification(User user, int notificationID, HttpSession session) {
 		try {
 			// Delete notificaton from database
-			NotificationDataAccess notificationDAL = new NotificationDataAccess();
-			notificationDAL.dismissNotification(user.getUserID(), notificationID);
+			NotificationDataAccess notificationDAO = new NotificationDataAccess();
+			notificationDAO.dismissNotification(user.getUserID(), notificationID);
 
 			// Remove the notification from any active sessions the user has
 			SessionListener.updateActiveUserNotifications(user.getUserID());

@@ -1,5 +1,5 @@
 /**
- * Script.js
+ * script.js
  *
  * @author Brice Purton, Jonothan Williams, Wajdi Yournes
  * @version 1.0
@@ -225,27 +225,28 @@ function RemoveMessage(inputId) {
 
 
 
-var report = {
-	// Check if iFrame should make a GET request to Suggestion controller
-	suggestArticles: function (url) {
-		var descriptionElement = document.getElementById('title');
-		var description = descriptionElement.value;
-		// Only try displaying Suggestions if title is atleast 3 chars otherwise hide iFrame
-		if (description.length >= 3) {
-			this.loadFrame(url, description);
-		} else {
-			this.hideFrame();
-		}
-	},
-	// Make iFrame send a GET request to Suggestion controlller
-	loadFrame: function (url, description) {
-		frame.src = url + suggestPage + encodeURIComponent(description);
-	},
-	// Hide iFrame from page
-	hideFrame: function (url, description) {
-		frame.style.display = "none";
+
+// Check if iFrame should make a GET request to Suggestion controller
+function suggestArticles(url) {
+	var descriptionElement = document.getElementById('title');
+	var description = descriptionElement.value;
+	// Only try displaying Suggestions if title is atleast 3 chars otherwise hide iFrame
+	if (description.length >= 3) {
+		loadFrame(url, description);
+	} else {
+		hideFrame();
 	}
-};
+}
+
+// Make iFrame send a GET request to Suggestion controlller
+function loadFrame(url, description) {
+	frame.src = url + suggestPage + encodeURIComponent(description);
+}
+
+// Hide iFrame from page
+function hideFrame(url, description) {
+	frame.style.display = "none";
+}
 
 // Check if iFrame should be shown or not
 function displayFrame() {
@@ -257,20 +258,4 @@ function displayFrame() {
 	} else {
 		frame.style.display = "initial";
 	}
-};
-
-// Function to limit amount of callsa method can make
-function debounce(func, wait, immediate) {
-	var timeout;
-	return function() {
-		var context = this, args = arguments;
-		var later = function() {
-			timeout = null;
-			if (!immediate) func.apply(context, args);
-		};
-		var callNow = immediate && !timeout;
-		clearTimeout(timeout);
-		timeout = setTimeout(later, wait);
-		if (callNow) func.apply(context, args);
-	};
 };

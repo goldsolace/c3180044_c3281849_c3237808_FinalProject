@@ -17,7 +17,14 @@ import javax.servlet.http.*;
 
 public class LogoutController extends HttpServlet{
 
-	// Log the user out and display the login page
+	/**
+	 * Log the user out and display the login page
+	 *
+	 * @param request a http servlet request 
+	 * @param response a http servlet response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		// Check to see if the user is currently already inside the session
@@ -27,8 +34,10 @@ public class LogoutController extends HttpServlet{
 		// If the user is not null then perform the logout
 		if (user != null)
 		{
+			// Destory and create new session with message to inform the user
 			session.invalidate();
 			request.getSession().setAttribute("successMessage", "You've been logged out!");
+			// Redirect user to login page
 			response.sendRedirect(request.getContextPath() + "/");
 		}
 
@@ -40,9 +49,15 @@ public class LogoutController extends HttpServlet{
 		}	
 	}
 
-
-    // There is no POST for this controller. Perform GET
+	/**
+	 * There is no POST for this controller. Perform GET
+	 *
+	 * @param request a http servlet request 
+	 * @param response a http servlet response
+	 * @throws ServletException
+	 * @throws IOException
+	 */ 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request, response);
+		doGet(request, response);
 	}
 }

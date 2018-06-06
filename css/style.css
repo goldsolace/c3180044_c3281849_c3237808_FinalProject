@@ -10,6 +10,8 @@ iframe {
   overflow:auto;
 }
 
+/* Scroll Bar */
+
 ::-webkit-scrollbar {
   width: 10px !important;
 }
@@ -26,18 +28,20 @@ iframe {
   background: #0f8fd4 !important; 
 }
 
+/* Page Title */
+
 .page-title {
   text-align: center;
   margin: 0;
   border-radius: 0;
   color: #ffffff;
-  /*background-image: url('images/header_bg_green.png');*/
+  padding: 2rem;
   background-image: url('images/header_bg_blue.png');
   background-repeat: no-repeat;
   background-color: #23a3e8;
 }
 
-/* Notifations menu CSS*/
+/* Notifations menu CSS */
 
 .btn-notif {
   color: rgba(0, 0, 0, 0.5);
@@ -124,7 +128,12 @@ iframe {
 }
 
 .word-wrap { 
-  white-space: normal !important;
+  white-space: normal !important; 
+  white-space: pre-wrap;      /* CSS3 */   
+  white-space: -moz-pre-wrap; /* Firefox */    
+  white-space: -pre-wrap;     /* Opera <7 */   
+  white-space: -o-pre-wrap;   /* Opera 7 */    
+  word-wrap: break-word;      /* IE */
 }
 
 .set-width {
@@ -340,6 +349,8 @@ a.bg-progress:focus, a.bg-progress:hover, button.bg-progress:focus, button.bg-pr
 .form-solution {
   display: inline;
 }
+
+/* Login validation error message */
 
 .tooltip {
   color: #dc3545;

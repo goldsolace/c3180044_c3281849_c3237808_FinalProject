@@ -9,7 +9,7 @@ import javax.servlet.http.*;
 
 /**
  * SessionListener
- * This class is used to manage session tracking. It add all the sessions of each user to a hashmap on log in and
+ * This class is used to manage session tracking. It adds all the sessions of each user to a hashmap on log in and
  * removes them on log out or timeout. This allows us to modify sessions outside the scope of the session for greater
  * flexiblity.
  *
@@ -103,7 +103,7 @@ public final class SessionListener implements HttpSessionListener, HttpSessionAt
 		// If the destroyed session contained a user than remove that session from active map
 		if (user != null) {
 			long creationTime = event.getSession().getCreationTime();
-			// Get list of that user's notifications
+			// Get list of that user's sessions
 			List<HttpSession> sessions = activeUsers.get(user.getUserID());
 
 			// Remove the session from the list of active user's session

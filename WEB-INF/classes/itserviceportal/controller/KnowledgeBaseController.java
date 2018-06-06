@@ -59,7 +59,7 @@ public class KnowledgeBaseController extends HttpServlet {
 	}
 
 	/**
-	 * Do Stuff
+	 * Display Knowledge Base by sort criteria
 	 *
 	 * @param request a http servlet request
 	 * @param response a http servlet response
@@ -107,17 +107,19 @@ public class KnowledgeBaseController extends HttpServlet {
 
 	/**
 	 * Get List of all Articles(Support Tickets) in the knowledge base
-	 */
+	 *
+	 * @param user User
+	 * @param categorySelect String
+	 * @param orderBy String
+	 * @return ArrayList< SupportTicket> or null if error retrieving knowledge base
+	 */ 
 	public ArrayList<SupportTicket> getKnowledgeBase(User user, String categorySelect, String orderBy) {
-		try
-		{
+		try {
 			//Calling the Ticket Data Access to retrieve all articles from the database
-			TicketDataAccess ticketDAL = new TicketDataAccess();
-			ArrayList<SupportTicket> knowledgeBase = ticketDAL.getAllTicketsFromDB(user, "all", categorySelect, true, orderBy);
+			TicketDataAccess ticketDAO = new TicketDataAccess();
+			ArrayList<SupportTicket> knowledgeBase = ticketDAO.getAllTicketsFromDB(user, "all", categorySelect, true, orderBy);
 			return knowledgeBase;
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			return null;
 		}
 	}

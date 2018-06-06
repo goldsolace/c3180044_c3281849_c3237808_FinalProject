@@ -77,7 +77,7 @@
 			<li class="list-group-item">
 				<c:forEach var="issueDetail" items="${supportTicket.issueDetails}">
 					<h5 class="mb-1"><c:out value="${issueDetail.question}"/></h5>
-					<p><c:out value="${issueDetail.response}"/></p>
+					<p class="word-wrap"><c:out value="${issueDetail.response}"/></p>
 				</c:forEach>
 			</li>
 		</c:if>
@@ -122,6 +122,7 @@
 	<ul class="list-group my-2 mb-5">
 		<%-- Iterate through comments list --%>
 		<c:forEach var="comment" items="${supportTicket.comments}">
+			<%-- Use Include directive for comment jsp so it can use the jstl c:forEach variable --%>
 			<%@ include file="/WEB-INF/view/includes/comment.jsp" %>
 		</c:forEach>
 

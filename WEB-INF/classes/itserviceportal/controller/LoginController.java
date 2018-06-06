@@ -15,9 +15,16 @@ import javax.servlet.http.*;
  * @since 19-05-2018
  */
 
-public class LoginController extends HttpServlet{
+public class LoginController extends HttpServlet {
 
-	// Display the Login Page
+	/**
+	 * Display Login Page
+	 *
+	 * @param request a http servlet request 
+	 * @param response a http servlet response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		// Check to see if the user is currently already inside the session
@@ -35,7 +42,14 @@ public class LoginController extends HttpServlet{
 		}	
 	}
 
-    // Log the user into the IT Service Portal
+	/**
+	 * Log the user into the IT Service Portal
+	 *
+	 * @param request a http servlet request 
+	 * @param response a http servlet response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		// Get session
@@ -43,7 +57,7 @@ public class LoginController extends HttpServlet{
 
 		// Check if user already logged in
 		User user = (User) session.getAttribute("user");
-		if(user != null) {
+		if (user != null) {
 			response.sendRedirect("ServicePortal");
 			return;
 		}
@@ -55,21 +69,21 @@ public class LoginController extends HttpServlet{
 		// Calling the Data access layer to get the user from the database
 		try
 		{
-			UserDataAccess userDAL = new UserDataAccess();
-			user = userDAL.loginUser(username, password);
+			UserDataAccess userDAO = new UserDataAccess();
+			user = userDAO.loginUser(username, password);
 		
 			// If the user is null then the user did not login correctly with a valid account
-			if(user == null)
+			if (user == null)
 			{
-				session.setAttribute("errorMessage", "Sorry, that username and password combination does not exist. Please try again.");
+				session.setAttribute("errorMessage", "Your username or password is incorrect. Please try again.");
 				response.sendRedirect(request.getContextPath() + "/");
 			}
 			// Otherwise, the user successfully logged in
 			else
 			{
-				// Set the user object into the session and redirect to the ServicePortal
+				// Add user into session
 				session.setAttribute("user", user);
-				// Get user notifications
+				// Add user notifications into the session
 				SessionListener.updateActiveUserNotifications(user.getUserID());
 				// Send logged in user to Service Portal
 				response.sendRedirect("ServicePortal");
@@ -77,9 +91,9 @@ public class LoginController extends HttpServlet{
 		}
 
 		// If any error occured display an error message to the user
-		catch (SQLException e)
+		catch (Exception e)
 		{
-			session.setAttribute("errorMessage", "Sorry, Something went wrong while trying to log you in. Please try again.");
+			session.setAttribute("errorMessage", "Sorry! Something went wrong while trying to log you in.");
 			response.sendRedirect(request.getContextPath() + "/");
 		} 
 	}

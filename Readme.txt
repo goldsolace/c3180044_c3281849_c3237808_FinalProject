@@ -17,13 +17,13 @@ COMPILATION:
 3. Add both the following libraries to your classpath
 	PATH TO TOMCAT\lib\servlet-api.jar
 	PATH TO TOMCAT\lib\jsp-api.jar
-4. Navigate to the root directory PATH TO TOMCAT\webapps\c3180044_c3281849_c3237808_FinalProject
-5. Compile the java package located in WEB-INF/classes/
+4. Compile the java package located in WEB-INF/classes/
 
 PREWRITTEN JAVAC COMMANDS
+Navigate to the root directory PATH TO TOMCAT\webapps\c3180044_c3281849_c3237808_FinalProject
 
 # UNIX
-javac WEB-INF/classes/itserviceportal/controller/*.java WEB-INF/classes/itserviceportal/model/*/*.java WEB-INF/classes/itserviceportal/customtags/*.java
+javac WEB-INF/classes/itserviceportal/*/*.java WEB-INF/classes/itserviceportal/model/*/*.java
 
 # MS-DOS
 javac WEB-INF\classes\itserviceportal\controller\*.java WEB-INF\classes\itserviceportal\model\beans\*.java WEB-INF\classes\itserviceportal\model\datalayer\*.java WEB-INF\classes\itserviceportal\customtags\*.java

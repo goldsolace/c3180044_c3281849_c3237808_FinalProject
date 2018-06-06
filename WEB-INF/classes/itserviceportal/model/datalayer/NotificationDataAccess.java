@@ -34,11 +34,9 @@ public class NotificationDataAccess extends DataAccessLayer {
 		super();
 	}
 
-
 	public NotificationDataAccess (Connection connection) {
 		super(connection);
 	}
-
 
 	/**
 	 * This method gets all notifications for a specific user.
@@ -56,8 +54,7 @@ public class NotificationDataAccess extends DataAccessLayer {
 		String query = "SELECT * FROM tbl_Notification WHERE userID = ? ORDER BY NotificationDate DESC";
 
 		try {
-
-			if(connection == null)
+			if (connection == null)
 				connection = getConnection();
 
 			// Getting the DB connection, performing the query and getting the results
@@ -79,7 +76,7 @@ public class NotificationDataAccess extends DataAccessLayer {
 			return notifications;
 		} catch(Exception e) {
 			e.printStackTrace();
-			return null;
+			throw e;
 		} finally {
 			closeConnections();	
 		}
@@ -102,10 +99,8 @@ public class NotificationDataAccess extends DataAccessLayer {
 		String queryLimitNotifications = "DELETE FROM tbl_Notification WHERE userID = ? AND NotificationID NOT IN (SELECT NotificationID FROM (SELECT NotificationID FROM tbl_Notification WHERE userID = ? ORDER BY NotificationDate DESC LIMIT ? ) AS n)";
 		
 		try {
-
 			if(connection == null)
 				connection = getConnection();
-
 
 			// Insert new notification 
 			statement = connection.prepareStatement(query);
@@ -122,6 +117,7 @@ public class NotificationDataAccess extends DataAccessLayer {
 			statement.executeUpdate();
 		} catch(Exception e) {
 			e.printStackTrace();
+			throw e;
 		} finally {
 			closeConnections();
 		}
@@ -141,10 +137,8 @@ public class NotificationDataAccess extends DataAccessLayer {
 		String query = "DELETE FROM tbl_Notification WHERE userID = ? AND  NotificationID = ?";
 		
 		try {
-
 			if(connection == null)
 				connection = getConnection();
-
 
 			statement = connection.prepareStatement(query);
 			statement.setInt(1, userID);
@@ -152,6 +146,7 @@ public class NotificationDataAccess extends DataAccessLayer {
 			statement.executeUpdate();
 		} catch(Exception e) {
 			e.printStackTrace();
+			throw e;
 		} finally {
 			closeConnections();
 		}

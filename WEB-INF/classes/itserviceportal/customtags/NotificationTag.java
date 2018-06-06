@@ -29,6 +29,7 @@ public class NotificationTag extends SimpleTagSupport {
 		}
 
 		String notifStr = "";
+		// Choose what the notification will say
 		switch (notification.getActionStr()) {
 			case "startWork" : notifStr += "Staff has started work on <strong>Support Ticket " + notification.getTicketID() + "</strong>."; break;
 			case "submitSolution" : notifStr += "Solution submitted to <strong>Support Ticket " + notification.getTicketID() + "</strong>."; break;

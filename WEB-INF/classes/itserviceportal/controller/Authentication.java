@@ -81,25 +81,30 @@ public class Authentication implements Filter {
 		HttpSession session = httpServletRequest.getSession();
 		RequestDispatcher requestDispatcher;
 
-		String uri = httpServletRequest.getRequestURI();
-
 		// Get serlvet mapping the user is trying to request
+		String uri = httpServletRequest.getRequestURI();
 		if (uri.endsWith("/")) {
 			uri = uri.substring(0, uri.length()-1);
 		}
-		String page = uri.substring(uri.lastIndexOf("/")+1);
+		String urlMapping = uri.substring(uri.lastIndexOf("/")+1);
 
 		// Get permission of the page
-		String permission = permissions.getOrDefault(page, ALL);
+		String permission = permissions.getOrDefault(urlMapping, ALL);
 
 		// Authenticate user against permission of page
 		switch (permission) {
+
+			// All access allowed so proceeed with request
 			case ALL:
 				chain.doFilter(request, response);
 				return;
+
+			// No access allowed so redirect to login page
 			case NONE:
 				httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/");
 				return;
+
+			// Must be logged in to access otherwise redirect to login page
 			case USER:
 				if (isUserLoggedIn(session)) {
 					chain.doFilter(request, response);
@@ -108,6 +113,8 @@ public class Authentication implements Filter {
 					httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/");
 					return;
 				}
+
+			// Must be logged in as a user to access otherwise redirect to login page
 			case USERX:
 				if (isUserLoggedIn(session) && !isStaffLoggedIn(session)) {
 					chain.doFilter(request, response);
@@ -116,6 +123,8 @@ public class Authentication implements Filter {
 					httpServletResponse.sendRedirect(httpServletRequest.getContextPath() + "/");
 					return;
 				}
+
+			// Must be logged in as a staff to access otherwise redirect to login page
 			case STAFF:
 				if (isStaffLoggedIn(session)) {
 					chain.doFilter(request, response);

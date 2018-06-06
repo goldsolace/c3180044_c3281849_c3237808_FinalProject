@@ -25,6 +25,7 @@
 			<h1>IT Services Portal</h1>
 		</div>
 	</a>
+	<%-- Import nav bar --%>
 	<c:import url="/WEB-INF/view/includes/nav.jsp"/>
 	<div class="container">
 	

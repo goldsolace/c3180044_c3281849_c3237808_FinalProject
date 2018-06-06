@@ -51,19 +51,19 @@ public class UserDataAccess extends DataAccessLayer{
         User user = null;
         try 
         {
-            if(connection == null)
+            if (connection == null)
                 connection = getConnection();
 
-            //Getting the DB connection, performing the query and getting the results
+            // Getting the DB connection, performing the query and getting the results
             statement = connection.prepareStatement(query);
             statement.setString(1, username);
             statement.setString(2, password);
             results = statement.executeQuery();
 
-            //Loop through the result set
+            // Loop through the result set
             while (results.next())
             {
-                //Create a user from the results
+                // Create a user from the results
                 int id = results.getInt("UserID");
                 String email = results.getString("Email");
                 String firstName = results.getString("FirstName");
@@ -73,15 +73,17 @@ public class UserDataAccess extends DataAccessLayer{
                 user = new User(id, email, firstName, lastName, contactNumber, role);
             
             }
-            closeConnections();
             return user;
         }
-        //If any errors occurred close all connections and return null 
-        catch (Exception e) 
+        // If any errors occurred close all connections and return null 
+        catch(Exception e)
         {
             System.out.println("EXCEPTION CAUGHT: UserDataAccess -- loginUser()");
+            throw e;
+        }
+        finally 
+        {
             closeConnections();
-            return null;
         }
     }
 }

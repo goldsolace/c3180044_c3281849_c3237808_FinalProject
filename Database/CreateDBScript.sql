@@ -167,9 +167,6 @@ VALUES ('Slow internet', 'The internet is super slow.', 'resolved', '2018-03-20'
 INSERT INTO tbl_SupportTicket (Title, Descrip, TicketState, ReportedOn, ResolvedOn, IsKnowledgeBase, ResolutionDetails, CreatedByUserID, ResolvedByUserID, CategoryID)
 VALUES ('Can''t connect to wifi', 'My phone cannot connect to the wifi on campus from any location.', 'new', '2018-05-20 10:06:07', NULL, 0, NULL, 5, NULL, 1);
 
-INSERT INTO tbl_SupportTicket (Title, Descrip, TicketState, ReportedOn, ResolvedOn, IsKnowledgeBase, ResolutionDetails, CreatedByUserID, ResolvedByUserID, CategoryID)
-VALUES ('Can''t Print', 'I can''t print using a printer in the Auchmuty library', 'in progress', NOW(), NULL, 0, NULL, 5, NULL, 3);
-
 
 
 # Inserting into comments table

@@ -9,13 +9,15 @@
 	<div id="navBar" class="navbar navbar-expand-lg navbar-light" role="navigation">
 		<div class="container">
 
-			<%-- Display user's name --%>
 			<div class="navbar-brand d-flex flex-row">
 				<strong>
+					<%-- Clicking on user's name redirects to ServicePortal --%>
 					<a class="nounderline text-dark" href="ServicePortal">
+						<%-- Display user's name --%>
 						<c:out value="${sessionScope.user.firstName} ${sessionScope.user.lastName}"/>
 					</a>
 				</strong>
+				<%-- Include notification jsp --%>
 				<jsp:include page="/WEB-INF/view/includes/notifications.jsp"/>
 			</div>
 
@@ -25,6 +27,7 @@
 
 			<div class="navbar-collapse collapse justify-content-end">
 				<ul class="navbar-nav float-right text-right">
+					<%-- Links to other pages --%>
 					<li class="nav-item">
 						<a class="nav-link" href="ServicePortal"><strong>Portal</strong></a>
 					</li>
@@ -53,5 +56,6 @@
 </c:if>
 
 <div class="container pt-2">
+	<!-- Include messages on any page that includes nav bar -->
 	<jsp:include page="/WEB-INF/view/includes/messages.jsp"/>
 </div>

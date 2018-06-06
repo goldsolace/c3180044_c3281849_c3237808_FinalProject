@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<%-- Get context path --%>
 <c:set var="context" value="${pageContext.request.contextPath}" />
 
 <!DOCTYPE html>
@@ -24,6 +25,7 @@
 			<div class="my-5 col-md-12 text-center">
 				<h1>500</h1>
 				<h2>SERVER ERROR</h2>
+				<%-- Link to welcome page --%>
 				<a href="${context}/" class="btn btn-info btn-lg">Take Me Home</a>
 			</div>
 		</div>

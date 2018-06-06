@@ -5,6 +5,7 @@
 <%@ taglib prefix="customtags" uri="http://localhost:8080/c3180044_c3281849_c3237808_FinalProject/taglib/customtags" %>
 <%@ page import="itserviceportal.model.beans.*" %>
 
+<%-- Import header jsp --%>
 <c:import url="/WEB-INF/view/includes/header.jsp"/>
 
 <div class="my-2">
@@ -13,7 +14,7 @@
 
 <form class="form-sort" method="POST" action="TicketList">
 	<div class="input-group">
-		<%-- Sets options to selected if they were used to sort the tickets --%>
+		<%-- Sets option to selected if it was used to sort the tickets. Defaults to first option if wasn't sorted --%>
 		<select name="categorySelect" class="custom-select">
 			<option value="all" <c:if test="${param['categorySelect'] == 'all'}">selected</c:if>>All Categories</option>
 			<option value="network" <c:if test="${param['categorySelect'] == 'network'}">selected</c:if>>Network</option>
@@ -110,6 +111,7 @@
 	</ul>
 </c:if>
 
+<%-- Import footer jsp --%>
 <c:import url="/WEB-INF/view/includes/footer.jsp"/>
 
 <%-- Prevent caching to prevent issue like a user logging out then pressing back

@@ -10,7 +10,7 @@
 	<div class="form-group">
 		<label for="title">Title*</label>
 		<%-- Load suggested articles into iFrame when user types into title --%>
-		<input name="title" minlength="3" maxlength="200" type="text" class="form-control" id="title" placeholder="Title" required onkeyup="report.suggestArticles('${pageContext.request.contextPath}');">
+		<input name="title" minlength="3" maxlength="200" type="text" class="form-control" id="title" placeholder="Title" required onkeyup="suggestArticles('${pageContext.request.contextPath}');">
   		<iframe class="container-fluid m-1" id="suggested-articles"></iframe>
 	</div>
 
@@ -35,7 +35,7 @@
 
 	<div class="form-group">
 		<label>Problem Details*</label>
-		<textarea name="description" class="form-control" id="details" rows="3" placeholder="Details..." required></textarea>
+		<textarea name="description" minlength="3" maxlength="20000" class="form-control" id="details" rows="3" placeholder="Details..." required></textarea>
 	</div>
 
 	<button class="btn btn-lg btn-danger btn-block" type="submit">Report</button>

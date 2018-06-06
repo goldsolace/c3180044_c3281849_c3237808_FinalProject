@@ -20,7 +20,7 @@ import javax.servlet.*;
 public class ArticleController extends HttpServlet {
 
 	/**
-	 * Do stuff
+	 * Display Article
 	 *
 	 * @param request a http servlet request 
 	 * @param response a http servlet response
@@ -56,13 +56,12 @@ public class ArticleController extends HttpServlet {
 		}
 
 		request.setAttribute("article", article);
-
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Jsp.ARTICLE.url());
 		dispatcher.forward(request, response);
 	}
 
 	/**
-	 * Do stuff
+	 * Call doGet
 	 *
 	 * @param request a http servlet request 
 	 * @param response a http servlet response
@@ -71,17 +70,21 @@ public class ArticleController extends HttpServlet {
 	 */ 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
-			// Do stuff
+		doGet(request, response);
 	}
 
 	/**
-	 * Get Article
-	 */
+	 * Get Article from database
+	 *
+	 * @param articleID integer
+	 * @param user User
+	 * @return SupportTicket or null if error
+	 */ 
 	public SupportTicket getArticle(int articleID, User user) {
 		try {
 			// Calling the Ticket Data Access to retrieve the ticket from the database
-			TicketDataAccess ticketDAL = new TicketDataAccess();
-			SupportTicket article = ticketDAL.getTicketByIDFromDB(articleID, user, true);
+			TicketDataAccess ticketDAO = new TicketDataAccess();
+			SupportTicket article = ticketDAO.getTicketByIDFromDB(articleID, user, true);
 			return article;
 		} catch (Exception e) {
 			return null;

@@ -56,7 +56,7 @@ public class TicketListController extends HttpServlet {
 	}
 
 	/**
-	 * Display all tickets the user has access to with sort criteria.
+	 * Display all tickets the user has access to by sort criteria.
 	 *
 	 * @param request a http servlet request 
 	 * @param response a http servlet response
@@ -103,21 +103,25 @@ public class TicketListController extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 
-
 	/**
 	 * Get List of all Support Tickets the user is allowed to view
-	 */
+	 *
+	 * @param user User 
+	 * @param categorySelect String
+	 * @param stateSelect String
+	 * @param knowledgeBase boolean
+	 * @param orderBy String
+	 * @throws ServletException
+	 * @throws IOException
+	 * @return ArrayList< SupportTicket> or null if error retrieving tickets
+	 */ 
 	public ArrayList<SupportTicket> getTickets(User user, String categorySelect, String stateSelect, boolean knowledgeBase, String orderBy) {
-		try
-		{
-			//Calling the Ticket Data Access to retrieve all the tickets from the database
+		try {
+			// Calling the Ticket Data Access to retrieve all the tickets from the database
 			TicketDataAccess ticketDAL = new TicketDataAccess();
 			ArrayList<SupportTicket> ticketList = ticketDAL.getAllTicketsFromDB(user, stateSelect, categorySelect, false, orderBy);
-
 			return ticketList;
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			return null;
 		}
 	}

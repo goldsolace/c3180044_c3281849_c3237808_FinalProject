@@ -47,15 +47,12 @@ public class SuggestionController extends HttpServlet {
 			} else {
 				referer = referer.substring(referer.lastIndexOf("/")+1);
 			}
+			// Suggestions only accessable from report page
 			if (!referer.equals("Report")) {
 				response.sendRedirect("ServicePortal");
 				return;
 			}
 		}
-
-		// Get user
-		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("user");
 
 		// Get search term
 		String term = request.getParameter("term");
@@ -74,7 +71,7 @@ public class SuggestionController extends HttpServlet {
 	}
 
 	/**
-	 * Do Stuff
+	 * Call doGet
 	 *
 	 * @param request a http servlet request
 	 * @param response a http servlet response
@@ -83,51 +80,20 @@ public class SuggestionController extends HttpServlet {
 	 */ 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException {
-	
-		// Get user
-		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("user");
-
-		// Get sort criteria
-		String categorySelect = request.getParameter("categorySelect");
-		String orderSelect = request.getParameter("orderSelect");
-
-		// If no sort criteria send to portal with error
-		if (categorySelect == null || orderSelect == null) {
-			session.setAttribute("errorMessage", "Sorry! We could not sort articles.");
-			response.sendRedirect("ServicePortal");
-			return;
-		}
-/*
-		// Get List of all knowledge base articles matching criteria
-		List<SupportTicket> knowledgeBase = getKnowledgeBase(user, categorySelect, orderSelect);
-
-		// If tickets is null send back to portal with error message
-		if (knowledgeBase == null) {
-			session.setAttribute("errorMessage", "Sorry! Knowledge Base are unavailable.");
-			response.sendRedirect("ServicePortal");
-			return;
-		
-		// If no tickets display error message
-		} else if (knowledgeBase.isEmpty()) {
-			session.setAttribute("errorMessage", "There are no articles to display.");
-		}
-
-		// Attach tickets to the request to be forwarded to the jsp
-		request.setAttribute("knowledgeBase", knowledgeBase);*/
-
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(Jsp.KNOWLEDGEBASE.url());
-		dispatcher.forward(request, response);
+		doGet(request, response);
 	}
 
 	/**
 	 * Get List of all similar Articles(Support Tickets) in the knowledge base
-	 */
+	 *
+	 * @param term string
+	 * @return ArrayList< SupportTicket> list of suggested articles
+	 */ 
 	public ArrayList<SupportTicket> getSuggestions(String term) {
 		try {
-			//Calling the Ticket Data Access to retrieve suggestions from the database
-			TicketDataAccess ticketDAL = new TicketDataAccess();
-			ArrayList<SupportTicket> suggestions = ticketDAL.getSuggestedArticles(term);
+			// Calling the Ticket Data Access to retrieve suggestions from the database
+			TicketDataAccess ticketDAO = new TicketDataAccess();
+			ArrayList<SupportTicket> suggestions = ticketDAO.getSuggestedArticles(term);
 			return suggestions;
 		} catch (Exception e) {
 			e.printStackTrace();

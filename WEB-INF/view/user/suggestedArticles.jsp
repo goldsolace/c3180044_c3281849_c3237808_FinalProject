@@ -5,8 +5,9 @@
 <%@ taglib prefix="customtags" uri="http://localhost:8080/c3180044_c3281849_c3237808_FinalProject/taglib/customtags" %>
 <%@ page import="itserviceportal.model.beans.*" %>
 
+<%-- Import headerChild jsp --%>
 <c:import url="/WEB-INF/view/includes/headerChild.jsp"/>
-
+<%-- If no suggestedArticles then add div with id of empty --%>
 <c:if test="${empty suggestedArticles}">
 	<div id="empty"></div>
 </c:if>
