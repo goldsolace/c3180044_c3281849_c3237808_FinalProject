@@ -85,7 +85,7 @@
 		<%-- Display description --%>
 		<li class="list-group-item">
 			<h5 class="mb-1">Description</h5>
-			<p><c:out value="${supportTicket.description}"/></p>
+			<pre><c:out value="${supportTicket.description}"/></pre>
 		</li>
 
 		<li class="list-group-item nopadding">
@@ -94,7 +94,7 @@
 				<c:if test="${not empty supportTicket.resolutionDetails}">
 					<div class="list-group-item">
 						<h5 class="mb-1">Resolution Details</h5>
-						<p><c:out value="${supportTicket.resolutionDetails}"/></p>
+						<pre><c:out value="${supportTicket.resolutionDetails}"/></pre>
 					</div>
 				</c:if>
 				<c:if test="${empty supportTicket.resolutionDetails && supportTicket.state == State.INPROGRESS}">

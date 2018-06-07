@@ -19,6 +19,6 @@
 			<small class="text-muted"><customtags:date date="${comment.createdOn}" /></small>
 		</div>
 		<%-- Output comment text --%>
-		<p><c:out value="${comment.commentText}"/></p>
+		<pre><c:out value="${comment.commentText}"/></pre>
 	</li>
 </c:if> 

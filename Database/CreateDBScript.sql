@@ -147,57 +147,66 @@ INSERT INTO tbl_Category (CatName) VALUES ('Account');
 
 # Inserting into tickets tables
 INSERT INTO tbl_SupportTicket (Title, Descrip, TicketState, ReportedOn, ResolvedOn, IsKnowledgeBase, ResolutionDetails, CreatedByUserID, ResolvedByUserID, CategoryID)
-VALUES ('No internet connection', 'Having trouble connecting to google.', 'new', '2018-05-01', NULL, 0, NULL, 6, NULL, 1);
+VALUES ('No internet connection', 'Having trouble connecting to google.', 'new', '2018-06-07 16:34:00', NULL, 0, NULL, 6, NULL, 1);
 
 INSERT INTO tbl_SupportTicket (Title, Descrip, TicketState, ReportedOn, ResolvedOn, IsKnowledgeBase, ResolutionDetails, CreatedByUserID, ResolvedByUserID, CategoryID)
-VALUES ('Adobe Photoshop will not load', 'The application does not open when clicked.', 'in progress', '2018-05-11', NULL, 0, NULL, 6, NULL, 2);
+VALUES ('Adobe Photoshop will not load', 'The application does not open when clicked.', 'in progress', '2018-04-15 08:48:00', NULL, 0, NULL, 6, NULL, 2);
 
 INSERT INTO tbl_SupportTicket (Title, Descrip, TicketState, ReportedOn, ResolvedOn, IsKnowledgeBase, ResolutionDetails, CreatedByUserID, ResolvedByUserID, CategoryID)
-VALUES ('Computer very slow', 'Computer in group study room is very slow', 'in progress', '2018-05-16', NULL, 0, NULL, 4, NULL, 3);
+VALUES ('Computer very slow', 'Computer in group study room is very slow', 'in progress', '2018-05-21 10:57:00', NULL, 0, NULL, 4, NULL, 3);
 
 INSERT INTO tbl_SupportTicket (Title, Descrip, TicketState, ReportedOn, ResolvedOn, IsKnowledgeBase, ResolutionDetails, CreatedByUserID, ResolvedByUserID, CategoryID)
-VALUES ('Can not send a email', 'email is failing', 'completed', '2018-05-10', '2018-05-18', 0, 'Reset incoming and outgoing mail settings.', 6, 1, 4);
+VALUES ('Can not send a email', 'email is failing', 'completed', '2018-06-09 10:39:00', '2018-06-09 12:22:00', 0, 'Reset incoming and outgoing mail settings.', 6, 1, 4);
 
 INSERT INTO tbl_SupportTicket (Title, Descrip, TicketState, ReportedOn, ResolvedOn, IsKnowledgeBase, ResolutionDetails, CreatedByUserID, ResolvedByUserID, CategoryID)
-VALUES ('My account has been locked.', 'Cannot access my account or login.', 'resolved', '2018-04-20', '2018-04-26', 1, 'Reactivated account in active directory.', 5, 2, 5);
+VALUES ('My account has been locked.', 'Cannot access my account or login.', 'resolved', '2018-05-27 15:04:36', '2018-06-01 11:13:36', 1, 'Reactivated account in active directory.', 5, 2, 5);
 
 INSERT INTO tbl_SupportTicket (Title, Descrip, TicketState, ReportedOn, ResolvedOn, IsKnowledgeBase, ResolutionDetails, CreatedByUserID, ResolvedByUserID, CategoryID)
-VALUES ('Slow internet', 'The internet is super slow.', 'resolved', '2018-03-20', '2018-04-26', 1, 'Reset some network configurations.', 4, 3, 1);
+VALUES ('Slow internet', 'The internet is super slow.', 'resolved', '2018-04-18 09:45:36', '2018-04-19 17:09:36', 1, 'Reset some network configurations.', 4, 3, 1);
 
 INSERT INTO tbl_SupportTicket (Title, Descrip, TicketState, ReportedOn, ResolvedOn, IsKnowledgeBase, ResolutionDetails, CreatedByUserID, ResolvedByUserID, CategoryID)
 VALUES ('Can''t connect to wifi', 'My phone cannot connect to the wifi on campus from any location.', 'new', '2018-05-20 10:06:07', NULL, 0, NULL, 5, NULL, 1);
 
+INSERT INTO tbl_SupportTicket (Title, Descrip, TicketState, ReportedOn, ResolvedOn, IsKnowledgeBase, ResolutionDetails, CreatedByUserID, ResolvedByUserID, CategoryID)
+VALUES ('Can\'t Print', 'I can\'t print using a printer in the Auchmuty library','resolved','2018-05-21 07:55:42','2018-05-22 21:43:08',0,'Please try another printer while we get a technician to look at the printer.', 5, 1, 3);
 
+INSERT INTO tbl_SupportTicket (Title, Descrip, TicketState, ReportedOn, ResolvedOn, IsKnowledgeBase, ResolutionDetails, CreatedByUserID, ResolvedByUserID, CategoryID)
+VALUES ('Connect to U drive from home', 'How do I connect to my U drive from home?', 'completed', '2018-06-02 11:08:42', '2018-06-08 14:26:08', 1, '1. Download filezilla or a similar FTP client.\r\n2. At the top enter the following\r\n\ta. Host: sftp://jumpgate.newcastle.edu.au\r\n\tb. User: your university username\r\n\tc. Password: your university password\r\n\td. Port: leave blank\r\n3. This should connect to the U Drive and now you can put in your sql files to run in putty.', 4, 2, 1);
+
+INSERT INTO tbl_SupportTicket (Title, Descrip, TicketState, ReportedOn, ResolvedOn, IsKnowledgeBase, ResolutionDetails, CreatedByUserID, ResolvedByUserID, CategoryID)
+VALUES ('Computer won\'t power on', 'I\'m trying to use a uni computer and it won\' turn on','in progress','2018-05-07 17:01:52', NULL, 0, NULL, 6, NULL, 3);
 
 # Inserting into comments table
 INSERT INTO tbl_Comment (CommentText, UserID, TicketID, CommentDate)
-VALUES ('Still wont open.', 6, 2, '2018-05-15');
+VALUES ('Still wont open.', 6, 2, '2018-04-17 09:22:00');
 INSERT INTO tbl_Comment (CommentText, UserID, TicketID, CommentDate)
-VALUES ('Reinstalled the application. Please try again.', 1, 2, NOW());
+VALUES ('Reinstalled the application. Please try again.', 1, 2, '2018-04-17 11:57:00');
 
 INSERT INTO tbl_Comment (CommentText, UserID, TicketID, CommentDate)
-VALUES ('Thank you, it works now.', 6, 3, '2018-05-17');
+VALUES ('Thank you, it works now.', 6, 3, '2018-05-21 12:07:00');
 INSERT INTO tbl_Comment (CommentText, UserID, TicketID, CommentDate)
-VALUES ('No problem.', 2, 3, '2018-05-18');
+VALUES ('No problem.', 2, 3, '2018-05-21 19:36:00');
 
 INSERT INTO tbl_Comment (CommentText, UserID, TicketID, CommentDate)
-VALUES ('Has this been fixed yet?', 6, 4, '2018-05-11');
+VALUES ('Has this been fixed yet?', 6, 4, '2018-06-08 14:41:00');
 INSERT INTO tbl_Comment (CommentText, UserID, TicketID, CommentDate)
-VALUES ('Yes. Try again now.', 3, 4, '2018-05-12');
+VALUES ('Yes. Try again now.', 3, 4, '2018-06-08 14:48:00');
 
 INSERT INTO tbl_Comment (CommentText, UserID, TicketID, CommentDate)
-VALUES ('I cant think of a comment', 6, 5, '2018-04-21');
+VALUES ('I cant think of a comment', 6, 5, '2018-05-28 11:11:07');
 INSERT INTO tbl_Comment (CommentText, UserID, TicketID, CommentDate)
-VALUES ('This is a another comment', 3, 5, '2018-04-22');
+VALUES ('This is a another comment', 3, 5, '2018-05-28 21:38:21');
 INSERT INTO tbl_Comment (CommentText, UserID, TicketID, CommentDate)
-VALUES ('This is a another another comment', 3, 5, '2018-04-23');
+VALUES ('This is a another another comment', 3, 5, '2018-05-29 01:01:36');
+INSERT INTO tbl_Comment (CommentText, UserID, TicketID, CommentDate)
+VALUES ('What am I still doing awake at this time', 3, 5, '2018-05-29 03:56:15');
 
 INSERT INTO tbl_Comment (CommentText, UserID, TicketID, CommentDate)
-VALUES ('My internet is horrible atm.', 4, 6, '2018-03-21');
+VALUES ('My internet is horrible atm.', 4, 6, '2018-04-18 10:19:08');
 INSERT INTO tbl_Comment (CommentText, UserID, TicketID, CommentDate)
-VALUES ('This issue has been resolved for you. Have a good day', 2, 6, '2018-03-22');
+VALUES ('This issue has been resolved for you. Have a good day', 2, 6, '2018-04-19 11:21:11');
 INSERT INTO tbl_Comment (CommentText, UserID, TicketID, CommentDate)
-VALUES ('Thanks!', 4, 6, '2018-03-23');
+VALUES ('Thanks!', 4, 6, '2018-04-18 16:45:44');
 
 
 

@@ -77,7 +77,7 @@
 			<li class="list-group-item">
 				<c:forEach var="issueDetail" items="${supportTicket.issueDetails}">
 					<h5 class="mb-1"><c:out value="${issueDetail.question}"/></h5>
-					<p class="word-wrap"><c:out value="${issueDetail.response}"/></p>
+					<pre class="word-wrap"><c:out value="${issueDetail.response}"/></pre>
 				</c:forEach>
 			</li>
 		</c:if>
@@ -85,14 +85,14 @@
 		<%-- Display description --%>
 		<li class="list-group-item">
 			<h5 class="mb-1">Description</h5>
-			<p><c:out value="${supportTicket.description}"/></p>
+			<pre><c:out value="${supportTicket.description}"/></pre>
 		</li>
 
 		<%-- Resolution and offer user actions to modify the ticket --%>
 		<c:if test="${not empty supportTicket.resolutionDetails}">
 			<li class="list-group-item">
 				<h5 class="mb-1">Resolution Details</h5>
-				<p><c:out value="${supportTicket.resolutionDetails}"/></p>
+				<pre><c:out value="${supportTicket.resolutionDetails}"/></pre>
 			</li>
 		</c:if>
 

@@ -9,7 +9,7 @@
 	<tlib-version>2.1</tlib-version>
 	<short-name>customtags</short-name>
 	<uri>http://localhost:8080/c3180044_c3281849_c3237808_FinalProject/taglib/customtags</uri>
-	<description>This taglib is for displaying dates</description>
+	<description>This taglib is for modifying output</description>
 
 	<tag>
 		<name>date</name>

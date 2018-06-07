@@ -16,7 +16,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>IT Services Portal</title>
 	<link href="${context}/css/bootstrap.min.css" rel="stylesheet">
-	<link href="${context}/css/css/fontawesome-all.css" rel="stylesheet">
+	<link href="${context}/css/fontawesome-all.css" rel="stylesheet">
 	<link href="${context}/css/style.css" rel="stylesheet">
 </head>
 <body>

@@ -50,20 +50,20 @@
 		<%-- Display description --%>
 		<li class="list-group-item">
 			<h5 class="mb-1">Description</h5>
-			<p><c:out value="${article.description}"/></p>
+			<pre><c:out value="${article.description}"/></pre>
 		</li>
 
 		<%-- Display resolution details --%>
 		<li class="list-group-item">
 			<h5 class="mb-1">Resolution Details<span class="mx-1 fas fas fa-check text-success"></span></h5>
-			<p><c:out value="${article.resolutionDetails}"/></p>
+			<pre><c:out value="${article.resolutionDetails}"/></pre>
 		</li>
 
 		<%-- Only display to staff --%>
 		<c:if test="${user.role == Role.STAFF}">
 			<li class="list-group-item nopadding">
 				<form class="my-2 my-lg-0" method="POST" action="Ticket?ticketID=${article.ticketID}">
-					<div class="text-center">
+					<div class="text-center py-3">
 						<h2 class="mb-1">Actions</h2>
 						<input type="hidden" name="reportedBy" value="${supportTicket.reportedBy.userID}">
 						<input type="hidden" name="action" value="removeKnowledge">

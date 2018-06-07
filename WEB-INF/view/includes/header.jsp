@@ -15,7 +15,7 @@
 	<link href="${context}/css/images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 	<%-- Import styling --%>
 	<link href="${context}/css/bootstrap.min.css" rel="stylesheet">
-	<link href="${context}/css/css/fontawesome-all.css" rel="stylesheet">
+	<link href="${context}/css/fontawesome-all.min.css" rel="stylesheet">
 	<link href="${context}/css/style.css" rel="stylesheet">
 </head>
 <body>

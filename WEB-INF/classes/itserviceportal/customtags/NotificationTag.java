@@ -3,10 +3,6 @@ package itserviceportal.customtags;
 import itserviceportal.model.beans.*;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.SkipPageException;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
